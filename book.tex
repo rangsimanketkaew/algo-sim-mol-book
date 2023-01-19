@@ -35,12 +35,19 @@
 \mainmatter
 
 \include{chapter/01} % AIMD
-\include{chapter/02} % Classical MD
-\include{chapter/03} % BOMD
+\include{chapter/02} % BOMD
+\include{chapter/03} % EMD
 \include{chapter/04} % CPMD
 \include{chapter/05} % Electronic Structure
 \include{chapter/06} % Parallel Computing
 \include{chapter/07} % Application
+
+\appendix
+\begin{appendices}
+\renewcommand{\thesection}{\arabic{section}} % remove chapter number
+\fancyhead[RE,LO]{\textbf{ภาคผนวก}}
+\include{appendix/ap_eos} % Equation of State
+\end{appendices}
 
 \backmatter
 \include{back_matter/references}

@@ -1,0 +1,176 @@
+% LaTeX source for ``Ab initio Moleculardynamics''
+% Copyright (c) 2023 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+% License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+% https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+\chapter{Equation of State สำหรับของเหลว}
+
+ในหัวข้อนี้เราจะมาศึกษา MD กันด้วย Virial Theorem กันก่อนซึ่งเป็นหลักการที่ถูกนำมาประยุกต์ใช้ในการคำนวณระบบที่มีอนุภาพ N ตัว (N-body) 
+
+ของเหลว (Liquid) เป็นสถานะหนึ่งของสสารที่พลังงานศักย์นั้นมีดีกรีหรือระดับของพลังงานที่เท่ากับพลังงานจลน์ โดยเราสามารถใช้การคำนวณ MD 
+มาคำนวณหา Equation of State ของของเหลวได้ เริ่มต้นสมมติว่าเรามีระบบที่มี $N$ โมเลกุลซึ่งมวลของแต่ละโมเลกุลนั้นมีค่าเท่ากับ $m$ 
+และโมเลกุลทั้งหมดนั้นถูกจำลองอยู่ภายในกล่องทรงลูกบาศก์ที่มีความยาวของแต่ละด้านเท่ากับ $L$ เรากำหนดให้พิกัดเริ่มต้นของโมเลกุลนั้นคือ 
+$\vec{r_i} = (x_i, y_i, z_i)\,$ และมีความเร็วคือ $\vec{v_i} = (u_i, v_i, w_i)$ และมีแรงคือ $\vec{F_i} = (f_i, g_i, 
+h_i), i = 1, 2, ..., N$ 
+
+จากกฎข้อที่สองของกฎการเคลื่อนที่ของนิวตันนั้น เรามีความสัมพันธ์คือ 
+
+\begin{equation}
+    \vec{F_i}=m\frac{d^2\vec{r_i}}{dt^2}
+\end{equation}
+
+\noindent ซึ่งเราสามารถเขียนได้เป็น
+
+\begin{eqnarray}
+    \frac d{dt}\left( \frac{d\left( x_i^2\right) }{dt}\right)  &=&\frac
+    d{dt}\left( 2x_i\frac{dx_i}{dt}\right)  \\
+    &=&2\frac{dx_i}{dt}\frac{dx_i}{dt}+2x_i\frac{d^2x_i}{dt^2} \\
+    &=&2u_i^2+2x_i\frac{d^2x_i}{dt^2}
+\end{eqnarray}
+
+\noindent สมการด้านบนนั้นเป็นการบอกใบ้เราว่าแรงที่กระทำต่อระยะกระจัดที่โมเลกุลเคลื่อนที่ไปในแต่ละทิศทางนั้นสามารถเขียนได้เป็นอนุพันธ์ของ%
+ฟังก์ชันที่ขึ้นกับความเร็วและความเร่งดังนี้
+
+\begin{eqnarray}
+    f_ix_i &=&mx_i\frac{d^2x_i}{dt^2} \\
+    &=&\frac 12m\frac d{dt}\left( \frac{d\left( x_i^2\right) }{dt}\right) -mu_i^2
+\end{eqnarray}
+
+\begin{eqnarray}
+    g_iy_i &=&my_i\frac{d^2y_i}{dt^2} \\
+    &=&\frac 12m\frac d{dt}\left( \frac{d\left( y_i^2\right) }{dt}\right) -mv_i^2
+\end{eqnarray}
+
+\begin{eqnarray}
+    h_iz_i &=&mz_i\frac{d^2z_i}{dt^2} \\
+    &=&\frac 12m\frac d{dt}\left( \frac{d\left( z_i^2\right) }{dt}\right) -mw_i^2
+\end{eqnarray}
+
+\noindent เมื่อเรารวมสมการด้านบนทั้งสามสมการเข้าด้วยกัน เราจะได้ว่า
+
+\begin{equation}
+    \frac 12m\frac d{dt}\left\{ \frac d{dt}\left( x_i^2+y_i^2+z_i^2\right)
+    \right\} =\vec{F_i}\cdot \vec{r_i}+m\left| \vec{v_i}\right| ^2
+\end{equation}
+
+\noindent และเมื่อเราทำการรวมสมการสำหรับทุกโมเลกุลในระบบ $(i = 1, 2, \dots, N)$ เราจะได้ว่า
+
+\begin{equation}
+    \label{eq:eoq_system}
+    \frac 12m\sum_{i=1}^{N} \frac d{dt}\left\{ \frac d{dt}r_i^2\right\}
+    =\sum_{i=1}^{N} \vec{F_i}\cdot \vec{r_i}+m\sum_{i=1}^{N} \left| \vec{v_i}\right| ^2
+\end{equation}
+
+ต่อจากนั้นก็เราก็ทำการกำหนดให้กรอบอ้างอิงของระบบของเรานั้นอยู่ที่จุดกึ่งกลางของกล่องทรงลูกบาศน์ ซึ่งจะทำให้เรามีความสัมพันธ์ดังต่อไปนี้
+
+\begin{equation}
+    r_i^2\equiv \left| \vec{r_i}\right| ^2=x_i^2+y_i^2+z_i^2
+\end{equation} 
+
+\noindent ซึ่งก็คือระยะห่างจากจุดกำเนิด (จุดศูนย์กลางของกล่อง) ถึงโมเลกุล $i$ ยกกำลังสอง โดยทางด้านซ้ายของสมการที่ 
+\ref{eq:eoq_system} นั้นจริง ๆ แล้วก็คืออัตราของความเร่งของระยะห่างยกกำลังสองเฉลี่ย (Mean Square Distance) นั่นเอง ซึ่งปริมาณตัว%
+นี้จะต้องมีค่าเท่ากับ 0 เสมอเพราะว่าของเหลวนั้นอยู่ในระบบปิด (ในที่นี้คือ Fixed Cube) ส่วนเทอมที่ 2 ของทางด้านขวาของสมการที่ 
+\ref{eq:eoq_system} นั้นมีค่าเป็นสองเท่าของพลังงานจลน์รวมของระบบซึ่งหลายคนน่าจะเคยศึกษามาก่อนแล้วจากวิชาเคมีเชิงฟิสิกส์ในระดับ%
+ปริญญาตรีว่าโมเลกุลแต่ละโมเลกุลนั้นจะมีค่าเฉลี่ยของพลังงานจลน์ของการเลื่อนตำแหน่ง (Translation) เท่ากับ $\frac 32k\theta$ 
+โดยที่ $k$ คือค่าคงที่โบลท์ซมันน์ (Boltzmann Constant) และ $\theta$ คืออุณหภูมิสัมบูรณ์ ดังนั้นเทอมที่สองของด้านขวาของสมการนี้จะ%
+ต้องมีค่าเฉลี่ยเท่ากับ $3Nk\theta$
+
+สำหรับ $\sum_{i=1}^{N} \vec{F_i}\cdot \vec{r_i}$ ซึ่งเป็นเทอมแรกของทางด้านขวาของสมการที่ \ref{eq:eoq_system} นั้นมีชื่อ%
+เรียกว่า \emph{Virial of Clausius} และมีมิติ (หน่วย) ที่เหมือนกันกับทอร์ก (Torque) โดย Virial นั้นสามารถหาได้จากค่าคาดหวัง 
+(Expectation Value) ซึ่งเป็นค่าเฉลี่ย ดังนี้  
+
+\begin{equation}
+    \label{eq:virial_clausius}
+    -PV + \left\langle \sum_{i\neq j}F(r_{ij})r_{ij}\right\rangle 
+\end{equation}
+
+คราวนี้เราจะมาทำการพิสูจน์สมการของ Virial ของสมการที่ \ref{eq:virial_clausius} โดยเราจะพิจารณาที่ละเทอม โดยเทอมแรกนั้นคือ%
+แรงที่เกิดขึ้นจากขอบ (Boundary) ของระบบหรือด้านข้างของกล่องลูกบาศน์นั่นเอง ส่วนเทอมที่สองคือแรงที่กระทำต่อโมเลกุลซึ่งเป็นแรงระหว่าง%
+โมเลกุล
+
+\paragraph{1) แรงที่เกิดขึ้นที่ผนังของกล่อง} เริ่มต้นนั้นเราสามารถคำนวณหาแรงที่เกิดขึ้นบนผนัง ณ ตำแหน่ง $x=\frac L2$ ได้เท่ากับ 
+$PL^2$ โดยที่ $P$ คือความดันที่กระทำต่อผนังและ $L^2$ คือพื้นที่ของผนัง ณ ตำแหน่ง $x=\frac L2$ แล้วเราก็ใช้กฎข้อที่ 3 ของกฎการ%
+เคลื่อนที่ของนิวตันเราจะได้ว่าผลรวมของแรงทั้งหมดที่กระทำต่อโมเลกุลที่อยู่ใกล้ ๆ ผนังนั้นจะมีค่าเท่ากับ  $-PL^2$ ซึ่งเราจะได้ว่า Contribution 
+ที่เกี่ยวข้องกับ Virial นั้นคือ
+
+\begin{equation}
+    \label{eq:virial_per_wall}
+    -\frac 12PL^3
+\end{equation}
+
+\noindent เมื่อเราพิจารณาผนังทั้ง 6 ด้านของลูกบาศก์นั้นเราจะต้องทำการรวม Virial ของทั้ง 6 ด้านเข้าด้วยกัน พูดง่าย ๆ คือเราคูณสมการที่
+\ref{eq:virial_per_wall} ด้วย 6 ซึ่งจะทำให้เราได้สมการ Virial ที่สมบูรณ์มากขึ้น ดังนี้
+
+\begin{equation}
+    -3PL^3=-3PV
+\end{equation}
+
+\noindent โดยที่ $V=L^3$ คือปริมาตรของลูกบาศก์
+
+\paragraph{2) แรงระหว่างโมเลกุล} เรากำหนดให้ $x$ เป็นองค์ประกอบเชิงเวกเตอร์ของแรงที่กระทำต่อโมเลกุล $i$ ที่เกิดขึ้นจากโมเลกุล $j$ 
+โดยเขียนแทนด้วย $f(r_{ij})$ ซึ่งเราจะมีความสัมพันธ์ดังนี้
+
+\begin{equation}
+    f_i=\sum_{j=1 \\ j\neq i}^{N} f\left( r_{ij}\right) 
+\end{equation}
+
+\noindent ในทำนองเดียวกันเราก็จะมีแรงที่เหมือนกันกับกรณีข้างต้นด้วย ดังต่อไปนี้
+
+\begin{equation}
+    g_i=\sum_{j=1 \\ j\neq i}^{N} g\left( r_{ij}\right) 
+\end{equation}
+
+\begin{equation}
+    h_i=\sum_{j=1 \\ j\neq i}^{N} h\left( r_{ij}\right) 
+\end{equation}
+
+ดังนั้นส่วนที่เป็นแรงที่เกิดขึ้นจากอันตรกิริยาระหว่างโมเลกุลของ Virial นั้นจึงสามารถอธิบายได้ด้วยสมการดังต่อไปนี้
+
+\begin{equation}
+    \sum_{i=1}^{N} \left[ \left\{ \sum_{j=1 \\ j\neq i}^{N} f(r_{ij})\right\}
+    x_i+\left\{ \sum_{j=1 \\ j\neq i}^{N} g(r_{ij})\right\} y_i+\left\{
+    \sum_{j=1 \\ j\neq i}^{N} h(r_{ij})\right\} z_i\right] 
+\end{equation}
+
+ลำดับไปต่อเราเราสามารถคำนวณหา Contribution ที่เกิดขึ้นกับสมการด้านบนได้โดยมีความสัมพันธ์เพิ่มเติมคือ
+
+\begin{eqnarray}
+    f\left( r_{ij}\right) x_i+f\left( r_{ji}\right) x_j &=&f\left( r_{ij}\right)
+    x_i-f\left( r_{ij}\right) x_j \\
+    &=&f\left( r_{ij}\right) \left( x_i-x_j\right) 
+\end{eqnarray}
+
+\begin{equation}
+    g\left( r_{ij}\right) y_j+g\left( r_{ji}\right) y_j=g\left( r_{ij}\right)
+    \left( y_i-y_j\right) 
+\end{equation}
+
+\begin{equation}
+    h\left( r_{ij}\right) z_i+h\left( r_{ji}\right) z_j=h\left( r_{ij}\right)
+    \left( z_i-z_j\right) 
+\end{equation}
+
+เราสามารถใช้สมการข้างต้นนี้ได้เพราะว่าแรงที่โมเลกุล $j$ กระทำต่อโมเลกุล $i$ นั้นมีขนาดที่เท่ากับแรงที่โมเลกุล $i$ กระทำต่อโมเลกุล $j$ 
+แต่ว่ามีขนาดตรงข้ามกัน
+
+ถ้าหากเรากำหนดให้ $\left( f\left( r_{ij}\right) ,g\left( r_{ij}\right) ,h\left(r_{ij}\right) \right) $ มีทิศทางที่%
+อยู่ในแนวเดียวกันกับเส้นตรงระหว่าง $\vec{r_i}$ ถึง $\vec{r_j}$ เช่น
+
+\begin{equation}
+    \vec{F}(r_{ij}) \cdot (\vec{r_j} - \vec{r_i})=F\left( r_{ij}\right) r_{ij}
+\end{equation}
+
+\noindent โดยที่ $F\left( r_{ij}\right) =\left| \vec{F}(r_{ij})\right| $ และ 
+$r_{ij}=\left| \vec{r_j} - \vec{r_i}\right| $ เราจะได้ว่า Virial นั้นจริง ๆ แล้วมีค่าเท่ากับสมการดังต่อไปนี้ 
+
+\begin{equation}
+    -3PV+\left\langle \sum_{i\neq j}F\left( r_{ij}\right) r_{ij}\right\rangle 
+\end{equation}
+
+\noindent ซึ่งเราสามารถเขียนใหม่ได้เป็น
+
+\begin{equation}
+    3PV=3NK\theta +\left\langle \sum_{i\neq j}F\left( r_{ij}\right)
+    r_{ij}\right\rangle 
+\end{equation}

@@ -6,3 +6,98 @@
 
 \chapter{พลวัตเชิงโมเลกุลแบบแอบ อินิชิโอ}
 \label{ch:aimd}
+
+%----------------------------------------
+\section{การจำลองเชิงโมเลกุลและเทคนิคเชิงคอมพิวเตอร์}
+%----------------------------------------
+
+%----------------------------------------
+\section{ประวัติศาสตร์ของ Molecular Dynamics}
+%----------------------------------------
+
+\begin{itemize}
+    \item 1953: Nicholas Metropolis และคณะได้ตีพิมพ์บทความวิจัยเรื่อง \enquote{Equation of State Calculations by Fast 
+    Computing Machines}\autocite{metropolis1953} โดยบทความนี้เป็นเสมือนจุดเริ่มต้นของไอเดีย MD เลยก็ว่าได้ โดยเป็นครั้งแรกที่%
+    ได้มีการประยุกต์ใช้เทคนิค Monte Carlo เพื่อแก้สมการที่อธิบายคุณสมบัติเชิงกายภาพของระบบที่ประกอบไปด้วยโมเลกุลที่มีอันตรกิริยาต่อกัน 
+    โดยขั้นแรกคือสร้างเซตของตัวเลขสุ่ม (Random Number) เพื่อใช้เป็นตัวแทนของ Conformational Space แล้วก็ใช้ค่าของพลังงานเป็นตัว%
+    ระบุความน่าจะเป็นของสถานะของระบบที่ศึกษา
+    
+    \item 1956: Berni J. Alder และ Thomas E. Wainwright ได้ตีพิมพ์บทความเรื่อง \enquote{Phase Transition for a Hard 
+    Sphere System}\autocite{alder1957} ซึ่งถือได้ว่าเป็นงานวิจัยที่เป็นจุดเริ่มต้นของ MD เลยก็ว่าได้
+    
+    \item 1958: เป็นครั้งแรกที่นักวิทยาศาสตร์ค้นพบโครงสร้างสามมิติของโปรตีนได้โดยใช้เทคนิค X-ray โดยเผยแพร่ในบทความ 
+    \enquote{A Three-Dimensional Model of the Myoglobin Molecule Obtained by X-Ray Analysis}\autocite{kendrew1958}
+
+    \item 1964: บทความวิจัยเรื่อง \enquote{Correlations in the Motion of Atoms in Liquid Argon}\autocite{rahman1964} 
+    โดย Aneesur Rahman ซึ่งเป็นผู้ที่ใช้ MD ในการคำนวณระบบของ Liquid Argon ซึ่งระบบที่ศึกษาตอนนั้นมี Argon ทั้งหมด 864 อะตอม 
+    โดยคำนวณด้วยซุปเปอร์คอมพิวเตอร์  CDC 3600 โดยใช้ Lennard-Jones Potential นอกจากนี้ Aneesur Rahman ได้รับการยอบรับว่า%
+    เป็นบิดาแห่งพลวัตเชิงโมเลกุลอีกด้วย (The Father of Molecular Dynamics)
+
+    \item 1971: Aneesur Rahman และ Frank H. Stillinger ได้ตีพิมพ์บทความเรื่อง \enquote{Molecular Dynamics Study of 
+    Liquid Water}\autocite{rahman1971} ซึ่งเป็นใช้ MD ในการจำลองระบบโมเลกุลน้ำที่มีจำนวนโมเลกุลคือ 216 โมเลกุล 
+
+    \item 1975: Michael Levitt และ Arich Warshel ได้เผยแพร่บทความวิจัยเรื่อง \enquote{Computer Simulation of Protein 
+    Folding}\autocite{levitt1975} ซึ่งเป็นครั้งแรกที่มีการนำเทคนิค MD มาใช้ในการจำลองการพับของโปรตีนโดยเป็นการศึกษาการพับของ 
+    Bovine Pancreatic Trypsin Inhibitor (BPTI) จากโครงสร้างที่เป็นแบบสายเปิด
+
+    \item 1979: David A. Case และ Martin Karplus ได้จำลองโปรตีนที่มีลิแกนด์เป็นโมเลกุลที่เข้าไปจับกับโปรแกรมด้วยเป็นครั้งแรก 
+    โดยได้ตีพิมพ์งานวิจัยเรื่อง \enquote{Dynamics of ligand binding to heme protein}\autocite{case1979}
+
+    \item 1980s: ในช่วงต้น ๆ ทศวรรษ 1980 นั้นเป็นช่วงที่มีการศึกษาชีวโมเลกุลด้วยการจำลอง MD เป็นจำนวนมาก รวมไปถึงมีการคำนวณ 
+    Free Energy ด้วย
+
+    \item 1985: Roberto Car Michele Parrinello ได้พัฒนาเทคนิค Car-Parrinello Molecular Dynamics (CPMD) ซึ่งเสนอใน%
+    บทความเรื่อง \enquote{Unified Approach for Molecular Dynamics and Density-Functional Theory}\autocite{car1985} 
+    โดยเป็นการนำเทคนิค Density Functional Theory มารวมกับ Born-Oppenheimer Molecular Dynamics
+
+    \item 1988: Michael Levitt และ Ruth Sharon ได้คำนวณระบบของโปรตีนที่มีโมเลกุลน้ำเป็นตัวทำละลายและนำเสนอในบทความเรื่อง 
+    \enquote{Accurate Simulation of Protein Dynamics in Solution}\autocite{levitt1988}
+
+    \item 1990s: ในช่วงต้น ๆ ทศวรรษ 1990 นั้นก็ได้มีการพัฒนาศักย์ (Potential) ที่ใช้ในวิธี MD รวมถึงเทคนิคการเพิ่มประสิทธิภาพใน%
+    การสุ่ม (Enhanced Sampling) อย่างต่อเนื่อง
+\end{itemize}
+
+%----------------------------------------
+\section{มาศึกษา Molecular Dynamics กันก่อน}
+%----------------------------------------
+
+Chemistry
+- Intra- and intermolecular interactions (Molecular Mechanics)
+- Chemical reactions
+- Phase transitions
+- Free energy calculations
+
+Materials Science
+- Equilibrium thermodynamics
+- Phase transitions
+- Properties of lattice defects
+- Nucleation and surface growth
+- Heat/pressure processing
+- Ion implantation
+- Properties of nanostructures
+
+Biophysics and biochemistry
+- Protein folding and structure prediction
+- Biocombatibility (cell wall penetration, chemical processes)
+- Docking
+
+Medicine
+- Drug design and discovery
+
+%----------------------------------------
+\section{ทำไมต้อง \textit{Ab initio} Molecular Dynamics}
+%----------------------------------------
+
+
+%----------------------------------------
+\section{ประเภทของ \textit{Ab initio} Molecular Dynamics}
+%----------------------------------------
+
+เราสามารถแบ่งประเภทของ AIMD ได้โดยแบ่งตามวิธีการที่เราใช้ในการรวมการคำนวณโครงสร้างเชิงอิเล็กทรอนิกส์กับการจำลองพลวัตโมเลกุลเข้าด้วยกัน 
+โดยเราสามารถแบ่งออกได้เป็น 3 วิธี ดังนี้ 
+
+\begin{enumerate}
+    \item Born-Oppenheimer Molecular Dynamics
+    \item Ehrenfest Molecular Dynamics
+    \item Car-Parrinello Molecular Dynamics
+\end{enumerate}
