@@ -61,7 +61,8 @@
 \input{lstlisting.tex}
 
 % Avoid conflict between physics and siunitx
-\AtBeginDocument{\RenewCommandCopy\qty\SI}
+% Sadly, this is error for Linux
+% \AtBeginDocument{\RenewCommandCopy\qty\SI}
 
 % Table of Contents
 \usepackage{tocloft}
