@@ -56,9 +56,12 @@
 \usepackage{enumerate}
 \usepackage{enumitem}
 \usepackage{hyphenat}
-\usepackage[bookmarks]{hyperref}
+\usepackage[bookmarks,breaklinks]{hyperref}
 % import lstlisting setting
 \input{lstlisting.tex}
+
+% Avoid conflict between physics and siunitx
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
 
 % Table of Contents
 \usepackage{tocloft}
@@ -84,6 +87,7 @@
 \fancyhf{}
 \fancyhead[LE,RO]{\textbf{\thepage}}
 \fancyhead[RE,LO]{\textbf{\leftmark}}
+\setlength{\headheight}{16.81pt}
 
 % Part
 \renewcommand\thepart{\arabic{part}}
@@ -134,7 +138,7 @@
 %%% Option 1. Font for Thai %%%
 
 \usepackage{xltxtra} % this will load the fontspec, metalogo, and realscripts packages
-\usepackage{xunicode}
+% \usepackage{xunicode}
 \XeTeXlinebreaklocale "th_TH"
 \XeTeXlinebreakskip = 0pt plus 1pt  
 \defaultfontfeatures{Scale=1.23}
