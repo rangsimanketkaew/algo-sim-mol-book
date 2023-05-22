@@ -690,25 +690,31 @@ $m$ ออร์บิทัล ดังนี้
     \psi(x) = -\psi(-x)
 \end{equation}
 
-\begin{center}
-    \begin{modiagram}[names]
+\begin{figure}[htbp]
+    \label{fig:MO_H2_ground}
+    \centering
+    \begin{MOdiagram}[names,style=square]
         \atom[1s]{left}{1s={;up}}
         \atom[1s]{right}{1s={;up}}
-        \molecule{
-            1sMO={0.5;pair}
+        \molecule[\ce{H2}]{
+            1sMO={0.75;pair}
             }
-    \end{modiagram} \\
-    Ground State \\
-    \bigskip
-    \begin{modiagram}[names]
+    \end{MOdiagram}
+    \caption{Ground State}
+\end{figure}
+
+\begin{figure}[htbp]
+    \label{fig:MO_H2_triplet}
+    \centering
+    \begin{MOdiagram}[names,style=square]
         \atom[1s]{left}{1s={;up}}
         \atom[1s]{right}{1s={;up}}
-        \molecule{
-            1sMO={0.5;up,up}
+        \molecule[\ce{H2}]{
+            1sMO={0.75;up,up}
             }
-    \end{modiagram} \\
-    Triplet State
-\end{center}
+    \end{MOdiagram}
+    \caption{Triplet State}
+\end{figure}
 
 \noindent ดังนั้น $1 s_A$ และ $1 s_B$ คือฟังก์ชันที่เหมือนกัน (Identical Functions) ซึ่งก็คือ AO ที่มีจุดศูนย์กลางอยู่ที่ $x$ และ 
 $-x$ ตามลำดับ นอกจากนี้แล้วสัมประสิทธิ์ของออร์บิทัลยังสอดคล้องกันอีกด้วยด้วย 
