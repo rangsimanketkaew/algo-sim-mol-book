@@ -8,6 +8,50 @@
 \label{ch:parallel_comp}
 
 %----------------------------------------
+\section{ทำไมต้องทำ Parallelization ?}
+%----------------------------------------
+
+%----------------------------------------
+\section{ทักษะและเครื่องมือสำหรับการเขียนโปรแกรมสำหรับ HPC}
+%----------------------------------------
+
+- Architecture
+  - Memory management
+  - Threading, multithreading
+  - Block
+
+- Parallel computing (SPMD)
+  - Shared memory: OpenMP
+  - Distributed memory: MPI
+    - Implementations: OpenMPI, Intel MPI, MVAPICH
+
+- Intel ecosystem
+  - OpenMP compiler: icc, ifort
+  - MPI compiler: mpicc, mpiicc (for Intel C compiler), mpicxx (for C++), mpiifort (for Fortran)
+
+- Cloud computing (bonus)
+
+- Server and database
+
+- Networking
+
+Essential skills for coding GPU
+
+- Intermediate/advanced C or C++ skills
+
+- Programming model: Kernels, thread hierarchy, memory hierarchy, heterogeneous hierarchy, asynchronous SIMT
+
+- CUDA
+  - Understand CUDA operation:
+    1. Declare and allocate host and device memory.
+    2. Initialize host data.
+    3. Transfer data from the host to the device.
+    4. Execute one or more kernels.
+    5. Transfer results from the device to the host.
+  - CUDA C and CUDA C++ API
+  - Compiler: nvcc
+
+%----------------------------------------
 \section{Matrix Diagonalization}
 %----------------------------------------
 
