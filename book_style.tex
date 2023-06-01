@@ -36,6 +36,7 @@
 \usepackage{pdfpages} % for adding PDF pages
 \usepackage{titlesec} % change size of title of section, subsection, ...
 \usepackage{framed}
+\usepackage{fancyvrb} % frame around verbatim
 
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -124,6 +125,9 @@
 % Equation
 \counterwithin{equation}{chapter}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} % define \numberthis for align*
+% change equation numbering format
+% {chapter}.{section}.{no. of equation}
+\numberwithin{equation}{section} 
 
 % Indices
 \usepackage{imakeidx}
