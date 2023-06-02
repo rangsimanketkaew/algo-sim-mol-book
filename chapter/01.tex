@@ -179,8 +179,8 @@ $\hat{\mathscr{H}}$ ซึ่งการที่เราจะแก้สม
 \begin{equation}
     \label{eq:kinetic_operator_molecule}
     \hat{\mathscr{T}} 
-    = \underbrace{\sum_{I=1}^N \frac{-\hbar^2}{2 m_I} \nabla_I^2}_{\text{nuclei}} 
-        + \underbrace{\sum_{i=1}^n \frac{-\hbar^2}{2 m_e} \nabla_i^2}_{\text{electrons}}
+    = \underbrace{\sum_{I=1}^N \frac{-\hbar^2}{2 m_I} \nabla_I^2}_{\text{Nuclei}} 
+        + \underbrace{\sum_{i=1}^n \frac{-\hbar^2}{2 m_e} \nabla_i^2}_{\text{Electrons}}
 \end{equation}
 
 ส่วนโอเปอร์เรเตอร์พลังงานศักย์ $\hat{V}$ สำหรับโมเลกุลนั้นก็จะเป็นอันตรกิริยาคูลอมบ์ (Coulomb Interaction) ระหว่างจุดประจุ ดังนี้
@@ -189,11 +189,11 @@ $\hat{\mathscr{H}}$ ซึ่งการที่เราจะแก้สม
     \label{eq:potential_operator_molecule}
     \hat{\mathcal{V}} 
     = \underbrace{\sum_{\substack{I=1,1}}^N \frac{Z_I Z_J e^2}{4 \pi \varepsilon_0 R_{I J}}}
-        _{\text{nucleus-nucleus}}
+        _{\text{Nucleus-Nucleus}}
         + \underbrace{\sum_{i=1}^n \sum_{I=1}^N \frac{-Z_I e^2}{4 \pi \varepsilon_0 r_{i I}}}
-            _{\text{electron-nucleus}}
+            _{\text{Electron-Nucleus}}
         + \underbrace{\sum_{\substack{i=1,1 \\ j=i+1}}^n \frac{e^2}{4 \pi \varepsilon_0 r_{i j}}}
-            _{\text{electron-electron}}
+            _{\text{Electron-Electron}}
 \end{equation}
 
 \noindent ซึ่งก็คืออันตรกิริยาระหว่างทุกคู่ที่เป็นไปได้ นั่นคือ Nucleus-Nucleus, Electron-Nucleus และ Electron-Electron 
