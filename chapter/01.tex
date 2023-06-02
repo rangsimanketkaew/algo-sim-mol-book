@@ -66,8 +66,16 @@ Schr\"{o}dinger Equation) นั้นมีหน้าตาดังนี้
 
 \begin{equation}
     \label{eq:time_dependent_schrodinger}
-    \hat{\mathscr{H}} \Psi\left(\vec{r}_{1 \ldots N}, t\right) 
-    = \mathrm{i} \hbar \frac{\partial \Psi\left(\vec{r}_{1 \ldots N}, t\right)}{\partial t}
+    \hat{\mathscr{H}} \Psi\left(\vec{r}_{1 \ldots N}, t\right)
+    = 
+    \mathrm{i} \hbar 
+        \frac
+        {
+            \partial \Psi\left(\vec{r}_{1 \ldots N}, t\right)
+        }
+        {
+            \partial t
+        }
 \end{equation}
 
 \noindent โดยที่ตัวแปรในสมการมีดังนี้
@@ -104,9 +112,10 @@ $i$ ซึ่งมีสมการดังนี้
 
 \begin{equation}
     \label{eq:nabla}
-    \nabla_i^2 
-    = \frac{\partial^2}{\partial x_i^2} 
-        + \frac{\partial^2}{\partial y_i^2} 
+    \nabla_i^2
+    = 
+    \frac{\partial^2}{\partial x_i^2}
+        + \frac{\partial^2}{\partial y_i^2}
         + \frac{\partial^2}{\partial z_i^2}
 \end{equation}
 
@@ -121,13 +130,19 @@ $i$ ซึ่งมีสมการดังนี้
 ซึ่งเราจะได้สมการดังนี้
 
 \begin{equation}
-    \Psi\left(\vec{r}_{1 \ldots N}, t\right) = \psi\left(\vec{r}_{1 \ldots N}\right) \theta(t)
+    \Psi\left(\vec{r}_{1 \ldots N}, t\right) 
+    = 
+    \psi\left(\vec{r}_{1 \ldots N}\right) \theta(t)
 \end{equation}
 
 \noindent ซึ่งเมื่อเรานำสมการด้านบนแทนเข้าไปในสมการชโรดิงเงอร์เราจะได้สมการดังนี้
 
 \begin{equation}
-    \frac{1}{\psi} \hat{H} \psi = \mathrm{i} \hbar \frac{1}{\theta} \frac{\partial \theta}{\partial t}
+    \frac{1}{\psi} \hat{H} \psi 
+    = 
+    \mathrm{i} \hbar 
+        \frac{1}{\theta} 
+        \frac{\partial \theta}{\partial t}
 \end{equation}
 
 เนื่องจากว่าฝั่งซ้ายของสมการนั้นเป็นฟังก์ชันที่ขึ้นกับ $\vec{r}_{1 . . . N}$ อย่างเดียวและฝั่งขวานั้นเป็นฟังก์ชันที่ขึ้นกับ $t$ ดังนั้นทั้งสองฝั่ง%
@@ -179,8 +194,21 @@ $\hat{\mathscr{H}}$ ซึ่งการที่เราจะแก้สม
 \begin{equation}
     \label{eq:kinetic_operator_molecule}
     \hat{\mathscr{T}} 
-    = \underbrace{\sum_{I=1}^N \frac{-\hbar^2}{2 m_I} \nabla_I^2}_{\text{Nuclei}} 
-        + \underbrace{\sum_{i=1}^n \frac{-\hbar^2}{2 m_e} \nabla_i^2}_{\text{Electrons}}
+    = 
+    \underbrace
+    {
+        \sum_{I=1}^N \frac{-\hbar^2}{2 m_I} \nabla_I^2
+    }_
+    {
+        \text{Nuclei}
+    } 
+        + \underbrace
+        {
+            \sum_{i=1}^n \frac{-\hbar^2}{2 m_e} \nabla_i^2
+        }_
+        {
+            \text{Electrons}
+        }
 \end{equation}
 
 ส่วนโอเปอร์เรเตอร์พลังงานศักย์ $\hat{V}$ สำหรับโมเลกุลนั้นก็จะเป็นอันตรกิริยาคูลอมบ์ (Coulomb Interaction) ระหว่างจุดประจุ ดังนี้
@@ -188,12 +216,24 @@ $\hat{\mathscr{H}}$ ซึ่งการที่เราจะแก้สม
 \begin{equation}
     \label{eq:potential_operator_molecule}
     \hat{\mathcal{V}} 
-    = \underbrace{\sum_{\substack{I=1,1}}^N \frac{Z_I Z_J e^2}{4 \pi \varepsilon_0 R_{I J}}}
-        _{\text{Nucleus-Nucleus}}
-        + \underbrace{\sum_{i=1}^n \sum_{I=1}^N \frac{-Z_I e^2}{4 \pi \varepsilon_0 r_{i I}}}
-            _{\text{Electron-Nucleus}}
-        + \underbrace{\sum_{\substack{i=1,1 \\ j=i+1}}^n \frac{e^2}{4 \pi \varepsilon_0 r_{i j}}}
-            _{\text{Electron-Electron}}
+    = \underbrace{
+            \sum_{\substack{I=1,1}}^N \frac{Z_I Z_J e^2}{4 \pi \varepsilon_0 R_{I J}}
+        }_
+        {
+            \text{Nucleus-Nucleus}
+        }
+        + \underbrace{
+            \sum_{i=1}^n \sum_{I=1}^N \frac{-Z_I e^2}{4 \pi \varepsilon_0 r_{i I}}
+        }_
+        {
+            \text{Electron-Nucleus}
+        }
+        + \underbrace{
+            \sum_{\substack{i=1,1 \\ j=i+1}}^n \frac{e^2}{4 \pi \varepsilon_0 r_{i j}}
+        }_
+        {
+            \text{Electron-Electron}
+        }
 \end{equation}
 
 \noindent ซึ่งก็คืออันตรกิริยาระหว่างทุกคู่ที่เป็นไปได้ นั่นคือ Nucleus-Nucleus, Electron-Nucleus และ Electron-Electron 
@@ -221,8 +261,21 @@ $\hat{\mathscr{H}}$ ซึ่งการที่เราจะแก้สม
 \begin{equation}
     \label{eq:kinetic_operator_au}
     \hat{\mathscr{T}} 
-    = \underbrace{-\frac{1}{2} \sum_{I=1}^N \frac{1}{m_I} \nabla_I^2}_{\text{nuclei}} 
-        - \underbrace{\frac{1}{2} \sum_{i=1}^n \nabla_i^2}_{\text{electrons}}
+    = 
+    \underbrace
+    {
+        - \frac{1}{2} \sum_{I=1}^N \frac{1}{m_I} \nabla_I^2
+    }_
+    {
+        \text{nuclei}
+    } 
+        - \underbrace
+        {
+            \frac{1}{2} \sum_{i=1}^n \nabla_i^2
+        }_
+        {
+            \text{electrons}
+        }
 \end{equation}
 
 \noindent และสำหรับโอเปอร์เรเตอร์พลังงานศักย์
@@ -230,9 +283,27 @@ $\hat{\mathscr{H}}$ ซึ่งการที่เราจะแก้สม
 \begin{equation}
     \label{eq:potential_operator_au}
     \hat{V} 
-    = \underbrace{\sum_{\substack{I=1, J=I+1}}^N \frac{Z_I Z_J}{R_I}}_{\text{nucleus-nucleus}} 
-        + \underbrace{\sum_{i=1}^n \sum_{I=1}^N \frac{-Z_I}{r_{i I}}}_{\text{electron-nucleus}} 
-        + \underbrace{\sum_{\substack{i=1,1 \\ j=i+1}}^n \frac{1}{r_{i j}}}_{\text{electron-electron}}
+    = \underbrace
+        {
+            \sum_{\substack{I=1, J=I+1}}^N \frac{Z_I Z_J}{R_I}
+        }_
+        {
+            \text{nucleus-nucleus}
+        } 
+        + \underbrace
+        {
+            \sum_{i=1}^n \sum_{I=1}^N \frac{-Z_I}{r_{i I}}
+        }_
+        {
+            \text{electron-nucleus}
+        } 
+        + \underbrace
+        {
+            \sum_{\substack{i=1,1 \\ j=i+1}}^n \frac{1}{r_{i j}}
+        }_
+        {
+            \text{electron-electron}
+        }
 \end{equation}
 
 \noindent ซึ่งถ้าหากเราเขียน Hamiltonian ของโมเลกุล $\hat{\mathscr{H}}^{\mathrm{mol}}$ โดยรวมโอเปอร์เรเตอร์ทั้งสองตัวเข้าด้วยกัน 
@@ -241,7 +312,8 @@ $\hat{\mathscr{H}}$ ซึ่งการที่เราจะแก้สม
 \begin{equation}
     \label{eq:hamiltonian_operator_molecule}
     \hat{\mathscr{H}}^{\mathrm{mol}} 
-    = \hat{\mathscr{T}}_n 
+    = 
+    \hat{\mathscr{T}}_n 
         + \hat{\mathscr{T}}_e 
         + \hat{V}_{n n} 
         + \hat{V}_{e n} 
@@ -302,7 +374,13 @@ $(\langle\Omega\rangle_i)$ ดังนี้
 \begin{equation}
     \langle\Omega\rangle_i 
     \equiv 
-    \frac{\int \psi_i^* \hat{\Omega}_i \psi_i \mathrm{~d} \tau}{\int \psi_i^* \psi_i \mathrm{~d} \tau}
+    \frac
+    {
+        \int \psi_i^* \hat{\Omega}_i \psi_i \mathrm{~d} \tau
+    }
+    {
+        \int \psi_i^* \psi_i \mathrm{~d} \tau
+    }
 \end{equation}
 
 \noindent สำหรับฟังก์ชันคลื่นที่ถูก Normalized แล้วนั้น $(\langle\Omega\rangle_i)$ จะกลายเป็น
@@ -315,8 +393,20 @@ $(\langle\Omega\rangle_i)$ ดังนี้
 
 \begin{equation}
     \langle\Omega\rangle_i 
-    = \frac{\int \psi_i^* \hat{\Omega} \psi_i \mathrm{~d} \tau}{\int \psi_i^* \psi_i \mathrm{~d} \tau} 
-    = \frac{\Omega_i \int \psi_i^* \psi_i \mathrm{~d} \tau}{\int \psi_i^* \psi_i \mathrm{~d} \tau} 
+    = \frac
+        {
+            \int \psi_i^* \hat{\Omega} \psi_i \mathrm{~d} \tau
+        }
+        {
+            \int \psi_i^* \psi_i \mathrm{~d} \tau
+        } 
+    = \frac
+        {
+            \Omega_i \int \psi_i^* \psi_i \mathrm{~d} \tau
+        }
+        {
+            \int \psi_i^* \psi_i \mathrm{~d} \tau
+        } 
     = \Omega_i
 \end{equation}
 
@@ -347,7 +437,8 @@ $\left|\psi^j j\right\rangle$ หรือ $|j\rangle$ นั้นเรีย�
 
 \begin{equation}
     \int \psi_i^* \hat{\Omega} \psi_j \mathrm{~d} \tau 
-    = \int\left(\hat{\Omega} \psi_i\right)^* \psi_j \mathrm{~d} \tau
+    = 
+    \int\left(\hat{\Omega} \psi_i\right)^* \psi_j \mathrm{~d} \tau
 \end{equation}
 
 \noindent ซึ่งเราพบว่าค่าไอเกนของมันนั้นเป็นส่วนจริงเท่านั้นและฟังก์ชันไอเกนนั้นเป็น Orthogonal นอกจากนี้ถ้าหากเรามาดูที่พลังงานของระบบ%
@@ -410,7 +501,9 @@ $\hat{R}_{1 \ldots N}$ โดย Hamiltonian $\hat{\mathscr{H}}$ ที่สอ
 
 \begin{equation}
     \label{eq:schrodinger_equation_electron}
-    \hat{\mathscr{H}}^{\text{el}} \psi^{\text{el}}_{i} = \epsilon^{\text{el}}_{i} \psi^{\text{el}}_{i}
+    \hat{\mathscr{H}}^{\text{el}} \psi^{\text{el}}_{i} 
+    = 
+    \epsilon^{\text{el}}_{i} \psi^{\text{el}}_{i}
 \end{equation}
 
 ถ้าหากว่าเราทำการแก้สมการ \ref{eq:schrodinger_equation_electron} สำหรับโมเลกุลเดียวกันแต่ว่ามีโครงสร้าง (Molecular Geometries
@@ -418,7 +511,9 @@ $\hat{R}_{1 \ldots N}$ โดย Hamiltonian $\hat{\mathscr{H}}$ ที่สอ
 สำหรับสถานะ $i$ $(\epsilon^{\text{el}}_{0} \vec{R}_{1 \dots N})$ ที่เป็นสถานะพื้น (Ground State) ได้ดังนี้
 
 \begin{equation}
-    V\left(\bar{R}_{1 \dots N}\right) = \epsilon_{0}^{\mathrm{el}}\left(\hat{R}_{1 \dots N}\right)
+    V\left(\bar{R}_{1 \dots N}\right) 
+    = 
+    \epsilon_{0}^{\mathrm{el}}\left(\hat{R}_{1 \dots N}\right)
 \end{equation}
 
 คราวนี้เราลองมาดูกรณีที่เราสนใจเฉพาะนิวเคลียสกันบ้าง เราสามารถกำหนด Hamiltonian สำหรับนิวเคลียสดังนี้
@@ -426,7 +521,8 @@ $\hat{R}_{1 \ldots N}$ โดย Hamiltonian $\hat{\mathscr{H}}$ ที่สอ
 \begin{equation}
     \label{eq:hamiltonian_operator_nuclei}
     \mathcal{H}^{\text{nuc}} 
-    = -\sum_{I=1}^{N} \frac{1}{2 m_{I}} V_{I}^{2} 
+    = 
+    - \sum_{I=1}^{N} \frac{1}{2 m_{I}} V_{I}^{2} 
         + V\left(\vec{R}_{1 \dots N}\right)
 \end{equation}
 
@@ -435,7 +531,8 @@ $\hat{R}_{1 \ldots N}$ โดย Hamiltonian $\hat{\mathscr{H}}$ ที่สอ
 \begin{equation}
     \label{eq:schrodinger_equation_nuclei}
     \hat{\mathscr{H}}^{\text{nuc}} \psi^{\text{nuc}}_{k} 
-    = \epsilon^{\text{nuc}}_{k} \psi^{\text{nuc}}_{k}
+    = 
+    \epsilon^{\text{nuc}}_{k} \psi^{\text{nuc}}_{k}
 \end{equation}
 
 โดยสรุปแล้วถ้าหากว่าเรามีการนำ Born-Oppenheimer Approximation มาใช้เราจะสามารถแบ่งเคมีควอนตัมออกได้เป็น 2 ปัญหา นั่นคือปัญหา%
@@ -457,7 +554,9 @@ Born-Oppenheimer ซึ่งผู้อ่านเพิ่งได้ศึ
 units นั้นมีหน้าตาดังต่อไปนี้
 
 \begin{equation}
-    \hat{\mathscr{H}}^{\text{el}} = -\frac{1}{2} \nabla^{2}-\frac{Z}{r}
+    \hat{\mathscr{H}}^{\text{el}} 
+    = 
+    - \frac{1}{2} \nabla^{2}-\frac{Z}{r}
 \end{equation}
 
 โดยที่ $Z$ คือประจุของนิวเคลียสและ $r$ คือระยะห่างระหว่างอิเล็กตรอนและนิวเคลียส โดยเราจะเห็นได้ว่า Hamiltonian นี้ประกอบไปด้วยเทอม%
@@ -465,7 +564,9 @@ units นั้นมีหน้าตาดังต่อไปนี้
 พิกัดเชิงขั้วเมื่อใช้ Hamiltonian Operator ตัวนี้คือ
 
 \begin{equation}
-    \psi_{nlm_{l}} (r, \theta, \varphi) = R_{nl}(r) Y_{lm_{l}} (\theta, \varphi)
+    \psi_{nlm_{l}} (r, \theta, \varphi) 
+    = 
+    R_{nl}(r) Y_{lm_{l}} (\theta, \varphi)
 \end{equation}
 
 \noindent โดยที่ $R_{nl}(r)$ คือฟังก์ชันรัศมี (Radial Function) และ $Y_{lm_{l}}(\theta, \varphi)$ คือฟังก์ชันฮาร์โมนิกทรงกลม 
@@ -474,9 +575,9 @@ $l$ และ $m_{l}$ อีกสองตัวซึ่งมีเงื่�
 
 \begin{equation*}
     \begin{aligned}
-        & n=1,2,3 \ldots \\
-        & l=0,1,2 \ldots, n-1 \\
-        & m=0, \pm 1, \pm 2, \ldots \pm l
+        & n = 1,2,3 \ldots \\
+        & l = 0,1,2 \ldots, n-1 \\
+        & m = 0, \pm 1, \pm 2, \ldots \pm l
     \end{aligned}
 \end{equation*}
 
@@ -518,15 +619,23 @@ Cl $1s^{2} 2s^{2} 2p^{6} 3s^{2} 2p^{3}$ หรือ Ne $3s^{2} 2p^{5}$
 \begin{equation}
     \hat{\mathscr{H}}^{\text{el}} 
     = 
-    \underbrace{
+    \underbrace
+    {
         -\frac{1}{2} \nabla^{2}_{i} 
-        -\frac{Z}{r_{i}}}
-        _{\hat{\mathscr{H}}_{i}}
-    \underbrace{
+        -\frac{Z}{r_{i}}
+    }_
+    {
+        \hat{\mathscr{H}}_{i}
+    }
+    \underbrace
+    {
         -\frac{1}{2} \nabla^{2}_{j} 
-        -\frac{Z}{r_{j}}}
-        _{\hat{\mathscr{H}}_{j}}
-    +\frac{1}{r_{ij}}
+        -\frac{Z}{r_{j}}
+    }_
+    {
+        \hat{\mathscr{H}}_{j}
+    }
+    + \frac{1}{r_{ij}}
 \end{equation}
 
 \noindent โดยที่ $i$ กับ $j$ นั้นคือดัชนีหรือ Index ของอิเล็กตรอนซึ่งมีอันตรกิริยาหรือ Interact กับนิวเคลียส 1 ตัว สรุปก็คือว่า 
@@ -545,7 +654,9 @@ Hamiltonian ที่แสดงตามสมการด้านบนน�
 
 \begin{equation}
     \label{eq:Hamiltonian_two_electrons}
-    \hat{\mathscr{H}}^{\text{el}} = \hat{\mathscr{H}}_{i} + \hat{\mathscr{H}}_{j}
+    \hat{\mathscr{H}}^{\text{el}} 
+    = 
+    \hat{\mathscr{H}}_{i} + \hat{\mathscr{H}}_{j}
 \end{equation}
 
 \noindent ซึ่งถ้าเรานำ Hamiltonian ตามสมการ \ref{eq:Hamiltonian_two_electrons} นี้ไปใช้ในสมการชโรดิงเงอร์สำหรับออร์บิทัลเชิง%
@@ -554,12 +665,12 @@ Hamiltonian ที่แสดงตามสมการด้านบนน�
 
 \begin{equation}
     \left( \hat{\mathscr{H}}_{i} + \hat{\mathscr{H}}_{j} \right)
-    \phi_{i}(\vec{r}_{i})
-    \phi_{j}(\vec{r}_{j}) 
+        \phi_{i}(\vec{r}_{i})
+        \phi_{j}(\vec{r}_{j}) 
     =
     \left( \epsilon_{i} + \epsilon_{j} \right)
-    \phi_{i}(\vec{r}_{i})
-    \phi_{j}(\vec{r}_{j})     
+        \phi_{i}(\vec{r}_{i})
+        \phi_{j}(\vec{r}_{j})     
 \end{equation}
 
 \noindent โดยที่ $\epsilon_{i}$ คือพลังงานของออร์บิทัล แล้วก็เนื่องจากว่าอิเล็กตรอนนั้นคือเฟอร์มิออน (Fermion) ดังนั้นอิเล็กตรอนทุกตัว%
@@ -595,7 +706,9 @@ $m_s=-\frac{1}{2}$ ก็ได้ ซึ่งถ้าเรานำมาเ
 
 \begin{equation}
     \label{eq:wavefunction_two_electrons_spin}
-    \psi(i, j) = 1 s(i) \alpha(i) \times 1 s(j) \beta(j)
+    \psi(i, j) 
+    = 
+    1 s(i) \alpha(i) \times 1 s(j) \beta(j)
 \end{equation}
 
 \noindent แล้วเราก็จะทำการใช้เทคนิคการรวมเชิงเส้นหรือ Linear Combinations ของ Spin-functions ในการทำให้ฟังก์ชันคลื่นตามสมการที่ 
@@ -603,8 +716,8 @@ $m_s=-\frac{1}{2}$ ก็ได้ ซึ่งถ้าเรานำมาเ
 
 \begin{equation}
     \begin{array}{ll}
-    \frac{1}{\sqrt{2}}(\alpha(i) \beta(j)+\alpha(j) \beta(i)) & \text{symmetric spin-function} \\
-    \frac{1}{\sqrt{2}}(\alpha(i) \beta(j)-\alpha(j) \beta(i)) & \text{anti-symmetric spin-function}
+    \frac{1}{\sqrt{2}}(\alpha(i) \beta(j) + \alpha(j) \beta(i)) & \text{symmetric spin-function} \\
+    \frac{1}{\sqrt{2}}(\alpha(i) \beta(j) - \alpha(j) \beta(i)) & \text{anti-symmetric spin-function}
     \end{array}
 \end{equation}
 
@@ -733,8 +846,8 @@ $-x$ ตามลำดับ นอกจากนี้แล้วสัม�
     \sigma_g 
     = 
     \frac{1}{\sqrt{2}}\left(1 s_A+1 s_B\right) 
-    \quad \text{และ} \quad 
-    \sigma_u 
+        \quad \text{และ} \quad 
+        \sigma_u 
     = 
     \frac{1}{\sqrt{2}}\left(1 s_A-1 s_B\right)
 \end{equation}
@@ -819,13 +932,13 @@ Normalized แล้ว ถ้าหากเราพิจารณา Triplet
     \hat{\mathscr{H}}^{\mathrm{el}} 
     = 
     -\frac{1}{2} \nabla_1^2 
-    -\frac{1}{2} \nabla_2^2 
-    -\frac{Z_A}{r_{1 A}} 
-    -\frac{Z_A}{r_{2 A}} 
-    -\frac{Z_B}{r_{1 B}}
-    -\frac{Z_B}{r_{2 B}}
-    +\frac{1}{r_{12}}
-    +\frac{Z_A Z_B}{R_{A B}}
+        -\frac{1}{2} \nabla_2^2 
+        -\frac{Z_A}{r_{1 A}} 
+        -\frac{Z_A}{r_{2 A}} 
+        -\frac{Z_B}{r_{1 B}}
+        -\frac{Z_B}{r_{2 B}}
+        +\frac{1}{r_{12}}
+        +\frac{Z_A Z_B}{R_{A B}}
 \end{equation}
 
 \noindent ถ้าเราทำการจัดรูปนิดหน่อยโดยการจัดให้เทอมที่อ้างอิงอิเล็กตรอนตัวเดียวกันนั้นมาอยู่ด้วยกัน ดังนี้
@@ -834,13 +947,13 @@ Normalized แล้ว ถ้าหากเราพิจารณา Triplet
     \hat{\mathscr{H}}^{\mathrm{el}} 
     = 
     -\frac{1}{2} \nabla_1^2 
-    -\frac{Z_A}{r_{1 A}} 
-    -\frac{Z_B}{r_{1 B}}
-    -\frac{1}{2} \nabla_2^2 
-    -\frac{Z_A}{r_{2 A}} 
-    -\frac{Z_B}{r_{2 B}}
-    +\frac{1}{r_{12}}
-    +\frac{Z_A Z_B}{R_{A B}}
+        -\frac{Z_A}{r_{1 A}} 
+        -\frac{Z_B}{r_{1 B}}
+        -\frac{1}{2} \nabla_2^2 
+        -\frac{Z_A}{r_{2 A}} 
+        -\frac{Z_B}{r_{2 B}}
+        +\frac{1}{r_{12}}
+        +\frac{Z_A Z_B}{R_{A B}}
 \end{equation}
 
 \noindent เราสามารถเขียนใหม่ได้เป็น
@@ -848,7 +961,11 @@ Normalized แล้ว ถ้าหากเราพิจารณา Triplet
 \begin{equation}
     \label{eq:Hamiltonian_H2_simple}
     \hat{\mathscr{H}}^{\mathrm{el}} 
-    = \hat{\mathscr{H}}_1+\hat{\mathscr{H}}_2+\frac{1}{r_{12}}+\frac{Z_A Z_B}{R_{A B}}
+    = 
+    \hat{\mathscr{H}}_1 
+        + \hat{\mathscr{H}}_2 
+        + \frac{1}{r_{12}} 
+        + \frac{Z_A Z_B}{R_{A B}}
 \end{equation}
 
 \noindent โดยที่เทอมที่ขึ้นอยู่กับอิเล็กตรอนเพียง 1 ตัวนั้นเราจะเรียกว่า One-electron Term $(\hat{\mathscr{H}}_i)$ สำหรับอิเล็กตรอน%
@@ -877,16 +994,31 @@ Hamiltonian นั่นเอง ดังนี้
     \begin{aligned}
         E_0(1) 
         & = \left\langle\psi_0\left|\hat{\mathscr{H}}_1\right| \psi_0\right\rangle \\
-        & = \frac{1}{2}\left(\left\langle\chi_1(1)\left|\hat{\mathscr{H}}_1\right| \chi_1(1)\right\rangle 
-            + \left\langle\chi_2(1)\left|\hat{\mathscr{H}}_1\right| \chi_2(1)\right\rangle\right) \\
-        & = \left\langle\sigma_g(1)\left|\hat{\mathscr{H}}_1\right| \sigma_g(1)\right\rangle
+        & = \frac{1}{2}
+            \left(
+                \left\langle
+                    \chi_1(1)\left|\hat{\mathscr{H}}_1\right| \chi_1(1)
+                \right\rangle 
+                + \left\langle
+                    \chi_2(1)\left|\hat{\mathscr{H}}_1\right| \chi_2(1)
+                \right\rangle
+            \right) \\
+        & = \left\langle 
+                \sigma_g(1)\left|\hat{\mathscr{H}}_1\right| \sigma_g(1)
+            \right\rangle
     \end{aligned}
 \end{equation}
 
 \noindent และก็เหมือนกันกับพลังงานของอิเล็กตรอนตัวที่ 2 $(E_0(2))$
 
 \begin{equation}
-    E_0(2)=\left\langle\sigma_g(2)\left|\hat{\mathscr{H}}_2\right| \sigma_g(2)\right\rangle
+    E_0(2) 
+    = 
+    \left\langle
+        \sigma_g(2) 
+        \left| \hat{\mathscr{H}}_2 \right| 
+        \sigma_g(2)
+    \right\rangle
 \end{equation}
 
 ส่วนเทอมที่ Contribution นั้นมาจากอิเล็กตรอน 2 ตัวนั้น (Two-electron Term), $E_0(1,2)$, ก็จะกลายเป็น
@@ -896,7 +1028,7 @@ Hamiltonian นั่นเอง ดังนี้
     E_0(1,2) 
     = 
     \left\langle
-    \sigma_g(1) \sigma_g(2)\left|\frac{1}{r_{12}}\right| \sigma_g(1) \sigma_g(2)
+        \sigma_g(1) \sigma_g(2)\left|\frac{1}{r_{12}}\right| \sigma_g(1) \sigma_g(2)
     \right\rangle
 \end{equation}
 
@@ -907,7 +1039,7 @@ Hamiltonian นั่นเอง ดังนี้
     \begin{aligned}
         E_0(1,2) 
         & = \int \sigma_g^*(1) \sigma_g^*(2) \frac{1}{r_{12}} \sigma_g(1) \sigma_g(2) \mathrm{d} \tau \\
-        & =\int \rho(1) \frac{1}{r_{12}} \rho(2) \mathrm{d} \tau
+        & = \int \rho(1) \frac{1}{r_{12}} \rho(2) \mathrm{d} \tau
     \end{aligned}
 \end{equation}
 
@@ -916,7 +1048,9 @@ Hamiltonian นั่นเอง ดังนี้
 ดังนั้นเราจึงเขียนสมการนี้ใหม่ได้เป็น
 
 \begin{equation}
-    E_0 = H_1 + H_2 + J_{12} + \frac{Z_A Z_B}{R_{A B}}
+    E_0 
+    = 
+    H_1 + H_2 + J_{12} + \frac{Z_A Z_B}{R_{A B}}
 \end{equation}
 
 \noindent โดยที่เราใช้ Notation $H_j \equiv E_0(j)$ สำหรับ One-electron Term ซึ่งพลังงานของเทอมนี้จะเหมือนกับพลังงานของ%
@@ -928,9 +1062,13 @@ Hamiltonian นั่นเอง ดังนี้
     = 
     \frac{1}{2}
     \left(
-        \left\langle\sigma_g(j)\left|\hat{\mathscr{H}}_j\right| \sigma_g(j)\right\rangle
+        \left\langle 
+            \sigma_g(j)\left|\hat{\mathscr{H}}_j\right| \sigma_g(j) 
+        \right\rangle
         +
-        \left\langle\sigma_u(j)\left|\hat{\mathscr{H}}_j\right| \sigma_u(j)\right\rangle
+        \left\langle 
+            \sigma_u(j)\left|\hat{\mathscr{H}}_j\right| \sigma_u(j)
+        \right\rangle
     \right)
 \end{equation}
 
@@ -967,7 +1105,9 @@ Hamiltonian นั่นเอง ดังนี้
 Triplet State ของโมเลกุลไฮโดรเจนนั้นจะกลายเป็น
 
 \begin{equation}
-    E_1 = H_1 + H_2 + J_{12} - K_{12} + \frac{Z_A Z_B}{R_{A B}}
+    E_1 
+    = 
+    H_1 + H_2 + J_{12} - K_{12} + \frac{Z_A Z_B}{R_{A B}}
 \end{equation}
 
 เนื่องจากว่า Exchange Integral $(K_{i j})$ นั้นมีเครื่องหมายเป็นบวก หมายความว่าพลังงานสำหรับ Triplet State นั้นจะมีค่าต่ำกว่า%
@@ -1017,7 +1157,9 @@ $\hat{\mathcal{P}}_{i j k}^{(2)}$ นั้นจะให้การเรี�
 \begin{equation}
     \label{eq:Permutation_operator_3_electrons}
     \hat{\mathscr{P}}_{i j k}^{(2)}\left|\chi_i(i) \chi_j(j) \chi_k(k)\right\rangle 
-    = \left|\chi_k(i) \chi_i(j) \chi_j(k)\right\rangle+\left|\chi_j(i) \chi_k(j) \chi_i(k)\right\rangle
+    = 
+    \left|\chi_k(i) \chi_i(j) \chi_j(k)\right\rangle
+        + \left|\chi_j(i) \chi_k(j) \chi_i(k)\right\rangle
 \end{equation}
 
 โดยธรรมเนียมแล้ว (หนังสือเคมีควอนตัมเกือบทั้งหมด) นั้นมักจะทำการเรียงลำดับออร์บิทัลในการเขียนผลคูณของออร์บิทัลในสมการของ Permutation 
@@ -1049,11 +1191,11 @@ Operator (สมการที่ \ref{eq:Permutation_operator_2_electrons} แ
     \begin{aligned}
         \hat{\mathscr{H}}^{\text{el}}
         & = \hat{\mathscr{T}}_{\text{e}}
-        + \hat{\mathscr{V}}_{\text{en}}
-        + \hat{\mathscr{V}}_{\text{ee}}
-        + \hat{\mathscr{V}}_{\text{nn}} \\
+            + \hat{\mathscr{V}}_{\text{en}}
+            + \hat{\mathscr{V}}_{\text{ee}}
+            + \hat{\mathscr{V}}_{\text{nn}} \\
         & = \sum_{i=1}^{n} \hat{h}(i)
-        + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \hat{g}(i,j) + \hat{\mathscr{V}}_{nn}
+            + \sum_{i=1}^{n} \sum_{j=i+1}^{n} \hat{g}(i,j) + \hat{\mathscr{V}}_{nn}
     \end{aligned}
 \end{equation}
 
@@ -1067,7 +1209,8 @@ Operator (สมการที่ \ref{eq:Permutation_operator_2_electrons} แ
     \label{eq:energy_Slater_determinant}
     \begin{aligned}
         E_0 
-        & = \left\langle\psi\left|\hat{\mathscr{H}}^{\mathrm{el}}\right| \psi\right\rangle \\
+        & = \left\langle\psi 
+            \left|\hat{\mathscr{H}}^{\mathrm{el}}\right| \psi\right\rangle \\
         & = \left\langle\hat{\mathscr{A}} \chi_1(1) \chi_2(2) \dots \chi_n(n)
             \left|\hat{\mathscr{H}}^{\mathrm{el}}\right| 
             \hat{\mathscr{A}} \chi_1(1) \chi_2(2) \dots \chi_n(n)\right\rangle \\
@@ -1184,8 +1327,11 @@ Determinant จากเดิมที่เรามีในสมการ \
 
 \begin{equation}
     \label{eq:energy_Slater_determinant_short}
-    E_0 = \sum_{i=1}^n h_i 
-        + \sum_{i=1}^n \sum_{j=i+1}^n\left(J_{i j}-K_{i j}\right) 
+    E_0 
+    = 
+    \sum_{i=1}^n h_i 
+        + \sum_{i=1}^n \sum_{j=i+1}^n 
+            \left(J_{i j}-K_{i j}\right) 
         + V_{n n}
 \end{equation}
 
@@ -1232,8 +1378,11 @@ Determinant จากเดิมที่เรามีในสมการ \
 
 \begin{equation}
     E_0 
-    = 2 \sum_{i=1}^{n / 2} h_i 
-        + \sum_{i=1}^{n / 2} \sum_{j=1}^{n / 2}\left(2 J_{i j} - K_{i j}\right)
+    = 
+    2 \sum_{i=1}^{n / 2} h_i 
+        + \sum_{i=1}^{n / 2} 
+            \sum_{j=1}^{n / 2} 
+            \left(2 J_{i j} - K_{i j}\right)
 \end{equation}
 
 \noindent โดยที่เราจะกระจายเทอม Summation ตามจำนวนของออร์บิทัลที่มีอิเล็กตรอนบรรจุอยู่ 2 ตัว (Doubly Occupied Orbitals)
@@ -1253,8 +1402,18 @@ Structure เยอะมาก ๆ ซึ่งเป็นหลักกา�
 \begin{equation}
     \label{eq:Rayleigh_ratio}
     \tilde{E}_i 
-    = \frac{\langle\tilde{\psi}_i | \hat{\mathscr{H}} | \tilde{\psi}_i\rangle}
-        {\langle\tilde{\psi}_i | \tilde{\psi}_i\rangle}
+    = 
+    \frac
+    {
+        \langle
+            \tilde{\psi}_i | \hat{\mathscr{H}} | \tilde{\psi}_i
+        \rangle
+    }
+    {
+        \langle
+            \tilde{\psi}_i | \tilde{\psi}_i
+        \rangle
+    }
 \end{equation}
 
 \noindent ซึ่งมีชื่อเรียกว่า Rayleigh Ratio
@@ -1282,7 +1441,13 @@ Variation Theorem นั้นกล่าวไว้ว่า \enquote{พล�
 \begin{equation}
     \tilde{E}_0 
     = 
-    \frac{\sum_{p, q=1}^m c_p c_q H_{p q}}{\sum_{p, q=1}^m c_p c_q S_{p q}}
+    \frac
+    {
+        \sum_{p, q=1}^m c_p c_q H_{p q}
+    }
+    {
+        \sum_{p, q=1}^m c_p c_q S_{p q}
+    }
 \end{equation}
 
 \noindent โดยที่เราใช้ Notation ตามนี้ $H_{p q}=\left\langle\phi_p|\hat{\mathscr{H}}| \phi_q\right\rangle$ และ 
@@ -1290,14 +1455,23 @@ $S_{p q}=\left\langle\phi_p \mid \phi_q\right\rangle$ ตามลำดับ �
 \ref{eq:Variation_theorem} มาประยุกต์ใช้กับ Trial Wavefunction อันนี้แล้วเราจะได้เงื่อนไขดังต่อไปนี้ 
 
 \begin{equation}
-    \frac{\partial \tilde{E}_0}{\partial c_r} = 0 \quad \forall r
+    \frac
+    {
+        \partial \tilde{E}_0
+    }
+    {
+        \partial c_r
+    } 
+    = 
+    0 \quad \forall r
 \end{equation}
 
 \noindent โดยผลลัพธ์ที่เราได้ออกมานั้นก็คือ Secular Equation ดังนี้
 
 \begin{equation}
     \sum_{p=1}^{m} c_{p} \left( H_{pr} - \tilde{E}_{0} S_{pr} \right) 
-    = 0 \quad \forall r
+    = 
+    0 \quad \forall r
 \end{equation}
 
 \noindent ซึ่งสมการข้างต้นนี้ก็จะเป็นจริงและสามารถแก้หาผลเฉลยได้ถ้า Secular Determinant เท่ากับ 0 ดังนี้
@@ -1325,7 +1499,8 @@ $S_{p q}=\left\langle\phi_p \mid \phi_q\right\rangle$ ตามลำดับ �
             + \frac{1}{2} \sum_{i, j=1}^n\left(J_{i j}-K_{i j}\right) 
             + V_{n n} \\
         = & \sum_{i=1}^n\left\langle\chi_i|\hat{h}| \chi_i\right\rangle \\
-        & + \frac{1}{2} \sum_{i, j=1}^n\left(\left\langle\chi_i \chi_j|\hat{g}| \chi_i \chi_j\right\rangle 
+        & + \frac{1}{2} \sum_{i, j=1}^n 
+            \left(\left\langle\chi_i \chi_j|\hat{g}| \chi_i \chi_j\right\rangle 
             - \left\langle\chi_i \chi_j|\hat{g}| \chi_j \chi_i\right\rangle\right) \\
         & + V_{n n}
     \end{aligned}
@@ -1338,8 +1513,10 @@ Slater Determinant ก็คือฟังก์ชันคลื่นที�
 \begin{equation}
     \begin{aligned}
         \tilde{E}_0 
-        & = E_0-\sum_{i, j=1}^n \lambda_{i j}\left(\left\langle\chi_i \mid \chi_j\right\rangle-\delta_{i j}\right) \\
-        & = E_0-\sum_{i, j=1}^n \lambda_{i j}\left(S_{i j}-\delta_{i j}\right)
+        & = E_0-\sum_{i, j=1}^n 
+            \lambda_{i j} \left(\left\langle\chi_i \mid \chi_j\right\rangle-\delta_{i j}\right) \\
+        & = E_0-\sum_{i, j=1}^n 
+            \lambda_{i j} \left(S_{i j}-\delta_{i j}\right)
     \end{aligned}
 \end{equation}
 
@@ -1348,7 +1525,9 @@ Delta Function ซึ่งบ่งบอกถึงสมบัติขอ�
 สมการข้างต้นด้วยว่ามีเทอมที่เป็นการ Overlap กันระหว่างออร์บิทัลซึ่งเราเรียกเทอมนี้ว่า Overlap Matrix $S_{i j}$ โดยมีนิยามดังนี้
 
 \begin{equation}
-    S_{i j} = \left\langle\chi_i \mid \chi_j\right\rangle
+    S_{i j} 
+    = 
+    \left\langle\chi_i \mid \chi_j\right\rangle
 \end{equation}
 
 \noindent เนื่องจากว่าการผันแปรของ Lagrangian นั้นมีค่าน้อยมาก $(\delta \tilde{E}_0)$ เราจะได้ว่าการเปลี่ยนแปลงน้อย ๆ ของ 
@@ -1374,13 +1553,13 @@ Lagrangian นี้มีสมการคือ
             & +\left\langle\chi_i|\hat{h}| \delta \chi_i\right\rangle \\
             & \begin{aligned} +\frac{1}{2} \sum_{i, j=1}^n 
                 & \left( \right. \left\langle\delta \chi_i \chi_j|\hat{g}| \chi_i \chi_j\right\rangle 
-                +\left\langle\chi_i \delta \chi_j|\hat{g}| \chi_i \chi_j\right\rangle \\
+                + \left\langle\chi_i \delta \chi_j|\hat{g}| \chi_i \chi_j\right\rangle \\
                 & +\left\langle\chi_i \chi_j|\hat{g}| \delta \chi_i \chi_j\right\rangle 
                 +\left\langle\chi_i \chi_j|\hat{g}| \chi_i \delta \chi_j\right\rangle \left. \right) \\
                 & -\left(\left\langle\delta \chi_i \chi_j|\hat{g}| \chi_j \chi_i\right\rangle \right. 
-                +\left\langle\chi_i \delta \chi_j|\hat{g}| \chi_j \chi_j\right\rangle \\
+                + \left\langle\chi_i \delta \chi_j|\hat{g}| \chi_j \chi_j\right\rangle \\
                 & +\left\langle\chi_i \chi_j|\hat{g}| \delta \chi_j \chi_i\right\rangle 
-                +\left\langle\chi_i \chi_j|\hat{g}| \chi_j \delta \chi_i\right\rangle \left. \right)
+                + \left\langle\chi_i \chi_j|\hat{g}| \chi_j \delta \chi_i\right\rangle \left. \right)
             \end{aligned} 
     \end{aligned}
 \end{equation}
@@ -1450,7 +1629,10 @@ Dummy Index ซึ่งสามารถสลับกันได้ ดั�
     \label{eq:fock_operator}
     \hat{f} 
     = \hat{h} 
-    + \sum_{j=1}^n\left(\hat{\mathscr{J}}_j-\hat{\mathscr{K}}_j\right)
+        + \sum_{j=1}^n 
+            \left(
+                \hat{\mathscr{J}}_j-\hat{\mathscr{K}}_j
+            \right)
 \end{equation}
 
 \noindent ซึ่งเราจะได้ว่า Hartree-Fock Hamiltonian $\hat{\mathcal{H}}_{\mathrm{HF}}$ นั้นก็คือผลรวมของ Fock Operator 
@@ -1465,8 +1647,15 @@ Dummy Index ซึ่งสามารถสลับกันได้ ดั�
 
 \begin{equation}
     \delta E_0 
-    = \sum_{i=1}^n\left\langle\delta \chi_i\left|\hat{f}_i\right| \chi_i\right\rangle
-    + \left\langle\chi_i\left|\hat{f}_i\right| \delta \chi_i\right\rangle
+    = 
+    \sum_{i=1}^n 
+        \left\langle 
+            \delta \chi_i\left|\hat{f}_i\right| \chi_i
+        \right\rangle
+        + 
+        \left\langle
+            \chi_i\left|\hat{f}_i\right| \delta \chi_i
+        \right\rangle
 \end{equation}
 
 \noindent ซึ่งเราจะได้ว่าผลรวมของ Lagrangian นั้นกลายเป็น
@@ -1525,7 +1714,9 @@ $\left|\delta \chi_i\right\rangle$ นั้นสอดคล้องกับ
 (Eigenvalue Problems) แทนที่จะอยู่ในรูปของค่าคาดหวัง (Expectation Value)
 
 \begin{equation}
-    \hat{f}_i \ket{\chi_i} = \sum_{j=1}^{n} \lambda_{i j} \ket{\chi_j}
+    \hat{f}_i \ket{\chi_i} 
+    = 
+    \sum_{j=1}^{n} \lambda_{i j} \ket{\chi_j}
 \end{equation}
 
 ตอนนี้เราสามารถใช้ Unitary Transformation เพื่อช่วยในการสร้างออร์บิทัลซึ่งจะได้ว่า $\lambda_{i j}$ นั้นกลายเป็น Diagonal Matrix 
@@ -1533,7 +1724,9 @@ $\left|\delta \chi_i\right\rangle$ นั้นสอดคล้องกับ
 
 \begin{equation}
     \label{eq:HF_equation}
-    \hat{f}_i \ket{\chi_i} = \epsilon_{i} \ket{\chi_j}
+    \hat{f}_i \ket{\chi_i} 
+    = 
+    \epsilon_{i} \ket{\chi_j}
 \end{equation}
 
 \noindent โดยออร์บิทัลที่เราสร้างหรือกำหนดขึ้นมานี้เป็นออร์บิทัลแบบเฉพาะซึ่งเราจะเรียกออร์บิทัลนี้ว่า Canonical Orbital และ $\epsilon_{i}$ 
@@ -1550,7 +1743,8 @@ Exchange Operator ตามลำดับ
 
 \begin{equation}
     \varphi_{t} 
-    = \sum_{I=1}^{N} \dv{Z_{i}}{R_{It}} 
+    = 
+    \sum_{I=1}^{N} \dv{Z_{i}}{R_{It}} 
         - \sum_{i=1}^{n} \mel{\chi_{i}}{\frac{1}{r_{it}}}{\chi_{i}}
 \end{equation}
 
@@ -1572,7 +1766,8 @@ Exchange Operator ตามลำดับ
 
 \begin{equation}
     E_0 
-    = \sum_{i=1}^n \epsilon_i 
+    = 
+    \sum_{i=1}^n \epsilon_i 
         -\frac{1}{2} \sum_{i, j=1}^n\left(J_{i j}-K_{i j}\right) 
         + V_{n n}
 \end{equation}
@@ -1602,16 +1797,22 @@ $V_{n n}$ เข้าไปด้วย
 
 \begin{equation}
     \label{eq:MO_LCAO}
-    \left|\chi_i\right\rangle = \sum_{p=1}^m c_{i p}\left|\phi_p\right\rangle
+    \left|\chi_i\right\rangle 
+    = 
+    \sum_{p=1}^m c_{i p}\left|\phi_p\right\rangle
 \end{equation}
 
 \noindent ถ้าผู้อ่านไปอ่านหนังสือบางเล่มแล้วพบว่ามีการใช้ตัวแปรที่ต่างกันออกไป เช่น ตามสมการด้านล่างนี้
 
 \begin{equation}
     \label{eq:MO_LCAO_like}
-    \left|\psi_{i}\right\rangle = \sum_{p=1}^m c_{i p}\left|\varphi_{p}\right\rangle
+    \left|\psi_{i}\right\rangle 
+    = 
+    \sum_{p=1}^m c_{i p}\left|\varphi_{p}\right\rangle
     \quad \text{ หรือ } \quad 
-    \left|\psi_{i}\right\rangle = \sum_{j=1} c_{i j}\left|\varphi_{j}\right\rangle
+    \left|\psi_{i}\right\rangle 
+    = 
+    \sum_{j=1} c_{i j}\left|\varphi_{j}\right\rangle
 \end{equation}
 
 \noindent ก็ไม่ต้องตกใจไปเพราะว่าสมการที่ \ref{eq:MO_LCAO_like} นั้นก็คือสมการเดียวกันกับสมการที่ \ref{eq:MO_LCAO} นั่นเอง
@@ -1629,7 +1830,8 @@ MOs ได้ด้วยวิธี LCAO ซึ่งเป็นผลรว�
 \begin{equation}
     \label{eq:HF_equation_LCMO}
     \hat{f}_i \sum_{p=1}^m c_{i p}\left|\phi_p\right\rangle 
-    = \epsilon_i \sum_{j=1}^m c_{i p}\left|\phi_p\right\rangle \quad \forall i
+    = 
+    \epsilon_i \sum_{j=1}^m c_{i p}\left|\phi_p\right\rangle \quad \forall i
 \end{equation}
 
 ในหัวข้อถัดไปเราจะมาดูรายละเอียดของ Atom-centered Basis Function กันครับ
@@ -1641,7 +1843,9 @@ MOs ได้ด้วยวิธี LCAO ซึ่งเป็นผลรว�
 เราเริ่มต้นหัวข้อนี้ด้วยสัญกรณ์เมทริกซ์ต่อไปนี้
 
 \begin{equation}
-    \phi = \left(\phi_1, \phi_2, \dots \phi_m\right)
+    \phi 
+    = 
+    \left(\phi_1, \phi_2, \dots \phi_m\right)
 \end{equation}
 
 \begin{equation}
@@ -1696,7 +1900,8 @@ MOs ได้ด้วยวิธี LCAO ซึ่งเป็นผลรว�
 
 \begin{equation}
     \mathbf{S} 
-    = \left(
+    = 
+    \left(
         \begin{array}{cccc}
         \langle\phi_1 \mid \phi_1\rangle & \langle\phi_1 \mid \phi_2\rangle & 
             \ldots & \langle\phi_1 \mid \phi_m\rangle \\
@@ -1717,7 +1922,8 @@ MOs ได้ด้วยวิธี LCAO ซึ่งเป็นผลรว�
 \begin{equation}
     \label{eq:Roothaan_Hall_equation}
     \mathbf{F c}_i 
-    = \epsilon_i \mathbf{S c}_i \quad 
+    = 
+    \epsilon_i \mathbf{S c}_i \quad 
         \text{ หรือ } \quad 
         \mathrm{FC} = \mathbf{S C} \boldsymbol{e}
 \end{equation}
@@ -1784,7 +1990,8 @@ Roothaan-Hall เนื่องจากว่า Fock Matrix นั้นข�
 \begin{equation}
     \label{eq:two_electron_integral}
     G_{p r q s} 
-    = \left\langle\phi_p \phi_r|\hat{g}| \phi_q \phi_s\right\rangle 
+    = 
+    \left\langle\phi_p \phi_r|\hat{g}| \phi_q \phi_s\right\rangle 
         - \left\langle\phi_p \phi_r|\hat{g}| \phi_s \phi_q\right\rangle
 \end{equation}
 
@@ -1792,7 +1999,9 @@ Roothaan-Hall เนื่องจากว่า Fock Matrix นั้นข�
 
 \begin{equation}
     \label{eq:Fock_Matrix}
-    F_{p q} = h_{p q}+\sum_{r, s=1}^m D_{r s} G_{p r q s} 
+    F_{p q} 
+    = 
+    h_{p q}+\sum_{r, s=1}^m D_{r s} G_{p r q s} 
 \end{equation}
 
 ไม่เพียงแค่ Fock Matrix กับ Two-electron Integrals เท่านั้นที่เราสามารถเขียนสมการใหม่ให้อยู่ในรูปที่มี Density Matrix ได้ แต่ยังมี%
@@ -1801,8 +2010,10 @@ Roothaan-Hall เนื่องจากว่า Fock Matrix นั้นข�
 
 \begin{equation}
     E_0 
-    = \sum_{i=1}^n \left\langle\chi_i|\hat{h}| \chi_i\right\rangle 
-        + \frac{1}{2} \sum_{i, j=1}^n\left(\left\langle\chi_i \chi_j|\hat{g}| \chi_i \chi_j\right\rangle \right.
+    = 
+    \sum_{i=1}^n \left\langle\chi_i|\hat{h}| \chi_i\right\rangle 
+        + \frac{1}{2} 
+            \sum_{i, j=1}^n \left(\left\langle\chi_i \chi_j|\hat{g}| \chi_i \chi_j\right\rangle \right.
         - \left. \left\langle\chi_i \chi_j|\hat{g}| \chi_j \chi_i\right\rangle\right)+V_{n n}
 \end{equation}
 
@@ -1811,7 +2022,8 @@ Roothaan-Hall เนื่องจากว่า Fock Matrix นั้นข�
 \begin{equation}
     \begin{aligned}
         E_0 
-        = & \sum_{i=1}^n \sum_{p, q=1}^m c_{i p} c_{i q}\left\langle\phi_p|\hat{h}| \phi_q\right\rangle \\
+        = 
+        & \sum_{i=1}^n \sum_{p, q=1}^m c_{i p} c_{i q}\left\langle\phi_p|\hat{h}| \phi_q\right\rangle \\
             & + \frac{1}{2} 
                 \sum_{i, j=1}^n 
                 \sum_{p, q, r, s=1}^m 
@@ -1828,7 +2040,8 @@ Roothaan-Hall เนื่องจากว่า Fock Matrix นั้นข�
 \begin{equation}
     \begin{aligned}
         E_0 
-        = \sum_{p, q=1}^m D_{p q} h_{p q} 
+        = 
+        \sum_{p, q=1}^m D_{p q} h_{p q} 
             + \frac{1}{2} \sum_{p, q, r, s=1}^m D_{p q} D_{r s} G_{p r q s}+V_{n n}
     \end{aligned}
 \end{equation}
@@ -1866,9 +2079,22 @@ Density) ของระบบ และ Density Matrix นั้นไม่ข
 \begin{equation}
     \label{eq:gto}
     G_{nlm} (r, \theta , \psi ) 
-    = N_n 
-        \underbrace{r^{n-1} e^{-\alpha r^2}}_{\text{radial part}} 
-        \underbrace{Y^m_l (\theta, \psi)}_{\text{angular part}}
+    = 
+    N_n 
+        \underbrace
+        {
+            r^{n-1} e^{-\alpha r^2}
+        }_
+        {
+            \text{radial part}
+        } 
+        \underbrace
+        {
+            Y^m_l (\theta, \psi)
+        }_
+        {
+            \text{angular part}
+        }
 \end{equation}
 
 ความแตกต่างระหว่าง STOs กับ GTOs ก็คือเทอมที่เป็นดีกรีหรือกำลังของฟังก์ชัน Exponential ใน GTOs นั้นเราจะมีการนำรัศมีมายกกำลัง ($r^{2}$) 
@@ -1910,6 +2136,7 @@ SP 3 1.00
 \begin{itemize}
     \item แถวแรกคือระบุว่าเป็นออร์บิทัล 1s ของอะตอมคาร์บอนซึ่งสามารถเขียนได้ด้วยผลรวมของ Primitive Gaussian 3 อันโดยมีตัวคูณปรับ%
     ขนาด (Scale Factor) คือ 1
+    
     \item แถวที่ 2-4 คือเป็น Orbital exponent และ  coefficients ตามลำดับ 
 \end{itemize}
 
@@ -1938,7 +2165,9 @@ Calculation ในแต่ละรอบนั่นเอง คราวน�
 
 \begin{equation}
     \label{eq:Correlation_Energy}
-    E^{\text{corr}}_{i} = E^{\text{exact}}_{i} - E^{\text{HF}}_{i}
+    E^{\text{corr}}_{i} 
+    = 
+    E^{\text{exact}}_{i} - E^{\text{HF}}_{i}
 \end{equation}
 
 \noindent โดยเทอม $E^{\text{exact}}_{i}$ คือพลังงานที่แท้จริงของโมเลกุลซึ่งเป็นผลเฉลยของสมการชโรดิงเงอร์ซึ่งก็ไม่มีใครรู้ว่ามีค่าเท่าไหร่ 
@@ -1948,7 +2177,9 @@ Calculation ในแต่ละรอบนั่นเอง คราวน�
 
 \begin{equation}
     \label{eq:Exact_Wavefunction}
-    \psi^{\text{exact}}_{i} = \sum_{\mu} C_{i \mu} \psi^{\text{HF}}_{\mu}
+    \psi^{\text{exact}}_{i} 
+    = 
+    \sum_{\mu} C_{i \mu} \psi^{\text{HF}}_{\mu}
 \end{equation}
 
 \noindent โดยที่ $C_{i \mu}$ คือสัมประสิทธิ์ของการกระจาย (Expansion Coefficients) ที่เราจะต้องคำนวณนั่นเอง ในทฤษฎี Molecular 
@@ -1980,15 +2211,14 @@ Configuration State Functions (CSFs) ที่ถูกสร้างขึ้�
     \label{eq:Wavefunction_CI}
     \begin{aligned}    
         \psi_0^{\mathrm{CI}} 
-        = & 
-        C_0 \psi_0^{\mathrm{HF}} 
-        + \sum_\mu C_\mu \psi_\mu^{(1)} 
-        + \sum_\mu C_\mu \psi_\mu^{(2) } 
-        + \ldots \\
         = & C_0 \psi_0^{\mathrm{HF}} 
-        +\sum_i \sum_a C_i^a \psi_i^a 
-        + \sum_{\substack{i, \\ j>i}} \sum_{\substack{a, \\ b>a}} C_{i j}^{a b} \psi_{i j}^{a b} 
-        + \ldots
+            + \sum_\mu C_\mu \psi_\mu^{(1)} 
+            + \sum_\mu C_\mu \psi_\mu^{(2) } 
+            + \ldots \\
+        = & C_0 \psi_0^{\mathrm{HF}} 
+            +\sum_i \sum_a C_i^a \psi_i^a 
+            + \sum_{\substack{i, \\ j>i}} \sum_{\substack{a, \\ b>a}} C_{i j}^{a b} \psi_{i j}^{a b} 
+            + \ldots
     \end{aligned}
 \end{equation}
 
@@ -2037,7 +2267,9 @@ $n$ ตัวแล้วเราจะทำการใส่อิเล็�
 
 \begin{equation}
     \label{eq:Full_CI}
-    N_{\mathrm{FCI}} = \frac{(2 m) !}{n !(2 m-n) !}
+    N_{\mathrm{FCI}} 
+    = 
+    \frac{(2 m) !}{n !(2 m-n) !}
 \end{equation}
 
 \noindent โดยที่ Scaling ของจำนวนที่เป็นไปได้ในการจัด Excitations นั้นจะแปลผันตาม Factorial ของขนาดของปัญหาซึ่งก็คือจำนวนของ%
@@ -2064,7 +2296,12 @@ Correlation เข้าไปได้ยังไงและจะแสด�
         \hat{\mathscr{H}}_{\mathrm{HF}} 
         & = \sum_{i=1}^n \hat{f}_i \\
         & = \sum_{i=1}^n 
-            \left(\hat{h}_i+\sum_{j=1}^n\left(\hat{\mathscr{J}}_j-\hat{\mathscr{K}}_j\right)\right)
+            \left(
+                \hat{h}_i + \sum_{j=1}^n 
+                    \left(
+                        \hat{\mathscr{J}}_j - \hat{\mathscr{K}}_j 
+                    \right)
+            \right)
     \end{aligned}
 \end{equation}
 
@@ -2077,8 +2314,11 @@ Correlation เข้าไปได้ยังไงและจะแสด�
     \label{eq:Perturbation_Operator_1st}
     \begin{aligned}
         \hat{\mathscr{H}}_1 
-        & = \hat{\mathscr{H}}^{\mathrm{el}}-\hat{\mathscr{H}}_{\mathrm{HF}} \\ 
-        & = \hat{\mathscr{V}}_{e e} - \sum_{i, j=1}^n\left(\hat{\mathscr{J}}_j - \hat{\mathscr{K}}_j\right)
+        & = \hat{\mathscr{H}}^{\mathrm{el}} - \hat{\mathscr{H}}_{\mathrm{HF}} \\ 
+        & = \hat{\mathscr{V}}_{e e} - \sum_{i, j=1}^n 
+            \left(
+                \hat{\mathscr{J}}_j - \hat{\mathscr{K}}_j 
+            \right)
     \end{aligned}
 \end{equation}
 
@@ -2096,14 +2336,21 @@ Perturbation หรือ Zeroth-order Energy $(\varepsilon_{0}^{(0)})$ นั�
 ซึ่งได้จากการใช้ Perturbation Operator $(\hat{\mathscr{H}}_1)$ มีหน้าตาดังต่อไปนี้ 
 
 \begin{equation}
-    \varepsilon_{0}^{(1)} = -\frac{1}{2} \sum_{i, j=1}^{n}\left(J_{i j}-K_{i j}\right)
+    \varepsilon_{0}^{(1)} 
+    = 
+    - \frac{1}{2} \sum_{i, j=1}^{n} 
+        \left(
+            J_{i j}-K_{i j} 
+        \right)
 \end{equation}
 
 \noindent โดยที่ว่าถ้าหากเราทำการอินทิเกรตเทอมแรกของสมการที่ \ref{eq:Perturbation_Operator_1st} จะหักล้างพอดีกับครึ่งหนึ่งของของ%
 การอินทิเกรตเทอมที่สอง ดังนั้นพลังงาน HF $(E_{0})$ สามารถเขียนใหม่ได้เป็น 
 
 \begin{equation}
-    E_{0} = \varepsilon_{0}^{(0)}+\varepsilon_{0}^{(1)}+V_{n n}
+    E_{0} 
+    = 
+    \varepsilon_{0}^{(0)}+\varepsilon_{0}^{(1)}+V_{n n}
 \end{equation}
 
 \noindent โดยที่เราทำการเพิ่มพลังงานที่เกิดจากการผลักกันระหว่างนิวเคลียสเข้าไปได้ด้วย นอกจากนี้เราจะพบว่าพลังงาน Electron Correlation 
@@ -2117,10 +2364,20 @@ Second-order Perturbation
 \begin{equation}
     \label{eq:Perturbation_Second_order}
     \varepsilon_{0}^{(2)} 
-    = \sum_{j=1}^{\infty} 
-        \frac{\left\langle\psi_{0}^{(0)}\left|\hat{\mathscr{H}}_{1}\right| \psi_{j}^{(0)}\right\rangle
-            \left\langle\psi_{j}^{(0)}\left|\hat{\mathscr{H}}_{1}\right| \psi_{0}^{(0)}\right\rangle}
-        {\varepsilon_{0}^{(0)}-\varepsilon_{j}^{(0)}}
+    = 
+    \sum_{j=1}^{\infty} 
+        \frac
+        {
+            \left\langle
+                \psi_{0}^{(0)} \left|\hat{\mathscr{H}}_{1}\right| \psi_{j}^{(0)}
+            \right\rangle
+            \left\langle
+                \psi_{j}^{(0)} \left|\hat{\mathscr{H}}_{1}\right| \psi_{0}^{(0)}
+            \right\rangle
+        }
+        {
+            \varepsilon_{0}^{(0)}-\varepsilon_{j}^{(0)}
+        }
 \end{equation}
 
 \noindent ตามทฤษฎี CI นั้นเราสามารถเขียน Excited States Wavefunction $(\psi_{j}^{(0)})$ ให้อยู่ในรูปของผลรวมของ Single 
@@ -2150,15 +2407,23 @@ Perturbation (MP2) เลยและเรายังพบอีกว่า�
 \begin{equation}
     \begin{aligned}
         \sum_{\substack{i \\ j>i}} \sum_{\substack{a \\ b>a}} 
-            \langle\psi_{0}^{\mathrm{HF}} | \hat{\mathscr{H}}^{\mathrm{el}} 
-            - \sum_{k} \hat{f}_{k} | \psi_{i j}^{a b}\rangle & 
+            \langle
+                \psi_{0}^{\mathrm{HF}} | \hat{\mathscr{H}}^{\mathrm{el}} 
+                - \sum_{k} \hat{f}_{k} | \psi_{i j}^{a b}
+            \rangle & 
         = \sum_{\substack{i \\ j>i}} \sum_{\substack{a \\ b>a}} 
-            \left\langle\psi_{0}^{\mathrm{HF}} 
+            \left\langle
+                \psi_{0}^{\mathrm{HF}} 
                 \left|\hat{\mathcal{V}}_{e e}\right| 
-                \psi_{i j}^{a b}\right\rangle \\
+                \psi_{i j}^{a b}
+            \right\rangle \\
         & =\sum_{\substack{i \\ j>i}} \sum_{\substack{a \\ b>a}} 
-            \left\langle\chi_{i} \chi_{j}|\hat{g}| \chi_{a} \chi_{b}\right\rangle 
-            - \left\langle\chi_{i} \chi_{j}|\hat{g}| \chi_{b} \chi_{a}\right\rangle
+            \left\langle
+                \chi_{i} \chi_{j}|\hat{g}| \chi_{a} \chi_{b}
+            \right\rangle 
+            - \left\langle
+                \chi_{i} \chi_{j}|\hat{g}| \chi_{b} \chi_{a}
+            \right\rangle
     \end{aligned}
 \end{equation}
 
@@ -2168,9 +2433,14 @@ Perturbation (MP2) เลยและเรายังพบอีกว่า�
     \epsilon^{(2)}_{0} 
     = 
     \sum_{\substack{i \\ j>i}} \sum_{\substack{a \\ b>a}} 
-        \frac{\left| \left\langle \chi_{i}\chi_{j} | \hat{g} | \chi_{a}\chi_{b} \right\rangle
-            - \left\langle \chi_{i}\chi_{j} | \hat{g} | \chi_{b}\chi_{a} \right\rangle \right|^{2}}
-            {(\epsilon_{i} - \epsilon_{a}) + (\epsilon_{j} - \epsilon_{b})}
+        \frac
+        {
+            \left| \left\langle \chi_{i}\chi_{j} | \hat{g} | \chi_{a}\chi_{b} \right\rangle
+            - \left\langle \chi_{i}\chi_{j} | \hat{g} | \chi_{b}\chi_{a} \right\rangle \right|^{2}
+        }
+        {
+            (\epsilon_{i} - \epsilon_{a}) + (\epsilon_{j} - \epsilon_{b})
+        }
 \end{equation}
 
 \noindent โดยที่ในตัวส่วนของ Fraction ด้านบนนั้นคือพลังงานกระตุ้น (Excitation Energy) สำหรับ Wavefunction ที่ไม่ถูกรบกวน 
@@ -2212,7 +2482,9 @@ DFT นั้นจะใช้หลักการขั้นตอนขอ�
 
 \begin{equation}
     \label{eq:Electron_Density_No_Electrons}
-    \int \rho(\vec{r}) \mathrm{d} \vec{r} = n
+    \int \rho(\vec{r}) \mathrm{d} \vec{r} 
+    = 
+    n
 \end{equation}
 
 \noindent และถ้าหากเรานำ Variational Principle เข้ามาใช้ด้วยเราจะได้ว่า Energy Functional $(E[\rho(\vec{r})])$ นั้นจะถูก%
@@ -2220,8 +2492,16 @@ DFT นั้นจะใช้หลักการขั้นตอนขอ�
 
 \begin{equation}
     \label{eq:Energy_Functional_Minized}
-    \frac{\delta}{\delta \rho(\vec{r})}\left(E[\rho(\vec{r})] 
-        - \mu \int \rho(\vec{r}) \mathrm{d} \vec{r}\right)
+    \frac
+    {
+        \delta
+    }
+    {
+        \delta \rho(\vec{r})
+    }
+    \left(
+        E[\rho(\vec{r})] - \mu \int \rho(\vec{r}) \mathrm{d} \vec{r}
+    \right)
     = 0
 \end{equation}
 
@@ -2248,9 +2528,9 @@ $F[\rho(\vec{r})]$ (ในสมการที่ \ref{eq:Energy_Functional_DFT
 \begin{equation}
     F[\rho(\vec{r})] 
     = 
-    + E_{\text{KE}}[\rho(\vec{r})]
-    + E_{\text{H}}[\rho(\vec{r})] 
-    + E_{\text{XC}}[\rho(\vec{r})]
+    E_{\text{KE}}[\rho(\vec{r})]
+        + E_{\text{H}}[\rho(\vec{r})] 
+        + E_{\text{XC}}[\rho(\vec{r})]
 \end{equation}
 
 \noindent ดังนั้นสมการที่ \ref{eq:Energy_Functional_DFT} จึงกลายเป็น 
@@ -2282,7 +2562,12 @@ Approach ก็คือใช้ออร์บิทัล $(\varphi\left(\vec
 
 \begin{equation}
     \label{eq:Electron_Density}
-    \rho(\vec{r}) = \sum_{i=1}^n\left|\varphi\left(\vec{r}_i\right)\right|^2
+    \rho(\vec{r}) 
+    = 
+    \sum_{i=1}^n 
+        \left|
+            \varphi\left(\vec{r}_i\right)
+        \right|^2
 \end{equation}
 
 \noindent โดย $\rho(\vec{r})$ เป็น Representation ที่ขึ้นกับตัวแปรเพียงแค่ 3 ตัวเท่านั้น นอกจากนี้แล้วเรายังสามารถ Basis Sets 
@@ -2291,7 +2576,16 @@ Derivative ของ Energy Functional ได้ดังนี้
 
 \begin{equation}
     V_{\mathrm{XC}} 
-    = \left(\frac{\delta E_{\mathrm{XC}}[\rho(\vec{r})]}{\delta \rho(\vec{r})}\right)_{V_{\mathrm{ext}}}
+    = 
+    \left(
+        \frac
+        {
+            \delta E_{\mathrm{XC}}[\rho(\vec{r})]
+        }
+        {
+            \delta \rho(\vec{r})
+        }
+    \right)_{V_{\mathrm{ext}}}
 \end{equation}
 
 \noindent โดยที่ $V_{X C}$ คือฟังก์ชันนอลของ Exchange-Correlation Functional ซึ่งพอเรานำทุกเทอมมารวมกันแล้วเราจะได้ว่า 
@@ -2299,14 +2593,23 @@ Hamiltonian Operator ของ KS-DFT นั้นจะสามารถนำ
 
 \begin{equation}
     \label{eq:Kohn_Sham_Equation}
-    \left(V_{\mathrm{KE}}+V_{\mathrm{ext}}+V_{\mathrm{H}}+V_{\mathrm{XC}}\right) \varphi_i 
-    = \varepsilon_i \varphi_i
+    \left(
+        V_{\mathrm{KE}} 
+        + V_{\mathrm{ext}} 
+        + V_{\mathrm{H}} 
+        + V_{\mathrm{XC}}
+    \right) 
+    \varphi_i 
+    = 
+    \varepsilon_i \varphi_i
 \end{equation}
 
 \noindent แล้วถ้าหากว่าผู้อ่านยังจำกันได้ว่า Fock Operator นั้นมีสมการดังต่อไปนี้
 
 \begin{equation}
-    \hat{f}_i = \hat{h}_i+\sum_{j=1}^n\left(\hat{\mathscr{J}}_j-\hat{\mathscr{K}}_j\right)
+    \hat{f}_i 
+    = 
+    \hat{h}_i + \sum_{j=1}^n \left(\hat{\mathscr{J}}_j - \hat{\mathscr{K}}_j\right)
 \end{equation}
 
 \noindent เราจะสามารถเทียบเคียงเทอมแต่ละเทอมใน Fock Operator กับ Kohn-Sham Hamiltonian Operator ได้ดังนี้ 
@@ -2325,7 +2628,11 @@ Fock operator ที่ถูกดัดแปลงมานั่นเอง
 
 \begin{equation}
     \hat{f}_i^{\mathrm{DFT}} 
-    = V_{\mathrm{KE}}+V_{\mathrm{ext}}+V_{\mathrm{H}}+V_{\mathrm{XC}}
+    = 
+    V_{\mathrm{KE}} 
+        + V_{\mathrm{ext}} 
+        + V_{\mathrm{H}} 
+        + V_{\mathrm{XC}}
 \end{equation}
 
 \noindent โดยที่ได้รวมผลของ Correction สำหรับ Electron Correlation เข้าไปด้วยโดยผ่านเทอม Exchange-Correlation Functional 

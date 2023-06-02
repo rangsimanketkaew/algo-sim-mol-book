@@ -19,50 +19,68 @@
 คุณสมบัติเชิงพลวัตได้ เช่น สัมประสิทธิ์การเคลื่อนที่ (Transport Coefficients), การตอบสนองต่อการรบกวนแบบที่ขึ้นกับเวลา (Time-dependt 
 Response to Perturbation), และสเปกตรัม
 
-ตัวอย่างของคุณสมบัติหรือปรากฏการณ์ที่เราสามารถใช้ MD เพื่อศึกษาได้นั้นมีดังต่อไปนี้
+ตัวอย่างของคุณสมบัติและปรากฏการณ์ของโมเลกุลหรือสสารที่เราสามารถใช้การจำลอง MD เพื่อศึกษาได้นั้นมีดังต่อไปนี้
 
 \noindent \textbf{เคมี (Chemistry)}
 
 \begin{itemize}[topsep=0pt,noitemsep]
-    \item Intra- and Intermolecular Interactions (Molecular Mechanics)
-    \item Chemical Reactions
-    \item Phase Transitions
-    \item Free Energy Calculations
+    \setlength\itemsep{0.5em}
+    \item อันตรกิริยาภายในและภายนอกโมเลกุล (Intra- and Intermolecular Interactions)
+    
+    \item ปฏิกิริยาเคมี (Chemical Reactions)
+    
+    \item การเปลี่ยนเฟส (Phase Transitions)
+    
+    \item การคำนวณพลังงานอิสระ (Free Energy Calculations)
 \end{itemize}
 
 \noindent \textbf{วัสดุศาสตร์ (Materials Science)}
 
 \begin{itemize}[topsep=0pt,noitemsep]
-    \item Equilibrium Thermodynamics
-    \item Phase Transitions
+    \setlength\itemsep{0.5em}
+    \item เทอร์โมไดนามิกส์ที่สภาวะสมดุล (Equilibrium Thermodynamics)
+    
+    \item การเปลี่ยนเฟส (Phase Transitions)
+    
     \item Properties of Lattice Defects
+    
     \item Nucleation and Surface Growth
-    \item Heat/Pressure Processing
+    
+    \item กระบวนการความร้อนและความ (Heat/Pressure Processing)
+    
     \item Ion Implantation
+    
     \item Properties of Nanostructures
 \end{itemize}
 
 \noindent \textbf{ชีวเชิงฟิสิกส์และชีวเคมี (Biophysics and Biochemistry)}
 
 \begin{itemize}[topsep=0pt,noitemsep]
-    \item Protein Folding
-    \item Protein Structure Prediction
-    \item Biocombatibility (Cell Wall Penetration, Chemical Processes)
-    \item Molecular Docking
+    \setlength\itemsep{0.5em}
+    \item การพับของโปรตีน (Protein Folding)
+    
+    \item การทำนายโครงสร้างของโปรตีน (Protein Structure Prediction)
+    
+    \item การเข้ากันได้เชิงชีวะ (Biocombatibility) เช่น Cell Wall Penetration หรือ Chemical Processes
+    
+    \item การจำลองการจับกันของโมเลกุล (Molecular Docking)
 \end{itemize}
 
 \noindent \textbf{การแพทย์ (Medicine)}
 
 \begin{itemize}[topsep=0pt,noitemsep]
-    \item Drug Design 
-    \item Drug Discovery
+    \setlength\itemsep{0.5em}
+    \item การออกแบบโมเลกุลยา (Drug Design)
+    
+    \item การค้นหาโมเลกุลยา (Drug Discovery)
 \end{itemize}
 
 %----------------------------------------
 \section{ประวัติศาสตร์ของ Molecular Dynamics}
 %----------------------------------------
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
+    \setlength\itemsep{1em}
     \item 1953: Nicholas Metropolis และคณะได้ตีพิมพ์บทความวิจัยเรื่อง \enquote{Equation of State Calculations by Fast 
     Computing Machines}\autocite{metropolis1953} โดยบทความนี้เป็นเสมือนจุดเริ่มต้นของไอเดีย MD เลยก็ว่าได้ โดยเป็นครั้งแรกที่%
     ได้มีการประยุกต์ใช้เทคนิค Monte Carlo เพื่อแก้สมการที่อธิบายคุณสมบัติเชิงกายภาพของระบบที่ประกอบไปด้วยโมเลกุลที่มีอันตรกิริยาต่อกัน 
@@ -107,6 +125,66 @@ Response to Perturbation), และสเปกตรัม
 %----------------------------------------
 \section{ทำความรู้จักกับสนามแรง}
 %----------------------------------------
+
+สนามแรง (Force Field) เป็นสมการคณิตศาสตร์ที่อธิบายพื้นผิวพลังงานศักย์ของโมเลกุลได้โดย Force Field นั้นจะเป็นผลรวมของเทอมพลังงานต่าง ๆ 
+ที่อ้างอิงอยู่กับอะตอมและมีพารามิเตอร์ที่สอดคล้องกับโครงสร้างเชิงอิเล็กทรอนิกส์ของโมเลกุลซึ่งเทอมพลังงานแต่ละเทอมนั้นจะมีการตีความทางกายภาพ 
+(Physical Interpretation) แตกต่างกันไป ไอเดียเริ่มต้นของ Force Field นั้นก็คือในการจำลอง MD นั้นเราจำเป็นจะต้องคำนวณแรง (Force) 
+ระหว่างอะตอมแต่ละคู่ของทุกอะตอมในระบบของเราซึ่งอาจจะมีมากถึงหลักพันหรือหลักหมื่นอะตอมเลยทีเดียว โดยทั่วไปแล้ว Time-step ที่เรามักจะใช้ใน%
+การจำลอง MD นั้นคือ 1 fs ถ้าหากเราต้องการรัน MD เป็นระยะเวลา 100 ns เราจำเป็นจะต้องคำนวณแรงระหว่างอะตอมทั้งหมดประมาณ 
+\num{e7}-\num{e8} ครั้งเลยทีเดียว สำหรับ Force Field มาตรฐานของพื้นผิวพลังงานศักย์ของโมเลกุล (Potential Energy Surface หรือ 
+PES) นั้นมีหน้าตาประมาณนี้
+
+\begin{equation}
+    \begin{aligned}
+        V\left(R^{3N}\right)
+        = & \underbrace{
+                \sum^{\text{bonds}}_{i} \frac{k_{i}}{2} (l_{i} - l_{i,0})^{2}
+            }_
+            {
+                \text{Bond Stretches}
+            }
+            +
+            \underbrace{
+                \sum^{\text{angles}}_{i} \frac{k_{i}}{2} (\theta_{i} - \theta_{i,0})^{2}
+            }_
+            {
+                \text{Angle Bends}
+            }
+            +
+            \underbrace{
+                \sum^{\text{torsions}}_{i} \frac{V_{i}}{2} (1 + \cos(n_{i} \omega_{i} - \gamma_{i}))
+            }_
+            {
+                \text{Torsional Motion}
+            } \\
+        & + \underbrace{
+                \sum_{i,j > i} 
+                    \underbrace{
+                        4 \epsilon_{i,j} 
+                        \left( 
+                            \left( \frac{\sigma_{ij}}{R_{ij}} \right)^{12} 
+                            - \left( \frac{\sigma_{ij}}{R_{ij}} \right)^{6}
+                        \right)
+                    }_
+                    {
+                        \text{Lennard-Jones Term}
+                    } 
+                    + 
+                    \underbrace
+                    {
+                        \frac{q_{i} q_{j}}{4 \pi \epsilon_{0} R_{ij}}
+                    }_
+                    {
+                        \text{Coulomb Term}
+                    }
+            }_
+            {
+                \text{Intermolecular Interactions}
+            } 
+    \end{aligned}
+\end{equation}
+
+โดยที่ 
 
 %----------------------------------------
 \section{สนามแรงสำหรับพันธะโควาเลนท์}
