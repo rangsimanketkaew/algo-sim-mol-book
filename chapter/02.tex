@@ -11,12 +11,12 @@
 \section{การประยุกต์ใช้ Molecular Dynamics}
 %----------------------------------------
 
-ก่อนที่เราจะไปศึกษาวิธีการจำลองระบบโมเลกุลที่มีความซับซ้อนนั้นเราควรเริ่มต้นด้วยการศึกษาวิธีอย่างง่ายก่อนนั่นก็คือ Molecular Dynamics (MD) 
+ก่อนที่เราจะไปศึกษาวิธีการจำลองระบบโมเลกุลที่มีความซับซ้อนนั้นเราควรเริ่มต้นด้วยการศึกษาวิธีอย่างง่ายก่อนนั่นก็คือ Molecular Dynamics (MD)
 (จริง ๆ จะว่าไปแล้ววิธีนี้ก็ไม่ได้ง่ายนะครับ ถ้าลงรายละเอียดลึก ๆ แล้วก็มีความซับซ้อนมากพอสมควร ซึ่งในปัจจุบันนั้นก็มีการทำวิจัยที่เกี่ยวข้องกับ%
-การพัฒนาเทคนิคของวิธี MD อย่างต่อเนื่อง) เราใช้เทคนิคการจำลองทางคอมพิวเตอร์ในการทำความเข้าใจคุณสมบัติของระบบที่ประกอบไปด้วยโมเลกุล 
+การพัฒนาเทคนิคของวิธี MD อย่างต่อเนื่อง) เราใช้เทคนิคการจำลองทางคอมพิวเตอร์ในการทำความเข้าใจคุณสมบัติของระบบที่ประกอบไปด้วยโมเลกุล
 ๆ โมเลกุลในเชิงโครงสร้างและอันตรกิริยาในระดับจุลภาคหรือหน่วยย่อย ซึ่งหน่วยย่อยในที่นี้ก็คือโมเลกุลนั่นเอง โดยเราสามารถแบ่งวิธีการจำลองออก%
 ได้เป็น 2 วิธีคือ Molecular Dynamics (MD) กับ Monte Carlo (MC) และหนังสือเล่มนี้จะเน้นไปที่ MD ซึ่งเป็นวิธีที่สามารถนำมาใช้ในการศึกษา%
-คุณสมบัติเชิงพลวัตได้ เช่น สัมประสิทธิ์การเคลื่อนที่ (Transport Coefficients), การตอบสนองต่อการรบกวนแบบที่ขึ้นกับเวลา (Time-dependt 
+คุณสมบัติเชิงพลวัตได้ เช่น สัมประสิทธิ์การเคลื่อนที่ (Transport Coefficients), การตอบสนองต่อการรบกวนแบบที่ขึ้นกับเวลา (Time-dependt
 Response to Perturbation), และสเปกตรัม
 
 ตัวอย่างของคุณสมบัติและปรากฏการณ์ของโมเลกุลหรือสสารที่เราสามารถใช้การจำลอง MD เพื่อศึกษาได้นั้นมีดังต่อไปนี้
@@ -26,11 +26,11 @@ Response to Perturbation), และสเปกตรัม
 \begin{itemize}[topsep=0pt,noitemsep]
     \setlength\itemsep{0.5em}
     \item อันตรกิริยาภายในและภายนอกโมเลกุล (Intra- and Intermolecular Interactions)
-    
+
     \item ปฏิกิริยาเคมี (Chemical Reactions)
-    
+
     \item การเปลี่ยนเฟส (Phase Transitions)
-    
+
     \item การคำนวณพลังงานอิสระ (Free Energy Calculations)
 \end{itemize}
 
@@ -39,17 +39,17 @@ Response to Perturbation), และสเปกตรัม
 \begin{itemize}[topsep=0pt,noitemsep]
     \setlength\itemsep{0.5em}
     \item เทอร์โมไดนามิกส์ที่สภาวะสมดุล (Equilibrium Thermodynamics)
-    
+
     \item การเปลี่ยนเฟส (Phase Transitions)
-    
+
     \item Properties of Lattice Defects
-    
+
     \item Nucleation and Surface Growth
-    
+
     \item กระบวนการความร้อนและความ (Heat/Pressure Processing)
-    
+
     \item Ion Implantation
-    
+
     \item Properties of Nanostructures
 \end{itemize}
 
@@ -58,11 +58,11 @@ Response to Perturbation), และสเปกตรัม
 \begin{itemize}[topsep=0pt,noitemsep]
     \setlength\itemsep{0.5em}
     \item การพับของโปรตีน (Protein Folding)
-    
+
     \item การทำนายโครงสร้างของโปรตีน (Protein Structure Prediction)
-    
+
     \item การเข้ากันได้เชิงชีวะ (Biocombatibility) เช่น Cell Wall Penetration หรือ Chemical Processes
-    
+
     \item การจำลองการจับกันของโมเลกุล (Molecular Docking)
 \end{itemize}
 
@@ -71,7 +71,7 @@ Response to Perturbation), และสเปกตรัม
 \begin{itemize}[topsep=0pt,noitemsep]
     \setlength\itemsep{0.5em}
     \item การออกแบบโมเลกุลยา (Drug Design)
-    
+
     \item การค้นหาโมเลกุลยา (Drug Discovery)
 \end{itemize}
 
@@ -81,111 +81,115 @@ Response to Perturbation), และสเปกตรัม
 
 \begin{itemize}[noitemsep]
     \setlength\itemsep{1em}
-    \item 1953: Nicholas Metropolis และคณะได้ตีพิมพ์บทความวิจัยเรื่อง \enquote{Equation of State Calculations by Fast 
-    Computing Machines}\autocite{metropolis1953} โดยบทความนี้เป็นเสมือนจุดเริ่มต้นของไอเดีย MD เลยก็ว่าได้ โดยเป็นครั้งแรกที่%
-    ได้มีการประยุกต์ใช้เทคนิค Monte Carlo เพื่อแก้สมการที่อธิบายคุณสมบัติเชิงกายภาพของระบบที่ประกอบไปด้วยโมเลกุลที่มีอันตรกิริยาต่อกัน 
-    โดยขั้นแรกคือสร้างเซตของตัวเลขสุ่ม (Random Number) เพื่อใช้เป็นตัวแทนของ Conformational Space แล้วก็ใช้ค่าของพลังงานเป็นตัว%
-    ระบุความน่าจะเป็นของสถานะของระบบที่ศึกษา
-    
-    \item 1956: Berni J. Alder และ Thomas E. Wainwright ได้ตีพิมพ์บทความเรื่อง \enquote{Phase Transition for a Hard 
-    Sphere System}\autocite{alder1957} ซึ่งถือได้ว่าเป็นงานวิจัยที่เป็นจุดเริ่มต้นของ MD เลยก็ว่าได้
-    
-    \item 1958: เป็นครั้งแรกที่นักวิทยาศาสตร์ค้นพบโครงสร้างสามมิติของโปรตีนได้โดยใช้เทคนิค X-ray โดยเผยแพร่ในบทความ 
-    \enquote{A Three-Dimensional Model of the Myoglobin Molecule Obtained by X-Ray Analysis}\autocite{kendrew1958}
+    \item 1953: Nicholas Metropolis และคณะได้ตีพิมพ์บทความวิจัยเรื่อง \enquote{Equation of State Calculations by Fast
+              Computing Machines}\autocite{metropolis1953} โดยบทความนี้เป็นเสมือนจุดเริ่มต้นของไอเดีย MD เลยก็ว่าได้ โดยเป็นครั้งแรกที่%
+          ได้มีการประยุกต์ใช้เทคนิค Monte Carlo เพื่อแก้สมการที่อธิบายคุณสมบัติเชิงกายภาพของระบบที่ประกอบไปด้วยโมเลกุลที่มีอันตรกิริยาต่อกัน
+          โดยขั้นแรกคือสร้างเซตของตัวเลขสุ่ม (Random Number) เพื่อใช้เป็นตัวแทนของ Conformational Space แล้วก็ใช้ค่าของพลังงานเป็นตัว%
+          ระบุความน่าจะเป็นของสถานะของระบบที่ศึกษา
 
-    \item 1964: บทความวิจัยเรื่อง \enquote{Correlations in the Motion of Atoms in Liquid Argon}\autocite{rahman1964} 
-    โดย Aneesur Rahman ซึ่งเป็นผู้ที่ใช้ MD ในการคำนวณระบบของ Liquid Argon ซึ่งระบบที่ศึกษาตอนนั้นมี Argon ทั้งหมด 864 อะตอม 
-    โดยคำนวณด้วยซุปเปอร์คอมพิวเตอร์  CDC 3600 โดยใช้ Lennard-Jones Potential นอกจากนี้ Aneesur Rahman ได้รับการยอบรับว่า%
-    เป็นบิดาแห่งพลวัตเชิงโมเลกุลอีกด้วย (The Father of Molecular Dynamics)
+    \item 1956: Berni J. Alder และ Thomas E. Wainwright ได้ตีพิมพ์บทความเรื่อง \enquote{Phase Transition for a Hard
+              Sphere System}\autocite{alder1957} ซึ่งถือได้ว่าเป็นงานวิจัยที่เป็นจุดเริ่มต้นของ MD เลยก็ว่าได้
 
-    \item 1971: Aneesur Rahman และ Frank H. Stillinger ได้ตีพิมพ์บทความเรื่อง \enquote{Molecular Dynamics Study of 
-    Liquid Water}\autocite{rahman1971} ซึ่งเป็นใช้ MD ในการจำลองระบบโมเลกุลน้ำที่มีจำนวนโมเลกุลคือ 216 โมเลกุล 
+    \item 1958: เป็นครั้งแรกที่นักวิทยาศาสตร์ค้นพบโครงสร้างสามมิติของโปรตีนได้โดยใช้เทคนิค X-ray โดยเผยแพร่ในบทความ
+          \enquote{A Three-Dimensional Model of the Myoglobin Molecule Obtained by X-Ray Analysis}\autocite{kendrew1958}
 
-    \item 1975: Michael Levitt และ Arich Warshel ได้เผยแพร่บทความวิจัยเรื่อง \enquote{Computer Simulation of Protein 
-    Folding}\autocite{levitt1975} ซึ่งเป็นครั้งแรกที่มีการนำเทคนิค MD มาใช้ในการจำลองการพับของโปรตีนโดยเป็นการศึกษาการพับของ 
-    Bovine Pancreatic Trypsin Inhibitor (BPTI) จากโครงสร้างที่เป็นแบบสายเปิด
+    \item 1964: บทความวิจัยเรื่อง \enquote{Correlations in the Motion of Atoms in Liquid Argon}\autocite{rahman1964}
+          โดย Aneesur Rahman ซึ่งเป็นผู้ที่ใช้ MD ในการคำนวณระบบของ Liquid Argon ซึ่งระบบที่ศึกษาตอนนั้นมี Argon ทั้งหมด 864 อะตอม
+          โดยคำนวณด้วยซุปเปอร์คอมพิวเตอร์  CDC 3600 โดยใช้ Lennard-Jones Potential นอกจากนี้ Aneesur Rahman ได้รับการยอบรับว่า%
+          เป็นบิดาแห่งพลวัตเชิงโมเลกุลอีกด้วย (The Father of Molecular Dynamics)
 
-    \item 1979: David A. Case และ Martin Karplus ได้จำลองโปรตีนที่มีลิแกนด์เป็นโมเลกุลที่เข้าไปจับกับโปรแกรมด้วยเป็นครั้งแรก 
-    โดยได้ตีพิมพ์งานวิจัยเรื่อง \enquote{Dynamics of ligand binding to heme protein}\autocite{case1979}
+    \item 1971: Aneesur Rahman และ Frank H. Stillinger ได้ตีพิมพ์บทความเรื่อง \enquote{Molecular Dynamics Study of
+              Liquid Water}\autocite{rahman1971} ซึ่งเป็นใช้ MD ในการจำลองระบบโมเลกุลน้ำที่มีจำนวนโมเลกุลคือ 216 โมเลกุล
 
-    \item 1980s: ในช่วงต้น ๆ ทศวรรษ 1980 นั้นเป็นช่วงที่มีการศึกษาชีวโมเลกุลด้วยการจำลอง MD เป็นจำนวนมาก รวมไปถึงมีการคำนวณ 
-    Free Energy ด้วย
+    \item 1975: Michael Levitt และ Arich Warshel ได้เผยแพร่บทความวิจัยเรื่อง \enquote{Computer Simulation of Protein
+              Folding}\autocite{levitt1975} ซึ่งเป็นครั้งแรกที่มีการนำเทคนิค MD มาใช้ในการจำลองการพับของโปรตีนโดยเป็นการศึกษาการพับของ
+          Bovine Pancreatic Trypsin Inhibitor (BPTI) จากโครงสร้างที่เป็นแบบสายเปิด
+
+    \item 1979: David A. Case และ Martin Karplus ได้จำลองโปรตีนที่มีลิแกนด์เป็นโมเลกุลที่เข้าไปจับกับโปรแกรมด้วยเป็นครั้งแรก
+          โดยได้ตีพิมพ์งานวิจัยเรื่อง \enquote{Dynamics of ligand binding to heme protein}\autocite{case1979}
+
+    \item 1980s: ในช่วงต้น ๆ ทศวรรษ 1980 นั้นเป็นช่วงที่มีการศึกษาชีวโมเลกุลด้วยการจำลอง MD เป็นจำนวนมาก รวมไปถึงมีการคำนวณ
+          Free Energy ด้วย
 
     \item 1985: Roberto Car Michele Parrinello ได้พัฒนาเทคนิค Car-Parrinello Molecular Dynamics (CPMD) ซึ่งเสนอใน%
-    บทความเรื่อง \enquote{Unified Approach for Molecular Dynamics and Density-Functional Theory}\autocite{car1985} 
-    โดยเป็นการนำเทคนิค Density Functional Theory มารวมกับ Born-Oppenheimer Molecular Dynamics
+          บทความเรื่อง \enquote{Unified Approach for Molecular Dynamics and Density-Functional Theory}\autocite{car1985}
+          โดยเป็นการนำเทคนิค Density Functional Theory มารวมกับ Born-Oppenheimer Molecular Dynamics
 
-    \item 1988: Michael Levitt และ Ruth Sharon ได้คำนวณระบบของโปรตีนที่มีโมเลกุลน้ำเป็นตัวทำละลายและนำเสนอในบทความเรื่อง 
-    \enquote{Accurate Simulation of Protein Dynamics in Solution}\autocite{levitt1988}
+    \item 1988: Michael Levitt และ Ruth Sharon ได้คำนวณระบบของโปรตีนที่มีโมเลกุลน้ำเป็นตัวทำละลายและนำเสนอในบทความเรื่อง
+          \enquote{Accurate Simulation of Protein Dynamics in Solution}\autocite{levitt1988}
 
     \item 1990s: ในช่วงต้น ๆ ทศวรรษ 1990 นั้นก็ได้มีการพัฒนาศักย์ (Potential) ที่ใช้ในวิธี MD รวมถึงเทคนิคการเพิ่มประสิทธิภาพใน%
-    การสุ่ม (Enhanced Sampling) อย่างต่อเนื่อง
+          การสุ่ม (Enhanced Sampling) อย่างต่อเนื่อง
 \end{itemize}
 
 %----------------------------------------
 \section{ทำความรู้จักกับสนามแรง}
 %----------------------------------------
 
-สนามแรง (Force Field) เป็นสมการคณิตศาสตร์ที่อธิบายพื้นผิวพลังงานศักย์ของโมเลกุลได้โดย Force Field นั้นจะเป็นผลรวมของเทอมพลังงานต่าง ๆ 
-ที่อ้างอิงอยู่กับอะตอมและมีพารามิเตอร์ที่สอดคล้องกับโครงสร้างเชิงอิเล็กทรอนิกส์ของโมเลกุลซึ่งเทอมพลังงานแต่ละเทอมนั้นจะมีการตีความทางกายภาพ 
-(Physical Interpretation) แตกต่างกันไป ไอเดียเริ่มต้นของ Force Field นั้นก็คือในการจำลอง MD นั้นเราจำเป็นจะต้องคำนวณแรง (Force) 
+สนามแรง (Force Field) เป็นสมการคณิตศาสตร์ที่อธิบายพื้นผิวพลังงานศักย์ของโมเลกุลได้โดย Force Field นั้นจะเป็นผลรวมของเทอมพลังงานต่าง ๆ
+ที่อ้างอิงอยู่กับอะตอมและมีพารามิเตอร์ที่สอดคล้องกับโครงสร้างเชิงอิเล็กทรอนิกส์ของโมเลกุลซึ่งเทอมพลังงานแต่ละเทอมนั้นจะมีการตีความทางกายภาพ
+(Physical Interpretation) แตกต่างกันไป ไอเดียเริ่มต้นของ Force Field นั้นก็คือในการจำลอง MD นั้นเราจำเป็นจะต้องคำนวณแรง (Force)
 ระหว่างอะตอมแต่ละคู่ของทุกอะตอมในระบบของเราซึ่งอาจจะมีมากถึงหลักพันหรือหลักหมื่นอะตอมเลยทีเดียว โดยทั่วไปแล้ว Time-step ที่เรามักจะใช้ใน%
-การจำลอง MD นั้นคือ 1 fs ถ้าหากเราต้องการรัน MD เป็นระยะเวลา 100 ns เราจำเป็นจะต้องคำนวณแรงระหว่างอะตอมทั้งหมดประมาณ 
-\num{e7}-\num{e8} ครั้งเลยทีเดียว สำหรับ Force Field มาตรฐานของพื้นผิวพลังงานศักย์ของโมเลกุล (Potential Energy Surface หรือ 
+การจำลอง MD นั้นคือ 1 fs ถ้าหากเราต้องการรัน MD เป็นระยะเวลา 100 ns เราจำเป็นจะต้องคำนวณแรงระหว่างอะตอมทั้งหมดประมาณ
+\num{e7}-\num{e8} ครั้งเลยทีเดียว สำหรับ Force Field มาตรฐานของพื้นผิวพลังงานศักย์ของโมเลกุล (Potential Energy Surface หรือ
 PES) นั้นมีหน้าตาประมาณนี้
 
 \begin{equation}
     \begin{aligned}
         V\left(R^{3N}\right)
         = & \underbrace{
-                \sum^{\text{bonds}}_{i} \frac{k_{i}}{2} (l_{i} - l_{i,0})^{2}
+            \sum^{\text{bonds}}_{i} \frac{k_{i}}{2} (l_{i} - l_{i,0})^{2}
+        }_
+        {
+            \text{Bond Stretches}
+        }
+        +
+        \underbrace{
+            \sum^{\text{angles}}_{i} \frac{k_{i}}{2} (\theta_{i} - \theta_{i,0})^{2}
+        }_
+        {
+            \text{Angle Bends}
+        }
+        +
+        \underbrace{
+            \sum^{\text{torsions}}_{i} \frac{V_{i}}{2} (1 + \cos(n_{i} \omega_{i} - \gamma_{i}))
+        }_
+        {
+            \text{Torsional Motion}
+        }                  \\
+          & + \underbrace{
+            \sum_{i,j > i}
+            \underbrace{
+                4 \epsilon_{i,j}
+                \left(
+                \left( \frac{\sigma_{ij}}{R_{ij}} \right)^{12}
+                - \left( \frac{\sigma_{ij}}{R_{ij}} \right)^{6}
+                \right)
             }_
             {
-                \text{Bond Stretches}
+                \text{Lennard-Jones Term}
             }
             +
-            \underbrace{
-                \sum^{\text{angles}}_{i} \frac{k_{i}}{2} (\theta_{i} - \theta_{i,0})^{2}
+            \underbrace
+            {
+                \frac{q_{i} q_{j}}{4 \pi \epsilon_{0} R_{ij}}
             }_
             {
-                \text{Angle Bends}
+                \text{Coulomb Term}
             }
-            +
-            \underbrace{
-                \sum^{\text{torsions}}_{i} \frac{V_{i}}{2} (1 + \cos(n_{i} \omega_{i} - \gamma_{i}))
-            }_
-            {
-                \text{Torsional Motion}
-            } \\
-        & + \underbrace{
-                \sum_{i,j > i} 
-                    \underbrace{
-                        4 \epsilon_{i,j} 
-                        \left( 
-                            \left( \frac{\sigma_{ij}}{R_{ij}} \right)^{12} 
-                            - \left( \frac{\sigma_{ij}}{R_{ij}} \right)^{6}
-                        \right)
-                    }_
-                    {
-                        \text{Lennard-Jones Term}
-                    } 
-                    + 
-                    \underbrace
-                    {
-                        \frac{q_{i} q_{j}}{4 \pi \epsilon_{0} R_{ij}}
-                    }_
-                    {
-                        \text{Coulomb Term}
-                    }
-            }_
-            {
-                \text{Intermolecular Interactions}
-            } 
+        }_
+        {
+            \text{Intermolecular Interactions}
+        }
     \end{aligned}
 \end{equation}
 
-โดยที่พลังงานแต่ละเทอมนั้นมีตัวแปรที่เกี่ยวข้องกับลักษณะเชิงเรขาคณิตของโมเลกุล เช่น ความยาวพันธะ $l_{i}$, มุมพันธะ $\theta_{i}$, 
-มุมบิด $\omega_{i}$, และระยะห่างระหว่างอะตอม $R_{ij}$
+โดยที่พลังงานแต่ละเทอมนั้นมีตัวแปรที่เกี่ยวข้องกับลักษณะเชิงเรขาคณิตของโมเลกุล เช่น ความยาวพันธะ $l_{i}$, มุมพันธะ $\theta_{i}$,
+มุมบิด $\omega_{i}$, และระยะห่างระหว่างอะตอม $R_{ij}$ นอกจากนี้พลังงานแต่ละเทอมนั้นยังมีพารามิเตอร์ที่ขึ้นอยู่กับชนิดของอะตอมด้วย
+เช่น เทอมที่เป็นพลังงานสำหรับการยืดหดของพันธะ (Bond Strething) นั้นจะมีค่าคงที่แรง (Force Constant) $k_{i}$ และค่าความพันธะ%
+ที่สภาวะสมดุล (Equilibrium Bond Length) $l_{i,0}$ อย่างไรก็ตามถึงแม้ว่าเราอยากให้พารามิเตอร์ประเภทนี้นั้นมีแค่ค่าเพียงแค่ค่าเดียวสำหรับ%
+อะตอมแต่ละชนิดแต่ว่าในความเป็นจริงนั้นเราไม่สามารถทำได้เพราะว่าถึงแม้ว่าธาตุชนิดเดียวกัน เช่น คาร์บอนที่อยู่ในหมู่ Mehtyl Group (\ce{-CH3}) 
+กับหมู่ \ce{C=O} นั้นจะมี Characteristics ต่างกันดังนั้นจึงทำให้มีคุณสมบัติที่แตกต่างกัน
 
 %----------------------------------------
 \section{สนามแรงสำหรับพันธะโควาเลนท์}
@@ -262,11 +266,11 @@ PES) นั้นมีหน้าตาประมาณนี้
 ก็คือพิกัดคาร์ทีเซียนของตำแหน่งของอะตอม (นิวเคลียส) ทั้งหมดทุกอะตอมในโมเลกุลซึ่งเป็นพิกัดแบบ 3 มิติ
 
 \begin{equation}
-    \bm{r} = (\underbrace{r_{1,x}, r_{1,y}, r_{1,z}}_{\text{อะตอมตัวที่ 1}}, \dots, 
+    \bm{r} = (\underbrace{r_{1,x}, r_{1,y}, r_{1,z}}_{\text{อะตอมตัวที่ 1}}, \dots,
     \underbrace{r_{N,x}, r_{N,y}, r_{N,z}}_{\text{อะตอมตัวที่ $N$}})
 \end{equation}
 
-โดยในการจำลอง MD นั้นจะเป็นการแก้สมการที่ \ref{eq:force_newton} และ \ref{eq:force_der_ener} พร้อม ๆ กันไปเป็นสเต็ป ๆ 
+โดยในการจำลอง MD นั้นจะเป็นการแก้สมการที่ \ref{eq:force_newton} และ \ref{eq:force_der_ener} พร้อม ๆ กันไปเป็นสเต็ป ๆ
 ตลอดช่วงระยะเวลาที่ทำการจำลอง โดยระยะห่างระหว่างสเต็ปนั้นเรียกว่า Time Step ($\Delta t$)
 
 %----------------------------------------
@@ -281,20 +285,20 @@ PES) นั้นมีหน้าตาประมาณนี้
 การกำหนด Time Step นั่นจึงอยู่ที่ประมาณ 1 fs เพราะว่าถ้าหากเรากำหนด Time Step ที่กว้างหรือช้ากว่านี้เช่น 10 fs เราก็จะไม่สามารถติดตาม%
 การสั่นของโมเลกุลได้เพราะว่าช่วงระยะเวลาที่ใช้ในการขยับหรือเปลี่ยนตำแหน่งของโครสร้างของโมเลกุลนั้นมากกว่าการสั่นของโมเลกุลหลายเท่า
 
-สำหรับการจำลองเหตุการณ์หรือ Event ในการจำลอง MD นั้นเราควรจะต้องทราบถึงระยะเวลาที่เร็วที่สุดที่เหตุการณ์นั้นสามารถเกิดขึ้นได้ก่อน เช่น 
-การพับของโปรตีน (Protein Folding) นั้นจะใช้เวลาประมาณ 1 วินาที ดังนั้นถ้าหากเรากำนดให้ Time Step = 1 fs เราจะต้องทำการจำลอง 
+สำหรับการจำลองเหตุการณ์หรือ Event ในการจำลอง MD นั้นเราควรจะต้องทราบถึงระยะเวลาที่เร็วที่สุดที่เหตุการณ์นั้นสามารถเกิดขึ้นได้ก่อน เช่น
+การพับของโปรตีน (Protein Folding) นั้นจะใช้เวลาประมาณ 1 วินาที ดังนั้นถ้าหากเรากำนดให้ Time Step = 1 fs เราจะต้องทำการจำลอง
 MD ประมาณ $10^{15}$ สเต็ปถึงจะสามารถจำลองการพับของโปรตีนได้ อย่างไรก็ตามในความเป็นจริงนั้นปรากฎการณ์ต่าง ๆ ของโมเลกุลที่เกิดขึ้นนั้น%
 มักจะเกิดขึ้นในช่วงเวลาระดับ Microsecond ($\mu s$)
 
 \paragraph{2. Length Scale} สเกลขนาดหรือ Length Scale คือสเกลที่บ่งบอกถึงขนาดของระบบที่ถูกจำลองซึ่ง Length Scale นี้จะแบ่ง%
-ตามขนาดของระบบที่ใช้ในการศึกษา ถ้าหากเราต้องการที่จะศึกษาคุณสมบัติของระบบที่มีขนาดใหญ่ Length Scale ก็จะต้องสอดคล้องกับระบบด้วย 
+ตามขนาดของระบบที่ใช้ในการศึกษา ถ้าหากเราต้องการที่จะศึกษาคุณสมบัติของระบบที่มีขนาดใหญ่ Length Scale ก็จะต้องสอดคล้องกับระบบด้วย
 เช่น การจำลองโครงข่ายพอลิเมอร์ (Polymer) เพื่อให้มีความเหมาะสมและมีขนาดใหญ่ของระบบที่ใหญ่มากพอที่จะเป็นตัวแทนของระบบพอลิเมอร์%
-ในธรรมชาติจริง ๆ 
+ในธรรมชาติจริง ๆ
 
 \paragraph{3. ความแม่นยำของแรงที่คำนวณได้} หัวใจสำคัญของ MD นั้นก็คือการคำนวณแรงที่เป็นอันตรกิริยาระหว่างอะตอมในโมเลกุล ถ้าหาก%
 เราใช้วิธีการคำนวณแรงที่มีความแม่นยำสูงก็จะทำให้เราได้แรงที่มีความถูกต้องมาก แต่วิธีการที่มีความแม่นยำสูงนั้นมักจะต้องแลกมาด้วยการคำนวณที่%
 สิ้นเปลือง ดังนั้นเรามักจะทำการ Trade-off หรือชั่งน้ำหนักระหว่างการเลือกวิธีในการคำนวณแรงและความสิ้นเปลืองของวิธีนั้น ๆ เพราะอย่าลืมว่า%
-เราต้องคำนวณแรงทุก ๆ สเต็ปของการจำลอง MD 
+เราต้องคำนวณแรงทุก ๆ สเต็ปของการจำลอง MD
 
 %----------------------------------------
 \section{ขั้นตอนการจำลอง MD}
