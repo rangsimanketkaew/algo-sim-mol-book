@@ -147,83 +147,129 @@ Cluster ได้นั่นหมายความว่าโค้ดขอ
 \section{ทักษะและเครื่องมือสำหรับการเขียนโปรแกรมคำนวณทางวิทยาศาสตร์}
 %----------------------------------------
 
-\begin{itemize}
-  \item Scripting language: Bash, Python
+\noindent \textbf{ภาษาคอมพิวเตอร์}
 
-  \item Intensive subroutine with OOP: C++, Fortran
+\begin{itemize}[topsep=0pt]
+  \item ภาษาสคริปต์ (Scripting Language): Bash, Python
 
-  \item Symbolic programming (Mathematica, SymPy)
+  \item ภาษาระดับล่างที่เป็น Object-Oriented Programming: C++, Fortran
+
+  \item ภาษาเชิงสัญลักษณ์ (Symbolic Programming): Mathematica, SymPy
 \end{itemize}
 
-เครื่องมือที่จำเป็น
+\noindent \textbf{โปรแกรมสำหรับการเขียนโค้ด}
 
-Tex editor
-\begin{itemize}
+\begin{itemize}[topsep=0pt]
   \item Vi/Vim, Nano
 
-  \item VS Code, Atom, Eclipse, Sublime
+  \item VS Code, Atom, Eclipse, Sublime, Notepad++
 \end{itemize}
 
-- File format
-- XML, JSON
+\noindent \textbf{พื้นฐานการเขียนโปรแกรม}
 
-- General programming skills
-- Type of variables
-- Loops and conditional statement
-- Input/output
+\begin{itemize}[topsep=0pt]
+  \item ชนิดของตัวแปร (Variable Types)
 
-- High-level programming
-- Python
-- Pip and conda: Python helper
-- NumPy: Array (vector, matrix) computation
-- Numba: JIT compiler for NumPy
-- Jax: autograd of NumPy array
-- SciPy: a collection of math functions/routines
-- Scikit-learn: statistics routines, optimization, curve fitting
-- Intel Scikit-learn is 10x faster than the standard one
-- Matplotlib / Plotly for plotting graph
-- Theano: numerical computation
-- SCOOP: distributed modules for parallel programming
-- NetworkX: Graph library
+  \item ตัวดำเนินการหรือโอเปอร์เรเตอร์ (Operator)
 
-- Low-level programming
-- C
-- Function, pointer, storage class
-- Enum, struct, union
-- Preprocessor
-- Operator, memory management, array
-- File handling
+  \item Control Statements เช่น For, Do, If-Else, Case
 
-- C++
-- C++ 11 or newer
-- Type of variable: signed, unsigned, long, double, etc.
-- Loops, conditional statement
-- Standard libraries: vector, rand
-- Understanding header (`.hpp`) and source file (`.cpp` or `.cc`)
-- Preprocessor (\texttt{\#if}, \texttt{\#ifdef}, \texttt{\#ifndef}, \texttt{\#define}, etc.)
-- Function, class, struct, template
-- Declaration
-- namespace, const, attribute, pointer, pass by reference, static_assert
-- Initialization
-- Misc: casting, lambda expression, encapsulation, file handling, exception handling
+  \item ฟังก์ชัน (Function)
 
-- Fortran
-- Learn either F77 or F90 or modern fortran (2003, 2008, 2018)
-- Module, subroutine, function
-- Array (allocatable and multidimentional) and string
-- Operator overloading
-- Flow control
-- Derived type
-- Callback
-- Interfacing to other language e.g. Python or C++
-- GNU library
-- GSL
-- Many more libraries [here](https://en.wikipedia.org/wiki/List_of_GNU_packages)
+  \item Vairable Scope และ Reference Types
 
-- Memory allocation
-- Stack, heap, global memory
+  \item คลาส (Class) และวัตถุ (Objects)
+\end{itemize}
 
-- Math libraries
+\noindent \textbf{ภาษาคอมพิวเตอร์ระดับล่าง}
+
+\noindent \underline{ภาษา C}
+
+\begin{itemize}[topsep=0pt]
+  \item Function, Pointer, Storage Class
+
+  \item Enum, Struct, Union
+
+  \item Preprocessor
+
+  \item Operator, Memory Management, Array
+
+  \item การจัดการไฟล์ (File Handling)
+\end{itemize}
+
+\noindent \textbf{ภาษาคอมพิวเตอร์ระดับสูง}
+
+\noindent \underline{ภาษา Python}
+
+\begin{itemize}[topsep=0pt]
+  \item Pip และ Conda: ตัวช่วยจัดการไลบรารี่ของ Python
+
+  \item NumPy: จัดการและคำนวณ Array (เวกเตอร์, เมทริกซ์)
+
+  \item Numba: JIT Compiler สำหรับ NumPy
+
+  \item Jax: ทำ Autograd (Gradient Comptuation) สำหรับ NumPy Array
+
+  \item SciPy: ไลบรารี่ที่รวมรวบฟังก์ชันทางคณิตศาสตร์และวิทยาศาสตร์
+
+  \item Scikit-learn: ไลบรารี่สำหรับทำสถิติ, Optimization, และ Curve Fitting รวมถึง Machine Learning
+
+  \item Matplotlib, Plotly: พลอตกราฟ
+
+  \item Theano: คำนวณเชิงตัวเลข (Numerical Computation)
+
+  \item SCOOP: โมดูลสำหรับการทำโปรแกรมแบบขนาน (Parallel Programming)
+
+  \item NetworkX: ไลบรารี่สำหรับ Graph
+\end{itemize}
+
+\noindent \underline{ภาษา C++}
+
+\begin{itemize}[topsep=0pt]
+  \item Type of variable: signed, unsigned, long, double, etc.
+
+  \item Loops, conditional statement
+
+  \item Standard libraries: vector, rand
+
+  \item Understanding header (`.hpp`) and source file (\texttt{.cpp} or \texttt{.cc})
+
+  \item Preprocessor (\texttt{\#if}, \texttt{\#ifdef}, \texttt{\#ifndef}, \texttt{\#define}, etc.)
+
+  \item Function, class, struct, template
+
+  \item Declaration
+
+  \item namespace, const, attribute, pointer, pass by reference, static_assert
+
+  \item Initialization
+  
+  \item casting, lambda expression, encapsulation, file handling, exception handling
+\end{itemize}
+
+\noindent \underline{ภาษา Fortran}
+
+\begin{itemize}[topsep=0pt]
+  \item เรียนรู้ภาษา Fortran ที่เป็น Modern Fortran ตั้งแต่เวอร์ชัน 2003 เป็นต้นไป
+  
+  \item โมดูล (Module), โปรแกรมย่อยหรือซับรูทีน (Subroutine), ฟังก์ชัน (Function)
+
+  \item Array ทั้งแบบที่ปรับเปลี่ยนได้ (Allocatable) และแบบหลายมิติ (Multidimentional)
+
+  \item Operator Overloading, Flow control
+
+  \item Derived Type
+
+  \item Callback
+
+  \item การเขียนโปรแกรมเชื่อมโยงกับภาษาอื่น เช่น Python หรือ C++
+
+  \item การใช้ GNU Library ในการคอมไพล์
+
+  \item การจัดการหน่วยความจำ (Memory Allocation): Stack, Heap, Global Memory
+\end{itemize}
+
+- Math Libraries
 - BLAS (OpenBLAS)
 - LAPACK for linear algebra
 - ScaLAPACK - a higher level LAPACK
@@ -232,13 +278,13 @@ Tex editor
 - Eigen: linear algebra library
 - Boost: a collection of C++ functions e.g. `regex`, `serialization`
 
-- QM libraries
+- QM Libraries
 - libxc: XC function library
 - libint: For computing Gaussian integral
 - libcint: general GTO integrals
 
-- Code optimization
-- Benchaming/scaling
+- Code Optimization
+- Benchmarking และ Scaling
 - Complexity (Big O)
 
 - GNU
@@ -247,7 +293,7 @@ Tex editor
 - Compiling (g++, gcc) and linking (ld)
 - Useful flags for compiler and linker e.g. `-O2`, `-O3`, `-fPIC`
 
-- Compilng tools
+- Compilng Tools
 - autoconf
 - configure
 - Make, cmake, automake
@@ -272,6 +318,10 @@ Tex editor
 ภาษา C++ กัน เหตุผลที่ผมเลือกใช้ภาษา C++ สำหรับการเขียนโปรแกรมแรกนี้ก็คืออยากให้ผู้อ่านได้ฝึกใช้ภาษา C++ ซึ่งเป็นภาษาที่มีประสิทธิภาพสูงมาก%
 และถูกใช้อย่างแพร่หลายในการทำงานวิจัยเคมีควอนตัม (รวมถึงสาขาอื่น ๆ ด้วย) และโปรแกรมสำหรับการวิเคราะห์อันนี้ไม่มีความซับซ้อนมาก
 
+\noindent \textbf{\underline{Step 1: อ่านไฟล์ Coordinates}}
+
+\vspace{5pt}
+
 \begin{lstlisting}[style=MyC++]
 #include <iostream>
 #include <fstream>
@@ -280,7 +330,7 @@ Tex editor
 
 using namespace std;
 
-int main()
+int main() 
 {
   ifstream input("geom.dat");
 
@@ -308,6 +358,74 @@ int main()
   return 0;
 }
 \end{lstlisting}
+
+\vspace{5pt}
+
+จากตัวอย่างโค้ดด้านบนนั้นเริ่มการทำงานด้วยการอ่านไฟล์ Coordinates ของอะตอมในโมเลกุลซึ่งมีหน่วยคือ bohr โดยผู้อ่านอาจจะลองใช้ตัวอย่าง%
+โมเลกุลเล็ก ๆ เช่น Acetaldehyde ซึ่งมี Coordinates ดังนี้
+
+\begin{Verbatim}[frame=single]
+  7
+  6  0.000000000000     0.000000000000     0.000000000000
+  6  0.000000000000     0.000000000000     2.845112131228
+  8  1.899115961744     0.000000000000     4.139062527233
+  1 -1.894048308506     0.000000000000     3.747688672216
+  1  1.942500819960     0.000000000000    -0.701145981971
+  1 -1.007295466862    -1.669971842687    -0.705916966833
+  1 -1.007295466862     1.669971842687    -0.705916966833
+\end{Verbatim}
+
+\noindent โดยที่เลข 7 ในบรรทัดแรกนั้นคือจำนวนอะตอมและบรรทัดที่เหลือนั้นคือพิกัดตำแหน่ง x, y, z ของอะตอมแต่ละตัว เมื่อโปรแกรมเปิดไฟล์%
+แล้วสิ่งที่จะทำถัดไปก็คือการอ่านข้อมูลแต่ละบรรทัดและเก็บข้อมูลไว้ จริง ๆ แล้วเราสามารถ Simplify โค้ดตัวอย่างอันนี้ให้มีความเป็นระเบียบมากขึ้น%
+โดยการใช้ Class เช่น เราสามารถสร้างไฟล์ header ที่ชื่อ \inlinehighlight{molecule.h} แล้วทำการเรียกใช้งาน Class ในไฟล์โปรแกรม
+\inlinehighlight{molecule.cpp} ได้ดังนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+#include "molecule.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cstdio>
+
+using namespace std;
+
+int main()
+{
+  Molecule mol("geom.dat", 0);
+
+  cout << "Number of atoms: " << mol.natom << endl;
+  cout << "Input Cartesian coordinates:\n";
+  mol.print_geom();
+
+  return 0;
+}
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent ทีนี้สิ่งที่ผมอยากให้ผู้อ่านทำก็คือลองฝึกเขียนโค้ดของไฟล์ \inlinehighlight{molecule.h} โดยดัดแปลงจากโค้ดด้านบนครับ
+
+\noindent \textbf{\underline{Step 2: คำนวณความยาวพันธะ (Bond Lengths)}}
+
+\vspace{5pt}
+
+\noindent \textbf{\underline{Step 3: คำนวณมุมพันธะ (Bond Angles)}}
+
+\vspace{5pt}
+
+\noindent \textbf{\underline{Step 4: คำนวณมุมพันธะที่ไม่ได้ขึ้นอยู่กับ (Out-of-Plane Angles)}}
+
+\vspace{5pt}
+
+\noindent \textbf{\underline{Step 5: คำนวณมุมบิด (Torsion หรือ Dihedral Angles)}}
+
+\vspace{5pt}
+
+\noindent \textbf{\underline{Step 6: คำนวณจุดศูนย์กลางมวล มุมบิด (Center of Mass)}}
+
+\vspace{5pt}
 
 %----------------------------------------
 \section{เขียนโปรแกรม Hartree-Fock SCF (ภาษา Python)}
