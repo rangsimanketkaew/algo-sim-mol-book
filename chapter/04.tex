@@ -243,7 +243,7 @@ Cluster ได้นั่นหมายความว่าโค้ดขอ
   \item namespace, const, attribute, pointer, pass by reference, static_assert
 
   \item Initialization
-  
+
   \item casting, lambda expression, encapsulation, file handling, exception handling
 \end{itemize}
 
@@ -251,7 +251,7 @@ Cluster ได้นั่นหมายความว่าโค้ดขอ
 
 \begin{itemize}[topsep=0pt]
   \item เรียนรู้ภาษา Fortran ที่เป็น Modern Fortran ตั้งแต่เวอร์ชัน 2003 เป็นต้นไป
-  
+
   \item โมดูล (Module), โปรแกรมย่อยหรือซับรูทีน (Subroutine), ฟังก์ชัน (Function)
 
   \item Array ทั้งแบบที่ปรับเปลี่ยนได้ (Allocatable) และแบบหลายมิติ (Multidimentional)
@@ -409,7 +409,189 @@ int main()
 
 \noindent \bful{Step 2: คำนวณความยาวพันธะ (Bond Lengths)}
 
+คำนวณระยะห่างระหว่างอะตอม (Interatomic Distances) โดยใช้สมการดังต่อไปนี้
+
+\begin{equation}
+  R_{ij}
+  =
+  \sqrt{
+    (x_{i} - x_{j})^{2}
+    + (y_{i} - y_{j})^{2}
+    + (z_{i} - z_{j})^{2}
+  }
+\end{equation}
+
+\noindent โดยที่ $x, y, z$ คือ Cartesian Coordinates และ $i$ กับ $j$ คือเลข Index ของอะตอม
+
+สำหรับการเขียนโปรแกรมเพื่อคำนวณ Distance นั้นเราจะต้องคำนึงถึงการจัดการหน่วยความจำ (Memory Allocation) ด้วยเพื่อให้โปรแกรมของเรา%
+นั้นมีประสิทธิภาพมากที่สุดซึ่งนั่นก็จะเกี่ยวข้องกับการเลือกวิธีในการเก็บข้อมูลของระยะห่างระหว่างอะตอม ในการหาความยาวระหว่างอะตอมของทุก ๆ
+คู่นั้นสามารถใช้เมทริกซ์มาเก็บข้อมูลได้ซึ่งขนาดของเมทริกซ์จะเป็น $N \times N$ โดยที่ $N$ คือจำนวนอะตอม ในการใช้เมทริกซ์นั้นเราจำเป็นที่%
+จะต้องจัดสรร (Allocate) หน่วยความจำซึ่งทำได้สองวิธีคือ
+
+\noindent $\bullet$ 1. ใช้ Static Two-dimensional Array
+
 \vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+double R[50][50];
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent $\bullet$ 2. ใช้ Dynamic Allocation โดยการใช้คลาส Molecule
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+double **R = new double* [mol.natom];
+for(int i=0; i < mol.natom; i++)
+  R[i] = new double[mol.natom];
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent แล้วก็อย่าลืมลบหน่วยความจำหลังจากที่คำนวณเสร็จแล้วด้วย ดังนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+for(int i=0; i < mol.natom; i++)
+  delete[] R[i];
+delete[] R;
+\end{lstlisting}
+
+\vspace{5pt}
+
+ขั้นตอนต่อไปก็คือการสร้างเมทริกซ์ขึ้นมาซึ่งสามารถทำได้โดยใช้ For Loop ในการวนไปเรื่อย ๆ ตามเลข Index ของอะตอม
+
+\vspace{5pt}
+
+\noindent แล้วก็อย่าลืมลบหน่วยความจำหลังจากที่คำนวณเสร็จแล้วด้วย ดังนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+...
+#include <cmath>
+...
+
+for(int i=0; i < mol.natom; i++) {
+  for(int j=0; j < mol.natom; j++) {
+      R[i][j] = 
+        sqrt(
+          (mol.geom[i][0]-mol.geom[j][0])*(mol.geom[i][0]-mol.geom[j][0])
+        + (mol.geom[i][1]-mol.geom[j][1])*(mol.geom[i][1]-mol.geom[j][1])
+        + (mol.geom[i][2]-mol.geom[j][2])*(mol.geom[i][2]-mol.geom[j][2]) 
+        );
+  }
+}
+\end{lstlisting}
+
+\vspace{5pt}
+
+ลำดับต่อไปคือการแสดงค่าความยาวที่คำนวณได้โดยเราก็จะใช้ For Loop เหมือนเดิม
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+for(int i=0; i < mol.natom; i++)
+  for(int j=0; j < i; j++)
+    printf("%d %d %8.5f\n", i, j, R[i][j]);
+\end{lstlisting}
+
+\vspace{5pt}
+
+ขั้นตอนสุดท้ายคือการทำให้โค้ดนั้นมีความเรียบร้อยและมีประสิทธิภาพมากขึ้น โดยเราสามารถนำโค้ดด้านบนที่เราได้เขียนไว้สร้างเป็นฟังก์ชันใหม่ที่ชื่อว่า 
+\ih{bond()} ในคลาส \ih{Molecule} ได้ดังนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+double Molecule::bond(int a, int b)
+{
+  return sqrt( (geom[a][0]-geom[b][0])*(geom[a][0]-geom[b][0])
+              + (geom[a][1]-geom[b][1])*(geom[a][1]-geom[b][1])
+              + (geom[a][2]-geom[b][2])*(geom[a][2]-geom[b][2]) );
+}
+\end{lstlisting}
+
+\vspace{5pt}
+
+แล้วก็โปรแกรมของเราก็จะมีหน้าตาเป็นแบบนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+#include "molecule.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cstdio>
+#include <cmath>
+
+using namespace std;
+  
+int main()
+{
+  Molecule mol("geom.dat", 0);
+  
+  cout << "Number of atoms: " << mol.natom << endl;
+  cout << "Input Cartesian coordinates:\n";
+  mol.print_geom();
+  
+  cout << "Interatomic distances (bohr):\n";
+  for(int i=0; i < mol.natom; i++)
+    for(int j=0; j < i; j++)
+      printf("%d %d %8.5f\n", i, j, mol.bond(i,j));
+      
+  return 0;
+}
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent ซึ่งก็จะมีเอาต์พุตดังต่อไปนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+Number of atoms: 7
+Input Cartesian coordinates:
+6     0.000000000000     0.000000000000     0.000000000000
+6     0.000000000000     0.000000000000     2.845112131228
+8     1.899115961744     0.000000000000     4.139062527233
+1    -1.894048308506     0.000000000000     3.747688672216
+1     1.942500819960     0.000000000000    -0.701145981971
+1    -1.007295466862    -1.669971842687    -0.705916966833
+1    -1.007295466862     1.669971842687    -0.705916966833
+Interatomic distances (bohr):
+1 0  2.84511
+2 0  4.55395
+2 1  2.29803
+3 0  4.19912
+3 1  2.09811
+3 2  3.81330
+4 0  2.06517
+4 1  4.04342
+4 2  4.84040
+4 3  5.87463
+5 0  2.07407
+5 1  4.05133
+5 2  5.89151
+5 3  4.83836
+5 4  3.38971
+6 0  2.07407
+6 1  4.05133
+6 2  5.89151
+6 3  4.83836
+6 4  3.38971
+6 5  3.33994
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent โดยที่ \ih{bond()} คือ Member Function ของ \ih{Molecule} ซึ่งเราสามารถเรียกใช้ข้อมูลของ Geometry (Coordinates) 
+ได้ผ่าน \ih{geom} โดยไม่จำเป็นต้องเรียกใช้ผ่าน \ih{mol.geom}
 
 \noindent \bful{Step 3: คำนวณมุมพันธะ (Bond Angles)}
 
@@ -452,7 +634,7 @@ Roothaan-Hall ได้เพราะว่าสมการนี้มัน
 
 กระบวนการ SCF:
 
-เรากำหนดตำแหน่งของอะตอมในโมเลกุล, ประจุ, และทำการเลือก basis seะ
+เรากำหนดตำแหน่งของอะตอมในโมเลกุล, ประจุ, และทำการเลือก basis set
 
 เริ่มคำนวณพลังงานจลน์และพลังงานศักย์ รวมไปถึง overlap integral
 
