@@ -501,7 +501,7 @@ for(int i=0; i < mol.natom; i++)
 
 \vspace{5pt}
 
-ขั้นตอนสุดท้ายคือการทำให้โค้ดนั้นมีความเรียบร้อยและมีประสิทธิภาพมากขึ้น โดยเราสามารถนำโค้ดด้านบนที่เราได้เขียนไว้สร้างเป็นฟังก์ชันใหม่ที่ชื่อว่า 
+ขั้นตอนสุดท้ายคือการทำให้โค้ดนั้นมีความเรียบร้อยและมีประสิทธิภาพมากขึ้น โดยเราสามารถนำโค้ดด้านบนที่เราได้เขียนไว้สร้างเป็นฟังก์ชันใหม่ที่ชื่อว่า
 \ih{bond()} ในคลาส \ih{Molecule} ได้ดังนี้
 
 \vspace{5pt}
@@ -539,7 +539,7 @@ int main()
   cout << "Input Cartesian coordinates:\n";
   mol.print_geom();
   
-  cout << "Interatomic distances (bohr):\n";
+  cout << "\nInteratomic distances (bohr):\n";
   for(int i=0; i < mol.natom; i++)
     for(int j=0; j < i; j++)
       printf("%d %d %8.5f\n", i, j, mol.bond(i,j));
@@ -564,6 +564,7 @@ Input Cartesian coordinates:
 1     1.942500819960     0.000000000000    -0.701145981971
 1    -1.007295466862    -1.669971842687    -0.705916966833
 1    -1.007295466862     1.669971842687    -0.705916966833
+
 Interatomic distances (bohr):
 1 0  2.84511
 2 0  4.55395
@@ -590,22 +591,307 @@ Interatomic distances (bohr):
 
 \vspace{5pt}
 
-\noindent โดยที่ \ih{bond()} คือ Member Function ของ \ih{Molecule} ซึ่งเราสามารถเรียกใช้ข้อมูลของ Geometry (Coordinates) 
+\noindent โดยที่ \ih{bond()} คือ Member Function ของ \ih{Molecule} ซึ่งเราสามารถเรียกใช้ข้อมูลของ Geometry (Coordinates)
 ได้ผ่าน \ih{geom} โดยไม่จำเป็นต้องเรียกใช้ผ่าน \ih{mol.geom}
 
 \noindent \bful{Step 3: คำนวณมุมพันธะ (Bond Angles)}
 
+เราสามารถคำนวณมุมพันธะทุกมุมที่เป็นไปได้ทั้งหมดของโมเลกุล (ระหว่างอะตอม $i, j, k$) $\phi_{ijk}$ ได้ด้วยสมการดังต่อไปนี้
+
+\begin{equation}
+  \label{eq:cos_bond_angle}
+  \cos \phi_{ijk} = \tilde{e}_{ji} \cdot \tilde{e}_{jk}
+\end{equation}
+
+\noindent โดยที่ $e_{ij}$ คือเวกเตอร์หนึ่งหน่วย (Unit Vector) ระหว่างอะตอมซึ่งสามารถคำนวณได้ด้วยสมการดังต่อไปนี้
+
+\begin{align*}
+  e^{x}_{ij}
+  = \frac{
+    -(x_{i} - x_{j})
+  }
+  {
+    R_{ij}
+  } \\
+  e^{y}_{ij}
+  = \frac{
+    -(y_{i} - y_{j})
+  }
+  {
+    R_{ij}
+  } \\
+  e^{z}_{ij}
+  = \frac{
+    -(z_{i} - z_{j})
+  }
+  {
+    R_{ij}
+  }
+\end{align*}
+
 \vspace{5pt}
 
-\noindent \bful{Step 4: คำนวณมุมพันธะที่อยู่ด้านนอกระนาบ (Out-of-Plane Angles)}
+โดยเราจะสร้างฟังก์ชันสำหรับคำนวณมุมพันธะซึ่งก็คือ Inverse ของฟังก์ชัน Cosine ของสมการที่ \ref{eq:cos_bond_angle} แล้วเพิ่มฟังก์ชัน%
+นี้เข้าไปในไฟล์ \ih{molecule.cpp} ดังนี้
 
 \vspace{5pt}
 
-\noindent \bful{Step 5: คำนวณมุมบิด (Torsion หรือ Dihedral Angles)}
+\begin{lstlisting}[style=MyC++]
+// Returns the value of the unit vector between atoms a and b
+// in the cart direction (cart=0=x, cart=1=y, cart=2=z)
+double Molecule::unit(int cart, int a, int b)
+{
+  return -(geom[a][cart]-geom[b][cart])/bond(a,b);
+}
+
+// Returns the angle between atoms a, b, and c in radians
+double Molecule::angle(int a, int b, int c)
+{
+  return acos(unit(0,b,a) * unit(0,b,c) + unit(1,b,a) * unit(1,b,c) + unit(2,b,a) * unit(2,b,c));
+}
+\end{lstlisting}
 
 \vspace{5pt}
 
-\noindent \bful{Step 6: คำนวณจุดศูนย์กลางมวล มุมบิด (Center of Mass)}
+\noindent นอกจากนี้เราจะต้องเพิ่ม Declaration ของ Member Function เข้าไปในไฟล์ \ih{molecule.h} ด้วย ดังนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+#include <string>
+
+using namespace std;
+
+class Molecule
+{
+  public:
+    int natom;
+    int charge;
+    int *zvals;
+    double **geom;
+    string point_group;
+
+    void print_geom();
+    void rotate(double phi);
+    void translate(double x, double y, double z);
+    double bond(int atom1, int atom2);
+    double angle(int atom1, int atom2, int atom3);
+    double torsion(int atom1, int atom2, int atom3, int atom4);
+    double unit(int cart, int atom1, int atom2);
+
+    Molecule(const char *filename, int q);
+    ~Molecule();
+};
+\end{lstlisting}
+
+\vspace{5pt}
+
+แล้วโปรแกรมสำหรับคำนวณมุมพันธะที่สมบูรณ์นั้นจะมีหน้าตาแบบนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+#include "molecule.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cstdio>
+#include <cmath>
+
+using namespace std;
+  
+int main()
+{
+  Molecule mol("geom.dat", 0);
+  
+  cout << "Number of atoms: " << mol.natom << endl;
+  cout << "Input Cartesian coordinates:\n";
+  mol.print_geom();
+
+  cout << "\nBond angles:\n";
+  for(int i=0; i < mol.natom; i++) {
+    for(int j=0; j < i; j++) {
+      for(int k=0; k < j; k++) {
+        if(mol.bond(i,j) < 4.0 && mol.bond(j,k) < 4.0)
+          printf("%2d-%2d-%2d %10.6f\n", i, j, k, mol.angle(i,j,k)*(180.0/acos(-1.0)));
+      }
+    }
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent โดยที่เราใช้ \cppinline{acos(-1.0)} ในการประมาณค่า $\pi$
+
+เมื่อเรารันโปรแกรมด้านบนจะได้เอาต์พุตแบบนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}
+Number of atoms: 7
+Input Cartesian coordinates:
+6     0.000000000000     0.000000000000     0.000000000000
+6     0.000000000000     0.000000000000     2.845112131228
+8     1.899115961744     0.000000000000     4.139062527233
+1    -1.894048308506     0.000000000000     3.747688672216
+1     1.942500819960     0.000000000000    -0.701145981971
+1    -1.007295466862    -1.669971842687    -0.705916966833
+1    -1.007295466862     1.669971842687    -0.705916966833
+
+Bond angles:
+  2- 1- 0 124.268308
+  3- 1- 0 115.479341
+  3- 2- 1  28.377448
+  5- 4- 0  35.109529
+  6- 4- 0  35.109529
+  6- 5- 0  36.373677
+  6- 5- 4  60.484476
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent \bful{Step 4: คำนวณมุมบิด (Torsion หรือ Dihedral Angles)}
+
+พารามิเตอร์ลำดับต่อมาที่เราจะคำนวณก็คือมุมบิด (Torsion Angle) สำหรับมุมบิดของอะตอม 4 อะตอมใด ๆ ในโมเลกุล $i, j, k, l$ นั้นมี%
+สมการในการคำนวณคือ
+
+\begin{equation}
+  \cos \tau_{ijkl}
+  =
+  \frac{
+    (\tilde{e}_{ij} \times \tilde{e}_{jk})
+    \cdot
+    (\tilde{e}_{jk} \times \tilde{e}_{kl})
+  }
+  {
+    \sin \theta_{ijk}
+    \sin \theta_{jkl}
+  }
+\end{equation}
+
+\noindent สิ่งที่ต้องระวังในการคำนวณ Torsion Angle ก็คือเครื่องหมายของมุมซึ่งจะเป็นบวกหรือลบนั้นก็คือขึ้นอยู่กับว่าเวกเตอร์นั้นมีทิศทางไปทาง%
+ไหนเมื่อเทียบกับระนาบ
+
+\begin{itemize}
+  \item มุมบิดของอะตอม $i-j-k-l$ เป็นบวกเมื่อเวกเตอร์ตามแนวอะตอม $k-l$ นั้นวางตัวไปทางด้านขวาของระนาบที่สร้างจากอะตอม $i-j-k$
+        เมื่อมองจากทิศทางของเวกเตอร์ $j-k$
+
+  \item มุมบิดของอะตอม $i-j-k-l$ เป็นลบเมื่อเวกเตอร์ตามแนวอะตอม $k-l$ นั้นวางตัวไปทางด้านซ้ายของระนาบที่สร้างจากอะตอม $i-j-k$
+        เมื่อมองจากทิศทางของเวกเตอร์ $j-k$
+\end{itemize}
+
+\vspace{5pt}
+
+โปรแกรมสำหรับคำนวณ Torsion Angle นั้นมีดังนี้ เริ่มต้นด้วยการสร้าง Member Function ของคลาส \ih{Molecule}
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+// Computes the angle between planes a-b-c and b-c-d
+double Molecule::torsion(int a, int b, int c, int d)
+{
+  double eabc_x = (unit(1,b,a)*unit(2,b,c) - unit(2,b,a)*unit(1,b,c));
+  double eabc_y = (unit(2,b,a)*unit(0,b,c) - unit(0,b,a)*unit(2,b,c));
+  double eabc_z = (unit(0,b,a)*unit(1,b,c) - unit(1,b,a)*unit(0,b,c));
+
+  double ebcd_x = (unit(1,c,b)*unit(2,c,d) - unit(2,c,b)*unit(1,c,d));
+  double ebcd_y = (unit(2,c,b)*unit(0,c,d) - unit(0,c,b)*unit(2,c,d));
+  double ebcd_z = (unit(0,c,b)*unit(1,c,d) - unit(1,c,b)*unit(0,c,d));
+
+  double exx = eabc_x * ebcd_x;
+  double eyy = eabc_y * ebcd_y;
+  double ezz = eabc_z * ebcd_z;
+
+  double tau = (exx + eyy + ezz)/(sin(angle(a,b,c)) * sin(angle(b,c,d)));
+
+  if(tau < -1.0) tau = acos(-1.0);
+  else if(tau > 1.0) tau = acos(1.0);
+  else tau = acos(tau);
+
+  // Compute the sign of the torsion 
+  double cross_x = eabc_y * ebcd_z - eabc_z * ebcd_y;
+  double cross_y = eabc_z * ebcd_x - eabc_x * ebcd_z;
+  double cross_z = eabc_x * ebcd_y - eabc_y * ebcd_x;
+  double norm = cross_x*cross_x + cross_y*cross_y + cross_z*cross_z;
+  cross_x /= norm;
+  cross_y /= norm;
+  cross_z /= norm;
+  double sign = 1.0;
+  double dot = cross_x*unit(0,b,c)+cross_y*unit(1,b,c)+cross_z*unit(2,b,c);
+  if(dot < 0.0) sign = -1.0;
+
+  return tau*sign;
+}
+\end{lstlisting}
+
+\vspace{5pt}
+
+แล้วเราก็เรียกใช้ฟังก์ชันใหม่ที่เราเพิ่งสร้างไว้ในโปรแกรมหลักของเราได้ดังนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cstdio>
+#include <cmath>
+#include "molecule.h"
+
+using namespace std;
+
+int main()
+{
+  Molecule mol("geom.dat", 0);
+
+  cout << "Number of atoms: " << mol.natom << endl;
+  cout << "Input Cartesian coordinates:\n";
+  mol.print_geom();
+
+  cout << "\nTorsional angles:\n";
+  for(int i=0; i < mol.natom; i++) {
+    for(int j=0; j < i; j++) {
+      for(int k=0; k < j; k++) {
+        for(int l=0; l < k; l++) {
+          if(mol.bond(i,j) < 4.0 && mol.bond(j,k) < 4.0 && mol.bond(k,l) < 4.0)
+            printf("%2d-%2d-%2d-%2d %10.6f\n", i, j, k, l, mol.torsion(i,j,k,l)*(180.0/acos(-1.0)));
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent เมื่อเรารันโปรแกรมด้านบนเราจะได้เอาต์พุตดังนี้
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyC++]
+Number of atoms: 7
+Input Cartesian coordinates:
+6       0.000000000000       0.000000000000       0.000000000000
+6       0.000000000000       0.000000000000       2.845112131228
+8       1.899115961744       0.000000000000       4.139062527233
+1      -1.894048308506       0.000000000000       3.747688672216
+1       1.942500819960       0.000000000000      -0.701145981971
+1      -1.007295466862      -1.669971842687      -0.705916966833
+1      -1.007295466862       1.669971842687      -0.705916966833
+
+Torsional angles:
+  3- 2- 1- 0 180.000000
+  6- 5- 4- 0  36.366799  
+\end{lstlisting}
+
+\vspace{5pt}
+
+\noindent \bful{Step 5: คำนวณจุดศูนย์กลางมวล มุมบิด (Center of Mass)}
 
 \vspace{5pt}
 
@@ -619,16 +905,16 @@ Interatomic distances (bohr):
 เริ่มต้นสมการ Roothaan-Hall ซึ่งจะเรียกว่าเป็นสมการ HF ที่แปลงร่างมาก็ได้ สาเหตุที่เราต้องแปลงร่าง HF นั่นก็เพราะว่าเราเขียนฟังก์ชันคลื่นใหม่%
 ให้อยู่ในรูปที่มี Basis Function (เป็นตัวที่อธิบายออร์บิทัลเชิงอะตอม) นั่นเอง โดยเราจะมีสมการ Roothaan-Hall ทั้งหมด $m$ สมการ โดยที่ $m$
 คือจำนวนของ Basis Function (เรามีสมการ HF 1 สมการต่อ 1 MO และการที่เรามี m basis function นั้นก็จะสร้างทั้งหมด m MOs ด้วย),
-F คือ Fock matrix ซึ่งก็จะได้จาก Density matrix แล้ว Density matrix ก็คือ matrix ที่มีสมาชิกเป็นผลคูณระหว่าง coefficients ของ
-MO ซึ่งก็จะได้มาจากการประมาณค่าด้วยวิธีเริ่มต้น (initial guess) แบบต่าง ๆ เช่นใช้ Huckel method, ส่วน S นั้นก็คือ Overlap matrix
-ซึ่งก็จะเป็น matrix ที่บอกว่า orbitals นั้นสัมพันธ์กันมากน้อยแค่ไหน, และ epsilon ของแต่ละสมการนั้นก็คือค่าพลังงานของแต่ละ MO
+F คือ Fock Matrix ซึ่งก็จะได้จาก Density Matrix แล้ว Density Matrix ก็คือ Matrix ที่มีสมาชิกเป็นผลคูณระหว่าง coefficients ของ
+MO ซึ่งก็จะได้มาจากการประมาณค่าด้วยวิธีเริ่มต้น (initial guess) แบบต่าง ๆ เช่นใช้ Huckel method, ส่วน S นั้นก็คือ Overlap Matrix
+ซึ่งก็จะเป็น Matrix ที่บอกว่า orbitals นั้นสัมพันธ์กันมากน้อยแค่ไหน, และ epsilon ของแต่ละสมการนั้นก็คือค่าพลังงานของแต่ละ MO
 นั้นเองซึ่งเป็นสิ่งที่เราต้องการแก้สมการหามันออกมา
 
-คราวนี้เราสามารถยุบรวมสมการทั้งหมดในรูปที่ 1 ได้ออกมาเป็นตามสมการที่สั้นและกระชับขึ้นตามรูปที่ 2 ซึ่ง F, C, และ S นั้นเป็น matrix
+คราวนี้เราสามารถยุบรวมสมการทั้งหมดในรูปที่ 1 ได้ออกมาเป็นตามสมการที่สั้นและกระชับขึ้นตามรูปที่ 2 ซึ่ง F, C, และ S นั้นเป็น Matrix
 ที่มีขนาดคือ m x m แล้วก็ epsilon นั้นก็มีขนาด m x m ด้วย (จะมีเฉพาะสมาชิกในแนวทแยงเท่านั้นที่มีค่าไม่เท่ากับ 0) โดยเราสามารถแสดง%
-สมการด้านซ้ายและขวาให้เป็น matrix ได้ตามรูปที่ 3 และ 4
+สมการด้านซ้ายและขวาให้เป็น Matrix ได้ตามรูปที่ 3 และ 4
 
-ประเด็นอยู่ตรงนี้ก็คือตามวิชา linear algebra ถ้าเราต้องการหา matrix ของ epsilon เราสามารถใช้วิธี Diagonalization กับสมการ
+ประเด็นอยู่ตรงนี้ก็คือตามวิชา linear algebra ถ้าเราต้องการหา Matrix ของ epsilon เราสามารถใช้วิธี Diagonalization กับสมการ
 Roothaan-Hall ได้เพราะว่าสมการนี้มันเป็น eigenfunction ซึ่งกระบวนกานที่จะใช้ในการแก้นั้นก็คือตามขั้นตอนต่อไปนี้
 
 
@@ -638,18 +924,18 @@ Roothaan-Hall ได้เพราะว่าสมการนี้มัน
 
 เริ่มคำนวณพลังงานจลน์และพลังงานศักย์ รวมไปถึง overlap integral
 
-คำนวณ orthogonalizing matrix โดยใช้ overlap matrix (overlap matrix ที่ถูกสร้างมาจาก overlap integral ที่ได้จากขั้นที่ 2 อีกที)
+คำนวณ Orthogonalizing Matrix โดยใช้ Overlap Matrix (overlap Matrix ที่ถูกสร้างมาจาก overlap integral ที่ได้จากขั้นที่ 2 อีกที)
 
-คำนวณ Fock matrix อันแรกเลยโดยใช้พลังงานจลน์และพลังงานศักย์แล้วก็ใช้ initial guess ที่ได้จาก coefficients ของ basis set
+คำนวณ Fock Matrix อันแรกเลยโดยใช้พลังงานจลน์และพลังงานศักย์แล้วก็ใช้ initial guess ที่ได้จาก coefficients ของ basis set
 ที่กำหนดไว้ตั้งแต่ขั้นตอนที่ 1 โดยหน้าตาของ basis set สามารถดูได้ที่เว็บไซต์ https://www.basissetexchange.org/ ตัวอย่างเช่น
 basis set: aug-cc-PV7Z ของอะตอมคาร์บอน https://www.basissetexchange.org/.../format/nwchem/...
 
-ใช้ orthogonalizing matrix เพื่อแปลงหรือ tranform Fock matrix ให้เป็น matrix อันใหม่ (เรียกว่าเป็น F' ก็แล้วกัน) ที่มันขึ้นอยู่กับ
+ใช้ orthogonalizing Matrix เพื่อแปลงหรือ tranform Fock Matrix ให้เป็น Matrix อันใหม่ (เรียกว่าเป็น F' ก็แล้วกัน) ที่มันขึ้นอยู่กับ
 orthonal set ของฟังก์ชันที่ได้มาจาก basis set ที่ถูกเซนเตอร์กับอะตอม (atom-centered basis set)
 
-ทำการ diagonalize Fock matrix เพื่อหา coefficient matrix ที่ถูก transform มาแล้ว (เรียกว่า C') ก็ได้แล้วก็หาพลังงานของแต่ละ MO ได้
+ทำการ diagonalize Fock Matrix เพื่อหา coefficient Matrix ที่ถูก transform มาแล้ว (เรียกว่า C') ก็ได้แล้วก็หาพลังงานของแต่ละ MO ได้
 
-เปรียบเทียบ C' และพลังงานกับค่าที่ได้จากรอบก่อนหน้านี้ ถ้าผลต่างยังไม่น้อยกว่า cutoff ที่กำหนดไว้ก็ให้นำ Fock matrix ที่ได้มาล่าสุดไปใช้ใหม่%
+เปรียบเทียบ C' และพลังงานกับค่าที่ได้จากรอบก่อนหน้านี้ ถ้าผลต่างยังไม่น้อยกว่า cutoff ที่กำหนดไว้ก็ให้นำ Fock Matrix ที่ได้มาล่าสุดไปใช้ใหม่%
 อีกครั้งหนึ่งในขั้นที่ 4 ทำวนไปเรื่อย ๆ จนได้คำตอบที่แม่นยำ
 
 %----------------------------------------
