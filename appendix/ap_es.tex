@@ -81,7 +81,7 @@ Mixed กันอยู่ในเทอมสูง ๆ ของ Wavefunctio
 \noindent หมายเหตุ 1: ตามที่เราศึกษากันมาว่า Hartree-Fock นั้นไม่มี Correlation ผสมอยู่เลย จริง ๆ แล้วก็ไม่ถูกซะทีเดียว เพราะว่า HF 
 นั้นไม่ยอมให้มีอิเล็กตรอน 2 ตัวใด ๆ มี State เหมือนกันได้ ดังนั้น HF จึงมีความเป็น Correlation อยู่นิดหน่อยนั่นเอง (เรียกว่า Fermi Correlation)
 
-\noindent หมายเหตุ 2: Single Slater Determinant นั้นเป็น Representation ของ Wavefunction ที่ไม่ค่อยดีเท่าไหร่ 
+\noindent หมายเหตุ 2: Single Slater Determinant นั้นเป็น Representation ของฟังก์ชันคลื่นที่ไม่ค่อยดีเท่าไหร่ 
 ไม่เหมาะนำมาใช้อธิบายระบบ Many-electron หรือระบบที่มีอิเล็กตรอนหลายตัว
 
 %----------------------------------------
@@ -98,7 +98,7 @@ DMRG เป็นหนึ่งในทฤษฎีที่ถูกพัฒ
 Matrix Product State (MPS) หรืออีกชื่อคือ Tensor Chain หรือ Tensor Network 
 
 นักวิจัยได้นำทฤษฎีนี้ไปใช้ศึกษาระบบพิเศษบางประเภทที่ซับซ้อน เช่น Strongly Correlated System ซึ่งก็คือระบบที่อิเล็กตรอนนั้นมี Correlation 
-ต่อกันสูงมาก ๆ โดยให้นึกถึงโมเลกุลหรือวัสดุจำพวก Conductor-Insulator Material หรือ Transition Metal Oxide Complex เป็นต้น 
+ต่อกันสูงมาก ๆ โดยให้นึกถึงโมเลกุลหรือวัสดุจำพวก Conductor-Insulator Material หรือสารประกอบ Transition Metal Oxide เป็นต้น 
 ที่ทฤษฎีทั่วไปไม่สามารถตอบโจทย์
 
 แม้ว่า DMRG จะถูกพัฒนามานานกว่า 30 ปีแล้ว แต่ก็ยังไม่ได้เป็นที่แพร่หลายมากนักในกลุ่มนักเคมีเชิงคำนวณ ยิ่งสายแอพพลิเคชั่นก็ไม่ต้องพูดถึงเลย 
@@ -108,5 +108,103 @@ Matrix Product State (MPS) หรืออีกชื่อคือ Tensor Cha
 พ.ศ. 2566) ในประเทศไทยก็ยังไม่มีกลุ่มวิจัยไหนที่นำทฤษฎีนี้มาใช้เลย แต่ก็ไม่ใช่เรื่องแปลกอะไรเพราะแม้แต่ในต่างประเทศก็มีกลุ่มวิจัยแค่ไม่กี่ที่ที่ใน%
 โลกเท่านั้นที่ทำวิจัยโดยใช้วิธีนี้นั่นก็เพราะว่าตัวทฤษฎีนั้นมีความยาก ซับซ้อน และสิ้นเปลืองในเชิงการคำนวณพอสมควร
 
-ถ้าสนใจอ่านเปเปอร์เฉพาะทางที่เกี่ยวข้องกับการพัฒนา DMRG สำหรับโจทย์งานวิจัย Electronic structure ลองอ่านเปเปอร์ของกลุ่มวิจัย 
-Garnet Chan (Caltech) ซึ่งเป็นผู้พัฒนา library สำหรับ DMRG calculation (กลุ่มวิจัยเดียวกันกับที่พัฒนาโปรแกรม PySCF)
+ถ้าสนใจอ่านเปเปอร์เฉพาะทางที่เกี่ยวข้องกับการพัฒนา DMRG สำหรับโจทย์งานวิจัย Electronic Structure ลองอ่านเปเปอร์ของกลุ่มวิจัยของ
+Professor Garnet Kin-Lic Chan (Caltech) ซึ่งเป็นกลุ่มวิจัยที่พัฒนา Library สำหรับการคำนวณ DMRG (กลุ่มวิจัยเดียวกันกับที่พัฒนาโปรแกรม 
+PySCF)
+
+%----------------------------------------
+\section{Density Matrix Functional Theory}
+%----------------------------------------
+
+Density Matrix Functional Theory (DMFT) เป็นทฤษฎีที่นักเคมีเชิงทฤษฎีเชื่อว่าจะเข้ามาพลิกโฉมเปลี่ยนแปลงวงการเคมีควอนตัม 
+โดย DMFT สามารถแก้ปัญหาหลาย ๆ อย่างของ Density Functional Theory (DFT) ได้ โดยในหัวนี้ผู้อ่านจะได้ศึกษา DMFT แบบเบื้องต้นครับ 
+
+ขอเท้าความก่อนว่าตัวทฤษฎี DFT นั้นมีปัญหาหลายอย่าง ทำให้ต้องพึ่งพา Approximation ต่าง ๆ มากมายเพื่อเข้ามาช่วยทำให้การคำนวณระบบเคมีแบบต่าง ๆ 
+นั้นถูกต้องหรือที่เราเรียกว่าการทำ Correction ถ้าหากต้องการรายละเอียดที่ครอบคลุมผมแนะนำให้ทุกคนอ่านบทความรีวิวของ Prof. Kieron Burke 
+\enquote{Perspective on Density Functional Theory} ซึ่งสรุปไว้ดีมาก ๆ (อ่านได้ฟรี) 
+ลิงก์: https://pubs.aip.org/aip/jcp/article/136/15/150901/941589
+
+\paragraph{Density Functional Theory}
+
+เริ่มด้วยการสรุป DFT คร่าว ๆ ก่อน ตัว DFT ที่เราใช้กันอยู่ในปัจจุบันนั้นเป็น Kohn-Sham (KS) Framework ซึ่งจะใช้อ้างอิงกับระบบที่อิเล็กตรอนนั้น%
+ไม่มีอันตรกิริยาต่อกัน หรือที่เราเรียกว่า Non-Interacting System ซึ่งจะมี Electron Density ที่เท่ากันกับของ Interacting System 
+ส่วนพลังงานของระบบที่สภาวะพื้นที่ได้จากการคำนวณด้วย DFT จะหามาจาก Electron Density (ผมเขียนแทนด้วยตัว $p$) โดยมีสมการดังนี้
+
+\begin{equation}
+    E_{tot}[p] = T_{s}[p] + E_{ext}[p] + E_{H}[p] + E_{XC}[p]
+\end{equation}
+
+\noindent โดยแต่ละเทอมคือ
+\begin{itemize}
+    \item $E_{tot}$ คือ Total energy
+    \item $T_{s}$ คือ Kinetic energy
+    \item $E_{ext}$ คือ External energy
+    \item $E_{H}$ คือ Coulomb energy
+    \item $E_{XC}$ คือ Exchange-correlation energy
+\end{itemize}
+
+DFT ของ KS Framework ใช้ KS Orbitals ในการนำมาสร้าง KS Wavefunction ซึ่ง KS Orbitals นั้นจะถูกเขียนด้วย KS Determinant 
+แล้วเราก็สามารถเขียน Electron Density ให้อยู่ในรูปของ KS Determinant ได้อีกด้วย เรามาดูรายละเอียดเฉพาะ Kinetic Energy กับ 
+$E_{XC}$ กัน โดยเฉพาะเทอม $E_{XC}$ นั้นจะซับซ้อนกว่าเพื่อนเพราะว่ายังไม่มี Exact Form ที่สามารถคำนวณได้อย่างถูกต้อง 100%
+
+อันแรกคือ Kinetic Energy ($T$) ซึ่งพลังงานจลน์นี้เป็นฟังก์ชันที่ขึ้นกับ Electron Density โดยสามารถหาได้จากการใช้ Kinetic Energy 
+Operator ซึ่งก็คือ Laplacian\footnote{Laplacian คือ Divergence ของ Gradient อีกทีหนึ่ง ถ้าหากว่าเราพิจารณากรณีที่ระบบมีการเคลื่้อนที่ใน 
+1 มิติ เราจะได้ว่าจริง ๆ แล้ว Laplacian ก็คือ Hessian หรืออนุพันธ์อันดับที่สองเทียบกับ Displacement นั่นเอง}
+
+อันที่สองคือ $E_{XC}$ โดยเทอมนี้นั้นมีสมการดังต่อไปนี้
+
+\begin{equation}
+    E_{XC}[p] = T[p]- T_{s}[p] + E_{ee}[p] - E_{H}[p]
+\end{equation}
+
+สาเหตุที่ผมใส่ $[p]$ ในสมการข้างบนนี้ก็เพราะว่าต้องการจะบอกว่าเทอมทุกเทอมในสมการนี้ขึ้นกับ Electron Density ($p$), แล้วก็ $T$ กับ 
+$E_{ee}$ นั้นคือ Kinetic Energy และ Electron-Electron Energy ของระบบ Interacting System, ส่วน $T_{s}$ กับ $E_{H}$ 
+นั้นคือ Kinetic Energy และ Coulomb Energy ของระบบ Non-Interacting System จะเห็นได้ว่าในการคำนวณหา $E_{XC}$ นั้นเราจะต้องรู้ 
+Kinetic Energy ของทั้ง Non-Interacting และ Interacting Systems
+
+\paragraph{Density Matrix Functional Theory}
+
+ผมขอเปรียบเทียบ DMFT กับ DFT โดยการเทียบสมการพลังงานให้เห็นกันชัด ๆ ไปเลยว่าทั้งสองทฤษฎีต่างกันยังไง เงื่อนไขแรกที่เราพิจารณานั้นก็คือว่า 
+DMFT นั้นจะอ้างอิงกับระบบแบบ Interacting System (ไม่เหมือนกับ DFT) ส่วนพลังงานรวมหรือ $E_{tot}$ ของ DMFT นั้นสามารถเขียนได้%
+เหมือนกันกับกรณีพลังงานรวมของ DFT นั่นแหละครับ แต่จะต่างกันตรงที่ว่าเทอมทุกเทอมนั้นไม่ได้ขึ้นกับ Electron Density อีกต่อไปแล้ว 
+แต่ว่าเราจะใช้สิ่งที่เรียกว่า One-electron Reduced Density Matrix (ผมใช้แทนด้วยตัว $y$) แทนตัว Density ดังนี้ 
+
+\begin{equation}
+    E_{tot}[y] = T[y] + E_{ext}[y] + E_{H}[y] + E_{XC}[y]
+\end{equation}
+
+ก่อนที่จะอธิบายต่อไป ต้องมาทำความเข้าใจ One-electron Reduced Density Matrix (1-RDM) กันสักนิดนึงก่อน จริง ๆ แล้วนั้น 1-RDM 
+ถูกพิสูจน์มาจากกลศาสตร์ควอนตัมซึ่งในทางฟิสิกส์นั้นเราเริ่มด้วยการ Quantum State ของระบบของเราโดยใช้ Pure State กับ Mixed State 
+(Mixed State คือ Pure State มากกว่าหนึ่งอันมารวมกัน) ซึ่ง Density Matrix นั้นก็คือ Matrix ของ Density ที่เกิดจากผลคูณระหว่าง 
+Probability กับฟังก์ชันคลื่นของ Pure State
+
+ซึ่ง 1-RDM นั้นถูกลดรูปมาจาก Two-electron Reduced Density Matrix (2-RDM) รายละเอียดเพิ่มเติมอ่านได้ที่หน้าที่ 3 ของเอกสาร 
+\enquote{An Introduction to Reduced Density Matrix Functional Theory}\footnote{ไฟล์ PDF: 
+\url{https://quantique.u-strasbg.fr/ISTPC/lib/exe/fetch.php?media=istpc2021:lecture_rdmft_pina_romaniello.pdf} 
+และวิดีโอ \url{https://www.youtube.com/watch?v=HN3fXcDCytA}} 
+
+เนื่องจากว่า DMFT นั้นถูกพัฒนาขึ้นมาโดยใช้ Interacting System ดังนั้นเราจึงไม่สามารถคำนวณ 1-RDM หรือ $y$ ได้จาก KS Determinant 
+เหมือนกรณี KS DFT ที่เราใช้ Non-Interacting System ซึ่งนี่เป็นสาเหตุที่ทำให้ตัว DMFT นั้นมีความซับซ้อนกว่า DFT เยอะมาก ๆ
+
+เนื่องจากว่าเราใช้ Determinant ของ KS Orbitals ไม่ได้แล้ว เราจึงจำเป็นต้องใช้ฟังก์ชันคลื่นแบบตรง ๆ ไปเลย แล้วทำการ Diagonalization 
+ซึ่งทำให้เราได้ว่า Spectral Representation ของ 1-RDM นั้นหาได้จาก Natural Orbitals กับ Natural Occupation Number
+
+เมื่อเรากำหนด 1-RDM ได้แล้ว ทำให้เราได้ว่า Kinetic Energy ของ DMFT นั้นสามารถเขียนให้อยู่ในรูปของ 1-RDM ได้ และ Kinetic Energy 
+อันใหม่นี้นั้นก็เป็น Kinetic Energy ของระบบ Interacting System นั่นจึงทำให้ $E_{XC}$ ของ DMFT นั้นไม่ขึ้นกับ Kinetic Energy อีกต่อไป 
+แต่จะขึ้นอยู่กับเพียงแค่ Electron-Electron Interaction Energy เท่านั้น ดังนี้
+
+\begin{equation}
+    E_{XC}[y] = E_{ee}[y] - E_{H}[y]
+\end{equation}
+
+\noindent ซึ่งถ้าเทียบกับ $E_{XC}[p]$ ของกรณี DFT นั้นจะมีความง่ายกว่าเยอะ เมื่อเรามีนิยามที่แน่นอนของ $E_{XC}$ สำหรับ DMFT แล้ว 
+เราจึงสามารถพัฒนา Approximation ต่าง ๆ สำหรับ $E_{XC}$ ได้ เหมือนกันกับ DFT ที่เรามี Functionals ต่าง ๆ ให้เลือกใช้นั่นแหละ 
+เพียงแค่ว่า Functionals ที่เรารู้จักกันใน DFT นั้นไม่สามารถนำมาใช้กับ DMFT ได้
+
+ส่วนการหาค่าพลังงานต่ำสุดของระบบโมเลกุลที่สภาวะพื้นนั้นก็ทำได้โดยการ Minimize ค่า $E_{tot}[y]$ โดยเทียบกับ 1-RDM $[y]$ แทนที่จะเทียบกับ 
+Electron Density $[p]$ นอกจากนี้เรายังสามารถคำนวณ Electron Density ของระบบจาก DMFT ได้ด้วย โดยการใช้ Occupation Number 
+กับฟังก์ชันคลื่นนั่นเอง
+
+ตัวทฤษฎี DMFT นั้นถึงแม้ว่าในปัจจุบันนั้นจะยังไม่ค่อยได้ถูกใช้งานแพร่หลายในงานวิจัยทั่ว ๆ ไปมากนัก เนื่องจากว่ายังไม่ค่อย General Purpose 
+สักเท่าไหร่ ทำให้ยังไม่ค่อยเป็นที่นิยมเมื่อเทียบกับ DFT แต่ถ้าหากว่าถึงวันที่่ DMFT นั้นสามารถนำมาใช้งานได้ง่ายขึ้น นั่นก็อาจจะเรียกได้ว่าเป็นการ%
+เปลี่ยนแปลงครั้งยิ่งใหญ่ (Paradigm Shift) เลยก็ว่าได้
