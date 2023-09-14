@@ -244,11 +244,46 @@ PES) นั้นมีหน้าตาประมาณนี้
 \idxboth{สนามแรง!พันธะโควาเลนท์}{Force Fields!Covalent Bonding}
 %----------------------------------------
 
+ในหัวข้อนี้เราจะมาดูรายละเอียดของ Force Field ที่สำคัญมากที่สุดอันหนึ่งนั่นก็คือ Force Field ที่ใช้ในการอธิบายพันธะโควาเลนท์ (Covalent 
+Bonding) ซึ่งประกอบไปด้วย การยืดหดของพันธะ (Bond Stretching), การงอของพันธะ (Angle Bending) และการเคลื่อนแบบบิด (Torsional 
+Motion)
+
 %----------------------------------------
 \subsection{Bond Stretching}
 \idxen{Bond Stretching}
 %----------------------------------------
 
+เริ่มต้นด้วยการพิจารณาพลังงานศักย์ $V(R)$ ของโมเลกุลอะตอมคู่ (Diatomic Molecule) ซึ่งเป็นฟังก์ชันของระยะห่างระหว่างอะตอม 
+(Bond Distance) $R$ โดยเราสามารถแสดง (Represent) $V(R)$ อันนี้ได้ด้วยศักย์ของมอส (Morse Potential) ดังต่อไปนี้
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/morse-potential.png}
+    \caption{Morse Potential}
+    \label{fig:morse_potential}
+\end{figure}
+
+\begin{equation}
+    \label{eq:potential_bond_stretch}
+    V(R) = D_{e} \left( e^{-2a(R-R_{e})} -2e^{-a(R-R_{e})} \right)
+\end{equation}
+
+\noindent โดยที่ $R_{e}$ คือระยะห่างระหว่างอะตอมที่สภาวะสมดุล เช่น ความยาวพันธะ ณ ตำแหน่งที่พลังงานศักย์ของ Morse Potentail 
+นั้นมีค่าน้อยที่สุด, $D_{e}$ คือความลึก (Depth) ของพื้นผิวศักย์ (Potentail Surface) ซึ่งก็คือพลังงานการแตกออกหรือการแยกตัว (Dissociation 
+Energy) และ $a$ คือพารามิเตอร์ที่อธิบายความกว้างของบ่อพลังงานศักย์อันนี้ นอกจากนี้ Morse Potential สามารถถูกเขียนได้ด้วยวิธีอื่น ๆ ได้อีกด้วย 
+
+หนึ่งในวิธีที่เราจะสามารถใช้ในการ Represent พันธะโควาเลนท์ก็คือการใช้โมเดลการสั่น Harmonic OSciallator แบบคลาสสิค 
+เช่น ถ้าเรามีอะตอม 2 อะตอมที่ถูกยึดเข้าด้วยกันด้วยสปริงที่มี Force Constant $k$ เราสามารถใช้ Taylor Expansion ในการอธิบาย Potential 
+Energy $V(R)$ ได้โดยการใช้ Dunham Expansion Parameter $Q = (\frac{R-R_{e}}{R_{e}})$ ดังนี้
+
+\begin{equation}
+    V(Q) = \underbrace{V(0)}_{\text {Zero level }} 
+    + \underbrace{V^{\prime}(0) Q}_{V^{\prime}(0)=0 \text { in the minimum }} 
+    + \underbrace{\frac{1}{2} V^{\prime \prime}(0) Q^2}_{\text {Harmonic term }} 
+    + \underbrace{\frac{1}{6} V^{(3)}(0) Q^3}_{\text {Anharmonicity }} 
+    + \underbrace{\frac{1}{24} V^{(4)}(0) Q^4 \ldots,}_{\text {Quartic term }}
+\end{equation}
+ 
 %----------------------------------------
 \subsection{Angle Bending}
 \idxen{Angle Bending}
