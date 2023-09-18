@@ -19,40 +19,40 @@
 กันอย่างแพร่หลายอยู่แล้วก็มีข้อดีดังนี้
 
 \begin{itemize}[topsep=0pt]
-  \item ประหยัดเวลา ไม่ต้องมานั่งศึกษาหรือเขียนโค้ดใหม่เองทั้งหมด
+    \item ประหยัดเวลา ไม่ต้องมานั่งศึกษาหรือเขียนโค้ดใหม่เองทั้งหมด
 
-  \item ได้เรียนรู้วิธีการเขียนโค้ดที่มีประสิทธิภาพจากนักพัฒนาคนอื่น ๆ
+    \item ได้เรียนรู้วิธีการเขียนโค้ดที่มีประสิทธิภาพจากนักพัฒนาคนอื่น ๆ
 
-  \item เป็นการต่อยอดและพัฒนาโปรแกรมนั้น ๆ ให้ดีขึ้นไปอีกเพราะเราไม่จำเป็นต้องมา Reinvent the Wheel
+    \item เป็นการต่อยอดและพัฒนาโปรแกรมนั้น ๆ ให้ดีขึ้นไปอีกเพราะเราไม่จำเป็นต้องมา Reinvent the Wheel
 
-  \item เป็นการสร้างเครือข่ายนักวิจัยและความร่วมมือทางวิชาการในระดับนานาชาติ
+    \item เป็นการสร้างเครือข่ายนักวิจัยและความร่วมมือทางวิชาการในระดับนานาชาติ
 \end{itemize}
 
 \noindent อย่างไรก็ตามถ้าหากใครอยากจะเริ่มเขียนโปรแกรมเองนั้น (ไม่จำเป็นต้องเป็น DFT อย่างเดียว แต่รวมถึงวิธีการจำลองทางคอมพิวเตอร์อื่น ๆ
 ด้วย เช่น Molecular Dynamics หรือ Monte Carlo) ก็มีข้อดีหลายข้อเหมือนกัน ดังนี้
 
 \begin{itemize}[topsep=0pt]
-  \item ได้ทำความเข้าใจการเขียนโปรแกรมอ้างอิงตามสมการทาง Electronic Structure
+    \item ได้ทำความเข้าใจการเขียนโปรแกรมอ้างอิงตามสมการทาง Electronic Structure
 
-  \item ฝึกทักษะการเขียนโปรแกรมสำหรับการคำนวณทางวิทยาศาสตร์และได้เรียนรู้เทคนิคการประมาณค่าเชิงตัวเลข
+    \item ฝึกทักษะการเขียนโปรแกรมสำหรับการคำนวณทางวิทยาศาสตร์และได้เรียนรู้เทคนิคการประมาณค่าเชิงตัวเลข
 
-  \item ได้ออกแบบโปรแกรมเองและ Implement วิธีใหม่ ๆ ที่โปรแกรมอื่นไม่มี
+    \item ได้ออกแบบโปรแกรมเองและ Implement วิธีใหม่ ๆ ที่โปรแกรมอื่นไม่มี
 
-  \item ต่อยอดเป็นโปรแกรมในรูปแบบเชิงพานิชย์ได้เพราะว่ามีโปรแกรมทางเคมีคำนวณหลาย ๆ โปรแกรมที่ขาย License
+    \item ต่อยอดเป็นโปรแกรมในรูปแบบเชิงพานิชย์ได้เพราะว่ามีโปรแกรมทางเคมีคำนวณหลาย ๆ โปรแกรมที่ขาย License
 \end{itemize}
 
 ประเด็นหรือคำถามสำคัญคือ \enquote{ถ้าหากอยากจะเริ่มศึกษาโค้ดของวิธีการคำนวณทางเคมีควอนตัม เช่น โปรแกรม Density Functional
-  Theory (DFT) ดี ๆ สักตัวนึงจะเริ่มจากไหนดี?} ความเห็นของผมคือแนะนำให้ศึกษาโปรแกรม PySCF โดยมีเหตุผลดังต่อไปนี้
+    Theory (DFT) ดี ๆ สักตัวนึงจะเริ่มจากไหนดี?} ความเห็นของผมคือแนะนำให้ศึกษาโปรแกรม PySCF โดยมีเหตุผลดังต่อไปนี้
 
 \begin{itemize}[topsep=0pt]
-  \item โปรแกรมมีประสิทธิภาพสูง ทำงานได้เร็วและให้ผลการคำนวณที่ถูกต้องและแม่นยำและยังคำนวณได้หลากหลายวิธี
+    \item โปรแกรมมีประสิทธิภาพสูง ทำงานได้เร็วและให้ผลการคำนวณที่ถูกต้องและแม่นยำและยังคำนวณได้หลากหลายวิธี
 
-  \item มีผู้ใช้งานเยอะเนื่องจากว่าโปรแกรม PySCF นั้นสามารถติดตั้งและใช้งานได้ง่าย เตรียมไฟล์ Input ได้ไม่ยุ่งยาก
+    \item มีผู้ใช้งานเยอะเนื่องจากว่าโปรแกรม PySCF นั้นสามารถติดตั้งและใช้งานได้ง่าย เตรียมไฟล์ Input ได้ไม่ยุ่งยาก
 
-  \item PySCF เขียนด้วย Python เกือบทั้งหมด (87\% เขียนด้วย Python, 12\% เป็นภาษา C ก็คือพวกไลบรารี่ต่าง ๆ ที่เอามาคำนวณ%
-        ในส่วนที่ Python อาจจะคำนวณได้ช้า) ดังนั้นจึงง่ายต่อการทำความเข้าใจ
+    \item PySCF เขียนด้วย Python เกือบทั้งหมด (87\% เขียนด้วย Python, 12\% เป็นภาษา C ก็คือพวกไลบรารี่ต่าง ๆ ที่เอามาคำนวณ%
+          ในส่วนที่ Python อาจจะคำนวณได้ช้า) ดังนั้นจึงง่ายต่อการทำความเข้าใจ
 
-  \item มีทีมพัฒนาที่ใหญ่และแข็งแกร่ง ได้รับการสนับสนุนฟีเจอร์และแก้ไข Bug อย่างต่อเนื่อง
+    \item มีทีมพัฒนาที่ใหญ่และแข็งแกร่ง ได้รับการสนับสนุนฟีเจอร์และแก้ไข Bug อย่างต่อเนื่อง
 \end{itemize}
 
 \noindent จากข้อ 1 ถ้าหากเราต้องการ Implement วิธีหรือเทคนิคใหม่ ๆ เข้าไปใน PySCF ก็ทำได้ง่ายเพราะว่าเขียนด้วยภาษา Python
@@ -101,35 +101,35 @@ Cluster ได้นั่นหมายความว่าโค้ดขอ
 ด้านล่าง
 
 \begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.7\linewidth]{fig/cp2k-lib.jpg}
-  \caption{ไลบรารี่ที่โปรแกรม CP2K ใช้ในการช่วยคำนวณ}
-  \label{fig:cp2k_lib}
+    \centering
+    \includegraphics[width=0.7\linewidth]{fig/cp2k-lib.jpg}
+    \caption{ไลบรารี่ที่โปรแกรม CP2K ใช้ในการช่วยคำนวณ}
+    \label{fig:cp2k_lib}
 \end{figure}
 
 ผมจะมาอธิบายบาง Library ที่สำคัญ ๆ ของ CP2K ใช้ ดังนี้
 
 \begin{description}
-  \item[GNU] แน่นอนว่าเราต้องคอมไพล์ Source Code ดังนั้นเราจะต้องใช้ตัวคอมไพล์ (Compiler) ซึ่ง CP2K เลือกใช้ GNU เป็น Compiler
+    \item[GNU] แน่นอนว่าเราต้องคอมไพล์ Source Code ดังนั้นเราจะต้องใช้ตัวคอมไพล์ (Compiler) ซึ่ง CP2K เลือกใช้ GNU เป็น Compiler
 
-  \item[OpenBLAS กับ ScaLAPACK]  สำหรับ Linear Algebraic Calculation เช่น Matrix-vector, Matrix-matrix Multiplication
+    \item[OpenBLAS กับ ScaLAPACK]  สำหรับ Linear Algebraic Calculation เช่น Matrix-vector, Matrix-matrix Multiplication
 
-  \item[MPICH] อยากจะรันโปรแกรมแบบขนานโดยใช้ MPI ก็ต้องหา Implementation ที่จะมารันโค้ดของเรา ซึ่ง MPICH ก็เป็นหนึ่งใน
-    Implementation ของ MPI ที่ CP2K เลือกใช้
+    \item[MPICH] อยากจะรันโปรแกรมแบบขนานโดยใช้ MPI ก็ต้องหา Implementation ที่จะมารันโค้ดของเรา ซึ่ง MPICH ก็เป็นหนึ่งใน
+        Implementation ของ MPI ที่ CP2K เลือกใช้
 
-  \item[FFTW] สำหรับทำฟูเรียร์ทรานฟอร์มในการคำนวณ DFT หรือแปลงจาก Real Space ไปเป็น Reciprocal Space สำหรับการคำนวณ
-    Electrostatics โดยใช้ Plane Wave Electron Density
+    \item[FFTW] สำหรับทำฟูเรียร์ทรานฟอร์มในการคำนวณ DFT หรือแปลงจาก Real Space ไปเป็น Reciprocal Space สำหรับการคำนวณ
+        Electrostatics โดยใช้ Plane Wave Electron Density
 
-  \item[LIBXC] เป็น Library ที่ให้เราสามารถนำ DFT Functional มาใช้ได้เลยโดยไม่ต้อง Implement เอง
+    \item[LIBXC] เป็น Library ที่ให้เราสามารถนำ DFT Functional มาใช้ได้เลยโดยไม่ต้อง Implement เอง
 \end{description}
 
 สรุปก็คือจะเห็นได้ว่าการเขียนโค้ดของโปรแกรมเคมีควอนตัมนั้นมีความซับซ้อนมากดังนั้นเรามีสองทางเลือกคือ
 
 \begin{enumerate}[topsep=0pt,noitemsep]
-  \setlength\itemsep{1em}
-  \item ใช้ Library ที่มีอยู่แล้วสำหรับการทำงานเฉพาะจุด
+    \setlength\itemsep{1em}
+    \item ใช้ Library ที่มีอยู่แล้วสำหรับการทำงานเฉพาะจุด
 
-  \item เขียนโค้ดทั้งหมดเองเลย
+    \item เขียนโค้ดทั้งหมดเองเลย
 \end{enumerate}
 
 แน่นอนว่าถ้าเราเลือกวิธีแรกก็จะประหยัดเวลาไปได้เยอะมากและเวลาที่เราคอมไพล์โปรแกรมก็ขอแค่ Link กับ Library ต่าง ๆ ก็รันโปรแกรมได้แล้ว%
@@ -151,35 +151,35 @@ Cluster ได้นั่นหมายความว่าโค้ดขอ
 \noindent \textbf{ภาษาคอมพิวเตอร์}
 
 \begin{itemize}[topsep=0pt]
-  \item ภาษาสคริปต์ (Scripting Language): Bash, Python
+    \item ภาษาสคริปต์ (Scripting Language): Bash, Python
 
-  \item ภาษาระดับล่างที่เป็น Object-Oriented Programming: C++, Fortran
+    \item ภาษาระดับล่างที่เป็น Object-Oriented Programming: C++, Fortran
 
-  \item ภาษาเชิงสัญลักษณ์ (Symbolic Programming): Mathematica, SymPy
+    \item ภาษาเชิงสัญลักษณ์ (Symbolic Programming): Mathematica, SymPy
 \end{itemize}
 
 \noindent \textbf{โปรแกรมสำหรับการเขียนโค้ด}
 
 \begin{itemize}[topsep=0pt]
-  \item Vi/Vim, Nano
+    \item Vi/Vim, Nano
 
-  \item VS Code, Atom, Eclipse, Sublime, Notepad++
+    \item VS Code, Atom, Eclipse, Sublime, Notepad++
 \end{itemize}
 
 \noindent \textbf{พื้นฐานการเขียนโปรแกรม}
 
 \begin{itemize}[topsep=0pt]
-  \item ชนิดของตัวแปร (Variable Types)
+    \item ชนิดของตัวแปร (Variable Types)
 
-  \item ตัวดำเนินการหรือโอเปอร์เรเตอร์ (Operator)
+    \item ตัวดำเนินการหรือโอเปอร์เรเตอร์ (Operator)
 
-  \item Control Statements เช่น For, Do, If-Else, Case
+    \item Control Statements เช่น For, Do, If-Else, Case
 
-  \item ฟังก์ชัน (Function)
+    \item ฟังก์ชัน (Function)
 
-  \item Vairable Scope และ Reference Types
+    \item Vairable Scope และ Reference Types
 
-  \item คลาส (Class) และวัตถุ (Objects)
+    \item คลาส (Class) และวัตถุ (Objects)
 \end{itemize}
 
 \noindent \textbf{ภาษาคอมพิวเตอร์ระดับล่าง}
@@ -187,15 +187,15 @@ Cluster ได้นั่นหมายความว่าโค้ดขอ
 \noindent \underline{ภาษา C}
 
 \begin{itemize}[topsep=0pt]
-  \item Function, Pointer, Storage Class
+    \item Function, Pointer, Storage Class
 
-  \item Enum, Struct, Union
+    \item Enum, Struct, Union
 
-  \item Preprocessor
+    \item Preprocessor
 
-  \item Operator, Memory Management, Array
+    \item Operator, Memory Management, Array
 
-  \item การจัดการไฟล์ (File Handling)
+    \item การจัดการไฟล์ (File Handling)
 \end{itemize}
 
 \noindent \textbf{ภาษาคอมพิวเตอร์ระดับสูง}
@@ -203,71 +203,71 @@ Cluster ได้นั่นหมายความว่าโค้ดขอ
 \noindent \underline{ภาษา Python}
 
 \begin{itemize}[topsep=0pt]
-  \item Pip และ Conda: ตัวช่วยจัดการไลบรารี่ของ Python
+    \item Pip และ Conda: ตัวช่วยจัดการไลบรารี่ของ Python
 
-  \item NumPy: จัดการและคำนวณ Array (เวกเตอร์, เมทริกซ์)
+    \item NumPy: จัดการและคำนวณ Array (เวกเตอร์, เมทริกซ์)
 
-  \item Numba: JIT Compiler สำหรับ NumPy
+    \item Numba: JIT Compiler สำหรับ NumPy
 
-  \item Jax: ทำ Autograd (Gradient Comptuation) สำหรับ NumPy Array
+    \item Jax: ทำ Autograd (Gradient Comptuation) สำหรับ NumPy Array
 
-  \item SciPy: ไลบรารี่ที่รวมรวบฟังก์ชันทางคณิตศาสตร์และวิทยาศาสตร์
+    \item SciPy: ไลบรารี่ที่รวมรวบฟังก์ชันทางคณิตศาสตร์และวิทยาศาสตร์
 
-  \item Scikit-learn: ไลบรารี่สำหรับทำสถิติ, Optimization, และ Curve Fitting รวมถึง Machine Learning
+    \item Scikit-learn: ไลบรารี่สำหรับทำสถิติ, Optimization, และ Curve Fitting รวมถึง Machine Learning
 
-  \item Matplotlib, Plotly: พลอตกราฟ
+    \item Matplotlib, Plotly: พลอตกราฟ
 
-  \item Theano: คำนวณเชิงตัวเลข (Numerical Computation)
+    \item Theano: คำนวณเชิงตัวเลข (Numerical Computation)
 
-  \item SCOOP: โมดูลสำหรับการทำโปรแกรมแบบขนาน (Parallel Programming)
+    \item SCOOP: โมดูลสำหรับการทำโปรแกรมแบบขนาน (Parallel Programming)
 
-  \item NetworkX: ไลบรารี่สำหรับ Graph
+    \item NetworkX: ไลบรารี่สำหรับ Graph
 \end{itemize}
 
 \noindent \underline{ภาษา C++}
 
 \begin{itemize}[topsep=0pt]
-  \item Type of variable: signed, unsigned, long, double, etc.
+    \item Type of variable: signed, unsigned, long, double, etc.
 
-  \item Loops, conditional statement
+    \item Loops, conditional statement
 
-  \item Standard libraries: vector, rand
+    \item Standard libraries: vector, rand
 
-  \item Understanding header (`.hpp`) and source file (\texttt{.cpp} or \texttt{.cc})
+    \item Understanding header (`.hpp`) and source file (\texttt{.cpp} or \texttt{.cc})
 
-  \item Preprocessor (\texttt{\#if}, \texttt{\#ifdef}, \texttt{\#ifndef}, \texttt{\#define}, etc.)
+    \item Preprocessor (\texttt{\#if}, \texttt{\#ifdef}, \texttt{\#ifndef}, \texttt{\#define}, etc.)
 
-  \item Function, class, struct, template
+    \item Function, class, struct, template
 
-  \item Declaration
+    \item Declaration
 
-  \item namespace, const, attribute, pointer, pass by reference, static_assert
+    \item namespace, const, attribute, pointer, pass by reference, static_assert
 
-  \item Initialization
+    \item Initialization
 
-  \item casting, lambda expression, encapsulation, file handling, exception handling
+    \item casting, lambda expression, encapsulation, file handling, exception handling
 \end{itemize}
 
 \noindent \underline{ภาษา Fortran}
 
 \begin{itemize}[topsep=0pt]
-  \item เรียนรู้ภาษา Fortran ที่เป็น Modern Fortran ตั้งแต่เวอร์ชัน 2003 เป็นต้นไป
+    \item เรียนรู้ภาษา Fortran ที่เป็น Modern Fortran ตั้งแต่เวอร์ชัน 2003 เป็นต้นไป
 
-  \item โมดูล (Module), โปรแกรมย่อยหรือซับรูทีน (Subroutine), ฟังก์ชัน (Function)
+    \item โมดูล (Module), โปรแกรมย่อยหรือซับรูทีน (Subroutine), ฟังก์ชัน (Function)
 
-  \item Array ทั้งแบบที่ปรับเปลี่ยนได้ (Allocatable) และแบบหลายมิติ (Multidimentional)
+    \item Array ทั้งแบบที่ปรับเปลี่ยนได้ (Allocatable) และแบบหลายมิติ (Multidimentional)
 
-  \item Operator Overloading, Flow control
+    \item Operator Overloading, Flow control
 
-  \item Derived Type
+    \item Derived Type
 
-  \item Callback
+    \item Callback
 
-  \item การเขียนโปรแกรมเชื่อมโยงกับภาษาอื่น เช่น Python หรือ C++
+    \item การเขียนโปรแกรมเชื่อมโยงกับภาษาอื่น เช่น Python หรือ C++
 
-  \item การใช้ GNU Library ในการคอมไพล์
+    \item การใช้ GNU Library ในการคอมไพล์
 
-  \item การจัดการหน่วยความจำ (Memory Allocation): Stack, Heap, Global Memory
+    \item การจัดการหน่วยความจำ (Memory Allocation): Stack, Heap, Global Memory
 \end{itemize}
 
 - Math Libraries
@@ -366,14 +366,14 @@ int main()
 โมเลกุลเล็ก ๆ เช่น Acetaldehyde ซึ่งมี Coordinates ดังนี้
 
 \begin{Verbatim}[frame=single]
-  7
-  6  0.000000000000     0.000000000000     0.000000000000
-  6  0.000000000000     0.000000000000     2.845112131228
-  8  1.899115961744     0.000000000000     4.139062527233
-  1 -1.894048308506     0.000000000000     3.747688672216
-  1  1.942500819960     0.000000000000    -0.701145981971
-  1 -1.007295466862    -1.669971842687    -0.705916966833
-  1 -1.007295466862     1.669971842687    -0.705916966833
+    7
+    6  0.000000000000     0.000000000000     0.000000000000
+    6  0.000000000000     0.000000000000     2.845112131228
+    8  1.899115961744     0.000000000000     4.139062527233
+    1 -1.894048308506     0.000000000000     3.747688672216
+    1  1.942500819960     0.000000000000    -0.701145981971
+    1 -1.007295466862    -1.669971842687    -0.705916966833
+    1 -1.007295466862     1.669971842687    -0.705916966833
 \end{Verbatim}
 
 \noindent โดยที่เลข 7 ในบรรทัดแรกนั้นคือจำนวนอะตอมและบรรทัดที่เหลือนั้นคือพิกัดตำแหน่ง x, y, z ของอะตอมแต่ละตัว เมื่อโปรแกรมเปิดไฟล์%
@@ -413,13 +413,13 @@ int main()
 คำนวณระยะห่างระหว่างอะตอม (Interatomic Distances) โดยใช้สมการดังต่อไปนี้
 
 \begin{equation}
-  R_{ij}
-  =
-  \sqrt{
-    (x_{i} - x_{j})^{2}
-    + (y_{i} - y_{j})^{2}
-    + (z_{i} - z_{j})^{2}
-  }
+    R_{ij}
+    =
+    \sqrt{
+        (x_{i} - x_{j})^{2}
+        + (y_{i} - y_{j})^{2}
+        + (z_{i} - z_{j})^{2}
+    }
 \end{equation}
 
 \noindent โดยที่ $x, y, z$ คือ Cartesian Coordinates และ $i$ กับ $j$ คือเลข Index ของอะตอม
@@ -600,39 +600,39 @@ Interatomic distances (bohr):
 เราสามารถคำนวณมุมพันธะทุกมุมที่เป็นไปได้ทั้งหมดของโมเลกุล (ระหว่างอะตอม $i, j, k$) $\phi_{ijk}$ ได้ด้วยสมการดังต่อไปนี้
 
 \begin{equation}
-  \label{eq:cos_bond_angle}
-  \cos \phi_{ijk} = \tilde{e}_{ji} \cdot \tilde{e}_{jk}
+    \label{eq:cos_bond_angle}
+    \cos \phi_{ijk} = \tilde{e}_{ji} \cdot \tilde{e}_{jk}
 \end{equation}
 
 \noindent โดยที่ $e_{ij}$ คือเวกเตอร์หนึ่งหน่วย (Unit Vector) ระหว่างอะตอมซึ่งสามารถคำนวณได้ด้วยสมการดังต่อไปนี้
 
 \begin{align*}
-  e^{x}_{ij}
-  = \frac{
-    -(x_{i} - x_{j})
-  }
-  {
-    R_{ij}
-  } \\
-  e^{y}_{ij}
-  = \frac{
-    -(y_{i} - y_{j})
-  }
-  {
-    R_{ij}
-  } \\
-  e^{z}_{ij}
-  = \frac{
-    -(z_{i} - z_{j})
-  }
-  {
-    R_{ij}
-  }
+    e^{x}_{ij}
+    = \frac{
+        -(x_{i} - x_{j})
+    }
+    {
+        R_{ij}
+    } \\
+    e^{y}_{ij}
+    = \frac{
+        -(y_{i} - y_{j})
+    }
+    {
+        R_{ij}
+    } \\
+    e^{z}_{ij}
+    = \frac{
+        -(z_{i} - z_{j})
+    }
+    {
+        R_{ij}
+    }
 \end{align*}
 
 \vspace{5pt}
 
-โดยเราจะสร้างฟังก์ชันสำหรับคำนวณมุมพันธะซึ่งก็คือ Inverse ของฟังก์ชัน Cosine ของสมการที่ \ref{eq:cos_bond_angle} แล้วเพิ่มฟังก์ชัน%
+โดยเราจะสร้างฟังก์ชันสำหรับคำนวณมุมพันธะซึ่งก็คือ Inverse ของฟังก์ชัน Cosine ของสมการที่ \eqref{eq:cos_bond_angle} แล้วเพิ่มฟังก์ชัน%
 นี้เข้าไปในไฟล์ \ih{molecule.cpp} ดังนี้
 
 \vspace{5pt}
@@ -760,29 +760,29 @@ Bond angles:
 สมการในการคำนวณคือ
 
 \begin{equation}
-  \cos \tau_{ijkl}
-  =
-  \frac{
-    (\tilde{e}_{ij} \times \tilde{e}_{jk})
-    \cdot
-    (\tilde{e}_{jk} \times \tilde{e}_{kl})
-  }
-  {
-    \sin \theta_{ijk}
-    \sin \theta_{jkl}
-  }
+    \cos \tau_{ijkl}
+    =
+    \frac{
+        (\tilde{e}_{ij} \times \tilde{e}_{jk})
+        \cdot
+        (\tilde{e}_{jk} \times \tilde{e}_{kl})
+    }
+    {
+        \sin \theta_{ijk}
+        \sin \theta_{jkl}
+    }
 \end{equation}
 
 \noindent สิ่งที่ต้องระวังในการคำนวณ Torsion Angle ก็คือเครื่องหมายของมุมซึ่งจะเป็นบวกหรือลบนั้นก็คือขึ้นอยู่กับว่าเวกเตอร์นั้นมีทิศทางไปทาง%
 ไหนเมื่อเทียบกับระนาบ
 
 \begin{itemize}[topsep=0pt,noitemsep]
-  \setlength\itemsep{1em}
-  \item มุมบิดของอะตอม $i-j-k-l$ เป็นบวกเมื่อเวกเตอร์ตามแนวอะตอม $k-l$ นั้นวางตัวไปทางด้านขวาของระนาบที่สร้างจากอะตอม $i-j-k$
-        เมื่อมองจากทิศทางของเวกเตอร์ $j-k$
+    \setlength\itemsep{1em}
+    \item มุมบิดของอะตอม $i-j-k-l$ เป็นบวกเมื่อเวกเตอร์ตามแนวอะตอม $k-l$ นั้นวางตัวไปทางด้านขวาของระนาบที่สร้างจากอะตอม $i-j-k$
+          เมื่อมองจากทิศทางของเวกเตอร์ $j-k$
 
-  \item มุมบิดของอะตอม $i-j-k-l$ เป็นลบเมื่อเวกเตอร์ตามแนวอะตอม $k-l$ นั้นวางตัวไปทางด้านซ้ายของระนาบที่สร้างจากอะตอม $i-j-k$
-        เมื่อมองจากทิศทางของเวกเตอร์ $j-k$
+    \item มุมบิดของอะตอม $i-j-k-l$ เป็นลบเมื่อเวกเตอร์ตามแนวอะตอม $k-l$ นั้นวางตัวไปทางด้านซ้ายของระนาบที่สร้างจากอะตอม $i-j-k$
+          เมื่อมองจากทิศทางของเวกเตอร์ $j-k$
 \end{itemize}
 
 \vspace{5pt}
@@ -903,52 +903,52 @@ Torsional angles:
 \section{เขียนโปรแกรม Hartree-Fock SCF (ภาษา Python)}
 %----------------------------------------
 
-โปรแกรมเคมีควอนตัมทุกโปรแกรมจะต้องมีส่วนหนึ่งของโปรแกรมที่เป็นโค้ดสำหรับแก้สมการอันหนึ่งซึ่งขาดไม่ได้เลยนั่นก็คือ Roothaan-Hall 
+โปรแกรมเคมีควอนตัมทุกโปรแกรมจะต้องมีส่วนหนึ่งของโปรแกรมที่เป็นโค้ดสำหรับแก้สมการอันหนึ่งซึ่งขาดไม่ได้เลยนั่นก็คือ Roothaan-Hall
 Equation โดยใช้วิธี Self-Consistent Field ซึ่งเป็นสมการที่เราใช้ในการคำนวณหาพลังงานของระบบที่เราสนใจ
 
-สมการ Roothaan-Hall นั้นจะเรียกว่าเป็นสมการ HF ที่แปลงร่างมาแล้วก็ได้ สาเหตุที่เราต้องทำการแปลงร่าง HF นั้นก็เพราะว่าเราเขียน 
-Wavefunction ให้อยู่ในรูปที่มี Basis Function นั่นเอง (Basis Function คือสิ่งที่เราใช้อธิบายออร์บิทัลเชิงอะตอม) โดยเราจะมีสมการ 
-Roothaan-Hall ทั้งหมด $m$ สมการ โดยที่ $m$ คือจำนวนของ Basis Function (เรามีสมการ HF 1 สมการต่อ 1 MO และการที่เรามี 
-$m$ Basis Function นั้นก็จะสร้างทั้งหมด $m$ MOs ด้วย), $F$ คือ Fock Matrix ซึ่งก็จะได้จาก Density Matrix แล้ว 
-Density Matrix ก็คือ Matrix ที่มีสมาชิกเป็นผลคูณระหว่าง Coefficients ของ MO ซึ่งก็จะได้มาจากการประมาณค่าด้วยวิธีเริ่มต้น 
-(Initial Guess) แบบต่าง ๆ เช่นใช้ Huckel Method, ส่วน $S$ นั้นก็คือ Overlap Matrix ซึ่งก็จะเป็น Matrix ที่บอกว่า 
+สมการ Roothaan-Hall นั้นจะเรียกว่าเป็นสมการ HF ที่แปลงร่างมาแล้วก็ได้ สาเหตุที่เราต้องทำการแปลงร่าง HF นั้นก็เพราะว่าเราเขียน
+Wavefunction ให้อยู่ในรูปที่มี Basis Function นั่นเอง (Basis Function คือสิ่งที่เราใช้อธิบายออร์บิทัลเชิงอะตอม) โดยเราจะมีสมการ
+Roothaan-Hall ทั้งหมด $m$ สมการ โดยที่ $m$ คือจำนวนของ Basis Function (เรามีสมการ HF 1 สมการต่อ 1 MO และการที่เรามี
+$m$ Basis Function นั้นก็จะสร้างทั้งหมด $m$ MOs ด้วย), $F$ คือ Fock Matrix ซึ่งก็จะได้จาก Density Matrix แล้ว
+Density Matrix ก็คือ Matrix ที่มีสมาชิกเป็นผลคูณระหว่าง Coefficients ของ MO ซึ่งก็จะได้มาจากการประมาณค่าด้วยวิธีเริ่มต้น
+(Initial Guess) แบบต่าง ๆ เช่นใช้ Huckel Method, ส่วน $S$ นั้นก็คือ Overlap Matrix ซึ่งก็จะเป็น Matrix ที่บอกว่า
 Orbitals นั้นสัมพันธ์กันมากน้อยแค่ไหน, และ $\epsilon$ ของแต่ละสมการนั้นก็คือค่าพลังงานของแต่ละ MO นั้นเองซึ่งเป็นสิ่งที่เรา%
 ต้องการแก้สมการหามันออกมา
 
-ทีนี้เราสามารถยุบรวมสมการทั้งหมดในรูปที่ 1 ได้ออกมาเป็นตามสมการที่สั้นและกระชับขึ้นตามรูปที่ 2 ซึ่ง $F$, $C$, และ $S$ นั้นเป็น Matrix 
-ที่มีขนาดคือ $m \times m$ แล้วก็ epsilon นั้นก็มีขนาด $m \times m$ ด้วย (จะมีเฉพาะสมาชิกในแนวทแยงเท่านั้นที่มีค่าไม่เท่ากับ 0) 
+ทีนี้เราสามารถยุบรวมสมการทั้งหมดในรูปที่ 1 ได้ออกมาเป็นตามสมการที่สั้นและกระชับขึ้นตามรูปที่ 2 ซึ่ง $F$, $C$, และ $S$ นั้นเป็น Matrix
+ที่มีขนาดคือ $m \times m$ แล้วก็ epsilon นั้นก็มีขนาด $m \times m$ ด้วย (จะมีเฉพาะสมาชิกในแนวทแยงเท่านั้นที่มีค่าไม่เท่ากับ 0)
 โดยเราสามารถแสดงสมการด้านซ้ายและขวาให้เป็น Matrix ได้ตามรูปที่ 3 และ 4
 
-ประเด็นอยู่ตรงนี้ก็คือตามวิชา Linear Algebra ถ้าเราต้องการหา Matrix ของ $\epsilon$ เราสามารถใช้วิธี Diagonalization 
+ประเด็นอยู่ตรงนี้ก็คือตามวิชา Linear Algebra ถ้าเราต้องการหา Matrix ของ $\epsilon$ เราสามารถใช้วิธี Diagonalization
 กับสมการ Roothaan-Hall ได้เพราะว่าสมการนี้มันเป็น Eigenfunction ซึ่งกระบวนกานที่จะใช้ในการแก้นั้นก็คือตามขั้นตอนต่อไปนี้
 
 \noindent \textbf{กระบวนการ SCF:}
 
 \begin{enumerate}[topsep=0pt,noitemsep]
-  \setlength\itemsep{1em}
-  \item เรากำหนดตำแหน่งของอะตอมในโมเลกุล, ประจุ, และทำการเลือก Basis Set
+    \setlength\itemsep{1em}
+    \item เรากำหนดตำแหน่งของอะตอมในโมเลกุล, ประจุ, และทำการเลือก Basis Set
 
-  \item เริ่มคำนวณพลังงานจลน์และพลังงานศักย์ รวมไปถึง Overlap Integral
+    \item เริ่มคำนวณพลังงานจลน์และพลังงานศักย์ รวมไปถึง Overlap Integral
 
-  \item คำนวณ Orthogonalizing Matrix โดยใช้ Overlap Matrix (Overlap Matrix ที่ถูกสร้างมาจาก Overlap Integral 
-  ที่ได้จากขั้นที่ 2 อีกที)
+    \item คำนวณ Orthogonalizing Matrix โดยใช้ Overlap Matrix (Overlap Matrix ที่ถูกสร้างมาจาก Overlap Integral
+          ที่ได้จากขั้นที่ 2 อีกที)
 
-  \item คำนวณ Fock Matrix อันแรกเลยโดยใช้พลังงานจลน์และพลังงานศักย์แล้วก็ใช้ Initial Guess ที่ได้จาก Coefficients 
-  ของ Basis Set ที่กำหนดไว้ตั้งแต่ขั้นตอนที่ 1
+    \item คำนวณ Fock Matrix อันแรกเลยโดยใช้พลังงานจลน์และพลังงานศักย์แล้วก็ใช้ Initial Guess ที่ได้จาก Coefficients
+          ของ Basis Set ที่กำหนดไว้ตั้งแต่ขั้นตอนที่ 1
 
-  \item ใช้ Orthogonalizing Matrix เพื่อแปลง (Tranform) Fock Matrix ให้เป็น Matrix อันใหม่ (เรียกว่าเป็น $F'$ ก็แล้วกัน) 
-  ที่มันขึ้นอยู่กับ Orthogonal Set ของฟังก์ชันที่ได้มาจาก Basis Set ที่ถูกเซนเตอร์กับอะตอม (Atom-centered Basis Set)
+    \item ใช้ Orthogonalizing Matrix เพื่อแปลง (Tranform) Fock Matrix ให้เป็น Matrix อันใหม่ (เรียกว่าเป็น $F'$ ก็แล้วกัน)
+          ที่มันขึ้นอยู่กับ Orthogonal Set ของฟังก์ชันที่ได้มาจาก Basis Set ที่ถูกเซนเตอร์กับอะตอม (Atom-centered Basis Set)
 
-  \item ทำการทำเมทริกซ์แนวทแยง (Diagonalize) Fock Matrix เพื่อหา Coefficient Matrix ที่ถูกแปลงมาแล้ว (เรียกว่า $C'$) 
-  ก็ได้แล้วก็หาพลังงานของแต่ละ MO ได้
+    \item ทำการทำเมทริกซ์แนวทแยง (Diagonalize) Fock Matrix เพื่อหา Coefficient Matrix ที่ถูกแปลงมาแล้ว (เรียกว่า $C'$)
+          ก็ได้แล้วก็หาพลังงานของแต่ละ MO ได้
 
-  \item เปรียบเทียบ $C'$ และพลังงานกับค่าที่ได้จากรอบก่อนหน้านี้ ถ้าผลต่างยังไม่น้อยกว่า Cutoff ที่กำหนดไว้ก็ให้นำ Fock Matrix 
-  ที่ได้มาล่าสุดไปใช้ใหม่อีกครั้งหนึ่งในขั้นที่ 4 ทำวนไปเรื่อย ๆ จนได้คำตอบที่แม่นยำ
+    \item เปรียบเทียบ $C'$ และพลังงานกับค่าที่ได้จากรอบก่อนหน้านี้ ถ้าผลต่างยังไม่น้อยกว่า Cutoff ที่กำหนดไว้ก็ให้นำ Fock Matrix
+          ที่ได้มาล่าสุดไปใช้ใหม่อีกครั้งหนึ่งในขั้นที่ 4 ทำวนไปเรื่อย ๆ จนได้คำตอบที่แม่นยำ
 \end{enumerate}
 
-สำหรับการกำหนด Basis Set นั้นก็คือการเลือกชุดค่าสัมประสิทธิ์ของออร์บิทัล (Wavefunction) ของธาตุแต่ละธาตุ จริง ๆ แล้ว Basis Set 
-นั้นก็คือไฟล์ Text ที่มีรูปแบบ (Format) ที่แตกต่างกันไปตามโปรแกรมที่ใช้ เราสามารถดาวน์โหลดไฟล์ Basis Set ได้ที่เว็บไซต์ 
-\url{https://www.basissetexchange.org/} ตัวอย่างเช่น Basis Set: aug-cc-PV7Z ของอะตอมคาร์บอน 
+สำหรับการกำหนด Basis Set นั้นก็คือการเลือกชุดค่าสัมประสิทธิ์ของออร์บิทัล (Wavefunction) ของธาตุแต่ละธาตุ จริง ๆ แล้ว Basis Set
+นั้นก็คือไฟล์ Text ที่มีรูปแบบ (Format) ที่แตกต่างกันไปตามโปรแกรมที่ใช้ เราสามารถดาวน์โหลดไฟล์ Basis Set ได้ที่เว็บไซต์
+\url{https://www.basissetexchange.org/} ตัวอย่างเช่น Basis Set: aug-cc-PV7Z ของอะตอมคาร์บอน
 \url{https://www.basissetexchange.org/basis/aug-cc-pv7z/format/nwchem/?version=0&elements=6}
 
 %----------------------------------------

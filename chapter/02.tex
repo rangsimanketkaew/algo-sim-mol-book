@@ -226,17 +226,17 @@ PES) นั้นมีหน้าตาประมาณนี้
 
 \begin{enumerate}[topsep=0pt,noitemsep]
     \setlength\itemsep{1em}
-    \item นำแรงต่ออะตอมมาคำนวณหาความเร่ง (Acceleration) แล้วนำไปเข้าสมการ Equation of Motions 
-    เพื่อคำนวณหาความเร็ว (Velocity) และการกระจัด (Displacement) ที่เปลี่ยนไป
-    
+    \item นำแรงต่ออะตอมมาคำนวณหาความเร่ง (Acceleration) แล้วนำไปเข้าสมการ Equation of Motions
+          เพื่อคำนวณหาความเร็ว (Velocity) และการกระจัด (Displacement) ที่เปลี่ยนไป
+
     \item นำการกระจัดที่เปลี่ยนไปมาทำการอัพเดทตำแหน่งของอะตอม/โมเลกุล เรียกวิธีการนี้ว่า Propagation
-    
+
     \item เมื่อเราทำแบบนี้ไปเรื่อย ๆ เราจะได้ Dynamic ของระบบที่สามารถที่จะ Represent คุณสมบัติ Microscopic ของระบบจริง ๆ ได้
 \end{enumerate}
 
-โดยขนาดของระบบที่เราใช้ในการจำลองจะสอดคล้องกับ Time-scale ของการรัน Dynamic Simulation ในการศึกษา Properties 
-ที่แตกต่างกันออกไป นอกจากนี้ยังมีวิธีการคำนวณ Force field ที่ซับซ้อนกว่านี้อีกมากมาย ขึ้นอยู่กับวิธีการ accuracy ที่ต้องการ 
-สรุปคือ Force field นั้นสำคัญมาก ๆ เพราะเป็นจุดเริ่มต้นของการศึกษา Properties อื่น ๆ อีกมากมายของโมเลกุล ดังนั้น 
+โดยขนาดของระบบที่เราใช้ในการจำลองจะสอดคล้องกับ Time-scale ของการรัน Dynamic Simulation ในการศึกษา Properties
+ที่แตกต่างกันออกไป นอกจากนี้ยังมีวิธีการคำนวณ Force field ที่ซับซ้อนกว่านี้อีกมากมาย ขึ้นอยู่กับวิธีการ accuracy ที่ต้องการ
+สรุปคือ Force field นั้นสำคัญมาก ๆ เพราะเป็นจุดเริ่มต้นของการศึกษา Properties อื่น ๆ อีกมากมายของโมเลกุล ดังนั้น
 \textit{เลือก Force Field ไม่ดี = ชีวิตพัง}
 
 %----------------------------------------
@@ -244,8 +244,8 @@ PES) นั้นมีหน้าตาประมาณนี้
 \idxboth{สนามแรง!พันธะโควาเลนท์}{Force Fields!Covalent Bonding}
 %----------------------------------------
 
-ในหัวข้อนี้เราจะมาดูรายละเอียดของ Force Field ที่สำคัญมากที่สุดอันหนึ่งนั่นก็คือ Force Field ที่ใช้ในการอธิบายพันธะโควาเลนท์ (Covalent 
-Bonding) ซึ่งประกอบไปด้วย การยืดหดของพันธะ (Bond Stretching), การงอของพันธะ (Angle Bending) และการเคลื่อนแบบบิด (Torsional 
+ในหัวข้อนี้เราจะมาดูรายละเอียดของ Force Field ที่สำคัญมากที่สุดอันหนึ่งนั่นก็คือ Force Field ที่ใช้ในการอธิบายพันธะโควาเลนท์ (Covalent
+Bonding) ซึ่งประกอบไปด้วย การยืดหดของพันธะ (Bond Stretching), การงอของพันธะ (Angle Bending) และการเคลื่อนแบบบิด (Torsional
 Motion)
 
 %----------------------------------------
@@ -253,7 +253,7 @@ Motion)
 \idxen{Bond Stretching}
 %----------------------------------------
 
-เริ่มต้นด้วยการพิจารณาพลังงานศักย์ $V(R)$ ของโมเลกุลอะตอมคู่ (Diatomic Molecule) ซึ่งเป็นฟังก์ชันของระยะห่างระหว่างอะตอม 
+เริ่มต้นด้วยการพิจารณาพลังงานศักย์ $V(R)$ ของโมเลกุลอะตอมคู่ (Diatomic Molecule) ซึ่งเป็นฟังก์ชันของระยะห่างระหว่างอะตอม
 (Bond Distance) $R$ โดยเราสามารถแสดง (Represent) $V(R)$ อันนี้ได้ด้วยศักย์ของมอส (Morse Potential) ดังต่อไปนี้
 
 \begin{figure}[htbp]
@@ -268,24 +268,24 @@ Motion)
     V(R) = D_{e} \left( e^{-2a(R-R_{e})} -2e^{-a(R-R_{e})} \right)
 \end{equation}
 
-\noindent โดยที่ $R_{e}$ คือระยะห่างระหว่างอะตอมที่สภาวะสมดุล เช่น ความยาวพันธะ ณ ตำแหน่งที่พลังงานศักย์ของ Morse Potentail 
-นั้นมีค่าน้อยที่สุด, $D_{e}$ คือความลึก (Depth) ของพื้นผิวศักย์ (Potentail Surface) ซึ่งก็คือพลังงานการแตกออกหรือการแยกตัว (Dissociation 
-Energy) และ $a$ คือพารามิเตอร์ที่อธิบายความกว้างของบ่อพลังงานศักย์อันนี้ นอกจากนี้ Morse Potential สามารถถูกเขียนได้ด้วยวิธีอื่น ๆ ได้อีกด้วย 
+\noindent โดยที่ $R_{e}$ คือระยะห่างระหว่างอะตอมที่สภาวะสมดุล เช่น ความยาวพันธะ ณ ตำแหน่งที่พลังงานศักย์ของ Morse Potentail
+นั้นมีค่าน้อยที่สุด, $D_{e}$ คือความลึก (Depth) ของพื้นผิวศักย์ (Potentail Surface) ซึ่งก็คือพลังงานการแตกออกหรือการแยกตัว (Dissociation
+Energy) และ $a$ คือพารามิเตอร์ที่อธิบายความกว้างของบ่อพลังงานศักย์อันนี้ นอกจากนี้ Morse Potential สามารถถูกเขียนได้ด้วยวิธีอื่น ๆ ได้อีกด้วย
 
-หนึ่งในวิธีที่เราจะสามารถใช้ในการ Represent พันธะโควาเลนท์ก็คือการใช้โมเดลการสั่น Harmonic OSciallator แบบคลาสสิค 
-เช่น ถ้าเรามีอะตอม 2 อะตอมที่ถูกยึดเข้าด้วยกันด้วยสปริงที่มี Force Constant $k$ เราสามารถใช้ Taylor Expansion ในการอธิบาย Potential 
+หนึ่งในวิธีที่เราจะสามารถใช้ในการ Represent พันธะโควาเลนท์ก็คือการใช้โมเดลการสั่น Harmonic OSciallator แบบคลาสสิค
+เช่น ถ้าเรามีอะตอม 2 อะตอมที่ถูกยึดเข้าด้วยกันด้วยสปริงที่มี Force Constant $k$ เราสามารถใช้ Taylor Expansion ในการอธิบาย Potential
 Energy $V(R)$ ได้โดยการใช้ Dunham Expansion Parameter $Q = (\frac{R-R_{e}}{R_{e}})$ ดังนี้
 
 \begin{equation}
-    V(Q) 
-    = 
-    \underbrace{V(0)}_{\text {Zero level }} 
-    + \underbrace{V^{\prime}(0) Q}_{V^{\prime}(0)=0 \text { in the minimum }} 
-    + \underbrace{\frac{1}{2} V^{\prime \prime}(0) Q^2}_{\text {Harmonic term }} 
-    + \underbrace{\frac{1}{6} V^{(3)}(0) Q^3}_{\text {Anharmonicity }} 
+    V(Q)
+    =
+    \underbrace{V(0)}_{\text {Zero level }}
+    + \underbrace{V^{\prime}(0) Q}_{V^{\prime}(0)=0 \text { in the minimum }}
+    + \underbrace{\frac{1}{2} V^{\prime \prime}(0) Q^2}_{\text {Harmonic term }}
+    + \underbrace{\frac{1}{6} V^{(3)}(0) Q^3}_{\text {Anharmonicity }}
     + \underbrace{\frac{1}{24} V^{(4)}(0) Q^4 \ldots,}_{\text {Quartic term }}
 \end{equation}
- 
+
 %----------------------------------------
 \subsection{Angle Bending}
 \idxen{Angle Bending}
@@ -372,7 +372,7 @@ Energy $V(R)$ ได้โดยการใช้ Dunham Expansion Parameter $Q
     \underbrace{r_{N,x}, r_{N,y}, r_{N,z}}_{\text{อะตอมตัวที่ $N$}})
 \end{equation}
 
-โดยในการจำลอง MD นั้นจะเป็นการแก้สมการที่ \ref{eq:force_newton} และ \ref{eq:force_der_ener} พร้อม ๆ กันไปเป็นสเต็ป ๆ
+โดยในการจำลอง MD นั้นจะเป็นการแก้สมการที่ \eqref{eq:force_newton} และ \eqref{eq:force_der_ener} พร้อม ๆ กันไปเป็นสเต็ป ๆ
 ตลอดช่วงระยะเวลาที่ทำการจำลอง โดยระยะห่างระหว่างสเต็ปนั้นเรียกว่า Time Step $(\Delta t)$
 
 %----------------------------------------
