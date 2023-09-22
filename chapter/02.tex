@@ -286,24 +286,176 @@ Energy $V(R)$ ได้โดยการใช้ Dunham Expansion Parameter $Q
     + \underbrace{\frac{1}{24} V^{(4)}(0) Q^4 \ldots,}_{\text {Quartic term }}
 \end{equation}
 
+\noindent โดยที่เราไม่ต้องพิจารณา Zero Level ($V(0)$) ก็ได้ เพราะว่า Potential Energy Surface นั้นสามารถเปลี่ยนระดับพลังงาน%
+ได้ด้วยค่าพลังงานคงที่ สำหรับเทอมที่เป็นเส้นตรง (Linear Term) ใน $Q$ นั้นมีค่าเท่ากับ 0 เนื่องจากว่า Gradient ของเทอมนี้นั้นเท่ากับ 0
+ที่ตำแหน่ง Minimum ส่วนเทอมที่เป็น Quadratic Term กับ Cubic Term ใน $Q$ นั้นคือ Harmonic และ Anharmonic ของพื้นผิวศักย์ตามลำดับ
+ถ้าหากว่าเราตัดเทอม Anharmonicity แล้วก็เทอมที่มีอันดับสูงกว่านี้ออกไปจาก Tarlor Expansion สิ่งที่เราจะได้นั้นก็คือการสั่นฮาร์โมนิคแบบ%
+ดั้งเดิม (Classical Harmonic Oscillator) นั่นเอง
+
+\begin{equation}
+    V(Q)
+    =
+    \frac{k}{2} Q^{2} \quad \texttt{โดยที่} k \equiv V''(0)
+\end{equation}
+
+Taylor Expansion ของ Morse Potential นั้นเป็นหนึ่งโมเดลของพื้นผิวศักย์ที่สามารถอธิบายสถานะของระบบรอบ ๆ จุดต่ำสุด Minimum ได้
+ซึ่งจะอธิบายได้ดีก็ต่อเมื่อเราทำการตัดหรือไม่พิจารณาเทอมที่มีอันดับสูงกว่า Harmonic Term ออกไป อย่างไรก็ตาม โมเดลนี้ก็มีจุดอ่อน ถ้าหากว่าเรา%
+ดูกรณีที่อะตอมทั้งสองอะตอมนั้นมีระยะห่างกันมาก ๆ ซึ่งก็คือห่างกันอนันต์ $Q \rightarrow \infty$ จะทำให้พลังงานศักย์นั้นเข้าใกล้ค่าอนันต์ด้วย
+$V(Q) \rightarrow \infty$ ซึ่งเงื่อนไขอันนี้ทำให้โมเดล Morse Potential นั้นอธิบาย Dissociation ได้ไม่ถูกต้อง แต่ถ้าหากว่าโมเดลอันนี้%
+ถูกนำมาใช้ในการอธิบายระบบที่มีหลาย ๆ โมเลกุลและแต่ละโมเลกุลนั้นไม่ทำปฏิกิริยาต่อกัน พูดง่าย ๆ ก็คือไม่มีการสร้างพันธะ (Non-reacting)
+เราจะพบว่าการที่เราทำการตัดเทอมที่มีอันดับสูงกว่า Harmomic ออกไปนั้นจะทำให้มันสามารถอธิบายพื้นผิวศักย์ได้อย่างสมเหตุสมผล
+
 %----------------------------------------
 \subsection{Angle Bending}
 \idxen{Angle Bending}
 %----------------------------------------
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/water-angle-bending.png}
+    \caption{ซ้าย: โมเลกุลน้ำ, ขวา: Double Minimum Potential สำหรับมุมพันธะของโมเลกุลน้ำ}
+    \label{fig:water_angle_bending}
+\end{figure}
+
+สำหรับการอธิบาย Angle Bending นั้นผมขอยกตัวอย่างโมเลกุลน้ำ \ce{H2O} ซึ่งมีมุมสมดุลคือ $\theta_{e}$ ระหว่างพันธะ \ce{O-H}
+ซึ่งมีความยาวพันธะเท่ากับ 104.5 องศา เมื่อความยาวพันธะยืดออกนั้นเราสามารถใช้การประมาณแบบ Harmonic Oscillator เพื่ออธิบาย Angle
+Bending ได้ ดังนี้
+
+\begin{equation}
+    V(\theta)
+    =
+    \frac{k_{\theta}}{2}
+    (\theta - \theta_{e})^{2}
+\end{equation}
+
+\noindent ซึ่ง Approximation ด้านบนนี้สามารถนำมาใช้ได้เมื่อมุม $\theta$ นั้นเข้าใกล้กับมุมสมดุล $\theta_{e}$
+
+ถ้าหากเราลองมาดูกรณีแปลก ๆ เช่น ถ้ามุมพันธะมีค่าเท่ากับ $\pi$ ซึ่งทำให้โมเลกุลน้ำนั้นเป็นเส้นตรง เราจะพบว่าพลังงานศักย์นั้นจะสูงมาก ๆ
+และในความเป็นจริงนั้นแทบจะเป็นไปได้ยากมาก ๆ ที่โมเลกุลน้ำนั้นจะเป็นเส้นตรง (แต่ก็สามารถทำได้โดยการเพิ่มอุณหภูมิให้สูงมาก ๆ)
 
 %----------------------------------------
 \subsection{Dihedral Terms}
 \idxen{Dihedral Terms}
 %----------------------------------------
 
+พารามิเตอร์อีกอันหนึ่งที่สำคัญมากในการอธิบายการเปลี่ยนแปลงของมุมพันธะและระนาบในโมเลกุลนั้นก็คือ Dihedral Angle หรือว่ามุมบิด
+ซึ่งมุมบิดนี้ก็มี Potential Energy เป็นของตัวเองด้วยโดยมีสมการดังต่อไปนี้
+
+\begin{equation}
+    V(\omega)
+    =
+    \sum_{n} \frac{V_{n}}{2}
+    \left(
+    1 + \cos(n\omega - \gamma)
+    \right)
+\end{equation}
+
+\noindent โดยที่ $n$ นั้นคือเลขจำนวนเต็มที่บ่งบอกถึงจำนวนคาบ เช่น $n = 2$ ก็คือมีคาบเท่ากับ 180 องศา หรือ $n = 3$ ก็คือมีคาบเท่ากับ
+120 องศานั่นเอง, $V_{n}$ คือพลังงานศักย์การหมุน (Rotational Energy Barrier) และ $\gamma$ นั้นกำหนดว่ามุมที่มุมบิดนั้นมีค่าเท่ากับ
+0 องศา
+
+สมการที่ใช้ในการพลังงานศักย์ของ Dihedral Angle นั้นสามารถเขียนได้โดยการใช้ส่วนจริง (Real Part) ของการแปลงฟูเรียร์ ดังนี้
+
+\begin{equation}
+    V(\omega)
+    =
+    \sum_{n} C_{n} \cos(\omega)^{n}
+\end{equation}
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/dihedral-angle.png}
+    \caption{ซ้าย: โมเลกุลน้ำ, ขวา: Double Minimum Potential สำหรับมุมพันธะของโมเลกุลน้ำ}
+    \label{fig:dihedral_angle}
+\end{figure}
+
+สำหรับโมเลกุลที่ควรจะต้องแบนราบหรือมีความเป็น Planar อยู่แล้วนั้น บางครั้งเราก็อยากที่จะเพิ่ม Constraint เข้าไปให้กับพื้นผิวศักย์ของโมเลกุล%
+เพื่อทำให้โมเลกุลนั้นมีความเป็น Planar ซึ่งวิธีการเพิ่ม Constraint นั้นทำได้หลายวิธี หนึ่งในนั้นก็คือการใส่ Lagrangian Multipliers 
+ในขณะที่เราทำการปรับค่าพลังงานของโมเลกุลให้มีค่าต่ำที่สุดหรือที่เราเรียกว่า Constrained Energy Minimization ซึ่งจะทำให้เราได้โมเลกุลที่%
+มีพลังงานต่ำที่สุดที่สภาวะที่ถูก Constraint อยู่ด้วย จึงทำให้โมเลกุลนั้นถูกบังคับให้แบนราบหรือมีความเป็น Planar ตลอดเวลา นอกจากนี้ยังมีอีกวิธี%
+ก็คือการเติมเทอมพลังงานพิเศษเข้าไปทื่อ ๆ เลยอีกเทอมนึง ซึ่งเทอมพลังงานพิเศษอันนี้ที่เราเติมเข้าไปนั้นมีชื่อเรียกว่า Energy Restraint หรือ 
+Improper Torsion Term นั่นเอง ซึ่งมีหน้าตาดังนี้
+
+\begin{equation}
+    V(\omega)
+    =
+    k_{\omega}
+    (1 - \cos 2\omega)
+\end{equation}
+
+\noindent โดยที่โมเลกุลนั้นจะถูกบังคับหรือถูกตรึงให้มีลักษณะที่ \textit{เกือบ} จะเป็นแบนราบอยู่ตลอดเวลาถ้าหากว่าค่า $k_{\omega}$ 
+นั้นมีค่ามากพอ
+
 %----------------------------------------
 \subsection{Cross Terms}
 \idxen{Cross Terms}
 %----------------------------------------
 
+เทอมสุดท้ายที่เรามักจะไม่ค่อยคุนชินกันเท่าไหร่เพราะว่ามักจะไม่ค่อยมีใครพูดถึงแม้แต่ในตำราต่างประเทศหลาย ๆ เล่มนั่นก็คือเทอมที่เรียกว่า Cross Term 
+ซึ่งเทอมนี้จะถูกนำใส่เข้าไปใน Potential Energy Expression เพื่อใช้อธิบายการคู่ควบกัน (Coupling) ระหว่าง Two-bond Stretch 
+หรือ Bond Stretch กับ Angle Bending Term โดยผมขอยกตัวอย่างด้วยโมเลกุลน้ำเหมือนเดิมครับ ถ้าหากเราพิจารณา Intermolecular Motion 
+นั้นเราจะสามารถอธิบาย Motion อันนี้ได้โดยการใช้ Taylor Expansion รอบ ๆ ความยาวพันธะทั้งสองอัน ($R_{1}$ กับ $R_{2}$) และมุมพันธะ 
+($\theta$) ดังนี้ 
+   
+\begin{align}
+    V\left(R_1, R_2, \theta\right) 
+    &= 
+    V\left(R_{1,0}, R_{2,0}, \theta_0\right) 
+        + \left.\left(R_1-R_{1,0}\right) \frac{\partial V}{\partial R_1}\right|_{R_{1,0}, R_{2,0}, \theta_0} \nonumber \\
+    &+ \left.\left(R_2-R_{2,0}\right) \frac{\partial V}{\partial R_2}\right|_{R_{1,0}, R_{2,0}, \theta_0} \nonumber \\
+    &+ \left.\left(\theta-\theta_0\right) \frac{\partial V}{\partial \theta}\right|_{R_{1,0}, R_{2,0}, \theta_0} 
+        + \left.\frac{1}{2}\left(R_1-R_{1,0}\right)^2 
+            \frac{\partial^2 V}{\partial R_1^2}\right|_{R_{1,0}, R_{2,0}, \theta_0} \nonumber \\
+    &+ \left.\frac{1}{2}\left(R_2-R_{2,0}\right)^2 
+        \frac{\partial^2 V}{\partial R_2^2}\right|_{R_{1,0}, R_{2,0}, \theta_0} 
+        + \left.\frac{1}{2}\left(\theta-\theta_0\right)^2 
+            \frac{\partial^2 V}{\partial \theta^2}\right|_{R_{1,0}, R_{2,0}, \theta_0} \\
+    &+ \left.\left(R_1-R_{1,0}\right)\left(R_2-R_{2,0}\right) 
+        \frac{\partial^2 V}{\partial R_1 \partial R_2}\right|_{R_{1,0}, R_{2,0}, \theta_0} \nonumber \\
+    &+ \left.\left(R_1-R_{1,0}\right)\left(\theta-\theta_0\right) 
+        \frac{\partial^2 V}{\partial R_1 \partial \theta}\right|_{R_{1,0}, R_{2,0}, \theta_0} \nonumber \\
+    &+ \left.\left(R_2-R_{2,0}\right)\left(\theta-\theta_0\right) 
+        \frac{\partial^2 V}{\partial R_2 \partial \theta}\right|_{R_{1,0}, R_{2,0}, \theta_0} + \ldots
+\end{align}
+
+\noindent โดยที่ 3 เทอมสุดท้ายนั้นคือ Coupling Terms อย่างไรก็ตาม โดยปกติแล้วเราไม่จำเป็นต้องใส่เทอม Coupling ทั้งหมดที่เรามี 
+ซึ่งเทอม Coupling บางเทอมก็สำคัญ บางเทอมก็ไม่สำคัญซึ่งขึ้นอยู่กับโมเลกุล สำหรับโมเลกุลน้ำนั้นเทอม Coupling ที่สำคัญและควรจะต้องมีก็คือ 
+Coupling Term ที่มาจาก Stretch Bond เพื่อที่ว่าจะสามารถอธิบาย Symmetric Stretch Coordinate ได้ ซึ่งมีสมการดังนี้
+
+\begin{equation}
+    Q_1-Q_{1,0} 
+    =
+    \left(R_1-R_{1,0}\right)+\left(R_2-R_{2,0}\right)
+\end{equation}
+
+\noindent และสามารถ Antisymmetric Stretch Coordinate ได้เช่นกัน ซึ่งมีสมการดังนี้
+
+\begin{equation}
+    Q_2-Q_{2,0} 
+    = 
+    \left(R_1-R_{1,0}\right)-\left(R_2-R_{2,0}\right)
+\end{equation}
+
+แล้วก็ในการรวม Crossing Term เข้าไปในสมการพลังงานศักย์เพื่อใช้อธิบายพื้นผิวศักย์ของโมเลกุลน้ำนั้น เราจะพบว่าพารามิเตอร์ที่ขึ้นอยู่กับชนิดของ%
+อะตอมนั้น (เช่น $R_{1,0}$, $R_{2,0}$ และ $\theta_{0}$) นั้นไม่ได้เกี่ยวข้องหรือสอดคล้องกับ Equilibrium Geometry เลย 
+
 %----------------------------------------
 \subsection{สรุป Bonding}
 %----------------------------------------
+
+โดยสรุปแล้วเราเพิ่งได้ศึกษาเทอมของพลังงานต่าง ๆ ที่เรานำมาใช้ในการสร้าง Force Field เพื่อใช้ในการอธิบาย Covalent Bond ซึ่งประกอบไปด้วย%
+เทอมดังต่อไปนี้ Bond Stretching, Angle Bending, Torsional Motion แล้วก็มีการรวมเทอมพิเศษเข้าไปด้วยซึ่งก็คือ Coupling Term 
+และนอกจากนี้ยังมีเทอมอื่น ๆ อีกที่ผมไม่ได้พูดถึง เช่น เทอมพิเศษที่อธิบาย Hyperconjugation ซึ่งเป็นปรากฏการณ์ที่ $\pi$-conjugation 
+นั้นส่งผลต่อการยืดหกของพันธะอย่างไรในโมเลกุล โดยเราสามารถแบ่งประเภทของเทอมเหล่านี้ออกเป็นคลาสได้ดังนี้
+
+\begin{itemize}
+    \item Class I: มีเพียงแค่ Harmonic Terms เท่านั้น ไม่มีการเติม Coupling Terms เข้าไป
+    
+    \item Class II: มี Anharmonic Terms และ Cross Terms 
+    
+    \item Class III: มีเทอมพื้นฐานทั้งหมดและมีการเพิ่มเทอมพิเศษ เช่น Huperconjugation เข้าไปด้วย
+\end{itemize}
 
 %----------------------------------------
 \section{อันตรกิริยาระหว่างโมเลกุล}
@@ -312,11 +464,13 @@ Energy $V(R)$ ได้โดยการใช้ Dunham Expansion Parameter $Q
 
 %----------------------------------------
 \subsection{Electrostatic Interactions}
+\idxth{อันตรกิริยาแบบไฟฟ้าสถิตย์}
 \idxen{Electrostatic Interactions}
 %----------------------------------------
 
 %----------------------------------------
 \subsection{Electronic Polarization}
+\idxth{โพลาไรเซชั่นเชิงอิเล็กทรอนิกส์}
 \idxen{Electronic Polarization}
 %----------------------------------------
 
@@ -326,7 +480,8 @@ Energy $V(R)$ ได้โดยการใช้ Dunham Expansion Parameter $Q
 
 %----------------------------------------
 \subsection{Effective Force Field}
-\idxen{Effective Force Field}
+\idxth{สนามแรง!สนามแรงแบบมีประสิทธิภาพ}
+\idxen{Force Field!Effective Force Field}
 %----------------------------------------
 
 %----------------------------------------
@@ -335,14 +490,19 @@ Energy $V(R)$ ได้โดยการใช้ Dunham Expansion Parameter $Q
 
 %----------------------------------------
 \section{แรงระหว่างโมเลกุลจากกลศาสตร์ควอนตัม}
+\idxth{แรงระหว่างโมเลกุลแบบควอนตัม}
+\idxen{Quantum Intermolecular Forces}
 %----------------------------------------
 
 %----------------------------------------
-\subsection{อนุพันธ์ลำดับที่หนึ่งของพลังงาน}
+\subsection{อนุพันธ์ลำดับที่หนึ่งของพลังงาน} 
+\idxen{First-order Energy}
 %----------------------------------------
 
 %----------------------------------------
 \subsection{อนุพันธ์ลำดับที่สองของพลังงาน}
+\idxen{Second-order Energy}
+
 %----------------------------------------
 
 %----------------------------------------
@@ -417,6 +577,14 @@ MD ประมาณ $10^{15}$ สเต็ปถึงจะสามารถ
 \paragraph{4. วิเคราะห์ผลการจำลอง MD}
 
 \paragraph{5. คำนวณคุณสมบัติอื่น ๆ เพิ่มเติม}
+
+%----------------------------------------
+\section{การจำลอง MD ด้วยเทคนิค Enhanced Sampling}
+%----------------------------------------
+
+%----------------------------------------
+\section{การวิเคราะห์ผลการจำลอง MD}
+%----------------------------------------
 
 %----------------------------------------
 \section{แบบฝึกหัด}
