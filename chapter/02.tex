@@ -607,6 +607,142 @@ $\mu_{I,alpha}$) และควอดรูโพลโมเมนต์เช
 ผลรวมของ Contribution หลาย ๆ อันของไฟฟ้าสถิตย์ของอะตอมแต่ละตัวในโมเลกุลซึ่งมันมีความเฉพาะเจาะจงมากเกินไป (มีความ Local มากเกินไป)
 
 %----------------------------------------
+\subsubsection{Electronegativity Equalization Model}
+\idxen{Electronegativity Equalization Model}
+%----------------------------------------
+
+ในหัวข้อย่อยอันนี้เราจะมาดูตัวอย่างของโมเดลที่สามารถคำนวณประจุเชิงอะตอทในโมเลกุลได้ โมเดลนั้นก็คือ Electronegativity Equalization 
+Model (EEM) ซึ่งจะใช้หลักการที่ว่าประจุของอะตอมแต่ละตัวในโมเลกุลนั้นสามารถที่จะถูกอธิบายได้ด้วยค่า Atomic Electronegativity ($\xi_{I}$) 
+และค่า Atomic Chemical Hardness ($\eta_{I}$) ถ้าหากว่าค่า Electronegativity ของอะตอม 2 อันนั้นแตกต่างกัน ประจุจะไหล (Flow) 
+จากอะตอมอันแรกไปอะตอมอันที่สองจนกว่าค่า Molecular Electronegativity นั้นจะมีค่าเฉลี่ยที่เท่า ๆ กันในทุก ๆ ตำแหน่งของโมเลกุล
+ซึ่งค่า Molecular Electronegativity ที่ว่านี้ก็คือ Chemical Potential นั่นเอง นอกจากนี้แล้วยังมีปริมาณอีกหนึ่งตัวที่ทำให้อะตอมนั้นมีประจุ%
+ก็คืองาน (Work) ซึ่งสามารถหาได้จากค่า Chemical Hardness หรือ Capacitance ของอะตอม ยิ่งไปกว่านั้นทั้ง Electronegativity และ 
+Chemical Hardness นั้นต่างก็เป็น Concept หลักที่เรานำมาใช้ใน Density Functional Theory อีกด้วย 
+
+สำหรับการคำนวณประจุเชิงอะตอมด้วยวิธี EEM นั้น ผมขอเริ่มต้นด้วยสมการของพลังงานของโมเลกุลที่มี $N$ อะตอม, $V$, ดังนี้
+
+\begin{equation}
+    V 
+    = 
+    \sum_I^N \xi_I q_I+\frac{1}{2} 
+    \sum_I^N \eta_I q_I^2+\frac{1}{2} 
+    \sum_{I, J \neq I}^N q_I T_{I J}^{(0)} q_J 
+    + \mu\left(q^{\mathrm{mol}}-\sum_I^N q_I\right)
+\end{equation}
+
+\noindent โดยที่เทอมที่ 3 นั้นเป็น Coulomb Interaction ระหว่างประจุเชิงอะตอม 2 อัน $(q_I$ และ $q_J)$ ส่วนเทอมสุดท้ายนั้นเป็นเทอม%
+ที่เป็นตัวบังคับให้ประจุรวมของโมเลกุล $(q^{\mathrm{mol}})$ นั้นมีค่าเท่าเดิมเสมอ แล้วก็ $\mu$ นั้นเป็น Lagrangian Multiplier 
+
+ในการหาประจุเชิงอะตอมนั้นสามารถทำได้โดยการปรับค่าพลังงานของโมเลกุลให้ต่ำที่สุดซึ่งก็คือการหาอนุพันธ์ของพลังงานเทียบกับประจุเชิงอะตอมและ 
+Lagrangian Multiplier ซึ่งจะทำให้เราได้ว่า
+
+\begin{equation}
+    \frac{\partial V}{\partial q_K} 
+    = 
+    0 
+    = \xi_K+\eta_K q_K+\sum_{L \neq K}^N T_{K L}^{(0)} q_L-\mu
+\end{equation}
+
+\noindent และ 
+
+\begin{equation}
+    \frac{\partial V}{\partial \mu}
+    = 
+    0 
+    = 
+    q^{\mathrm{mol}}-\sum_I^N q_I
+\end{equation}
+
+\noindent โดยที่เทอมสุดท้ายนั้นก็คือเทอมบังคับ (Constraint Term) นั่นเอง ในการหาประจุเชิงอะตอมของอะตอมแต่ละตัวนั้นสามารถหาได้จาก%
+การสร้างเมทริกซ์สำหรับการแก้สมการเชิงเส้นทั้งหมด $N+1$ ซึ่งสมการเชิงเส้นทั้งหมดนี้นั้นมีความพัวพันหรือ Coupled กันอยู่และเราสามารถแก้ได้%
+โดยใช้เทคนิคการประมาณเชิงตัวเลขแบบมาตรฐานทั่วไป 
+
+\begin{equation}
+    \left(\begin{array}{ccccc}
+        \eta_1 & T_{12}^{(0)} & \ldots & T_{1 N}^{(0)} & 1 \\
+        T_{21}^{(0)} & \eta_2 & \ldots & T_{2 N}^{(0)} & 1 \\
+        \vdots & \vdots & \ddots & \vdots & \vdots \\
+        T_{N 1}^{(0)} & T_{N 2}^{(0)} & \ldots & \eta_N & 1 \\
+        1 & 1 & \ldots & 1 & 0
+    \end{array}\right)\left(\begin{array}{c}
+        q_1 \\
+        q_2 \\
+        \vdots \\
+        q_N \\
+        \mu
+    \end{array}\right)
+    =
+    \left(\begin{array}{c}
+        \xi_1 \\
+        \xi_2 \\
+        \vdots \\
+        \xi_N \\
+        q^{\mathrm{mol}}
+    \end{array}\right)
+\end{equation}
+
+\noindent ซึ่งถ้าหากเราทำการย้ายเมทริกซ์ด้านซ้ายสุดไปอยู่ทางด้านขวาของสมการ (ก็คือ Inverse ของเมทริกซ์) เราจะได้เวกเตอร์ที่ประกอบไปด้วย%
+สมาชิกที่เป็นค่าประจุเชิงอะตอมของแต่ละอะตอม ดังนี้ 
+
+\begin{equation}
+    \left(\begin{array}{c}
+        q_1 \\
+        q_2 \\
+        \vdots \\
+        q_N \\
+        \mu
+    \end{array}\right)
+    =
+    \left(\begin{array}{ccccc}
+        \eta_1 & T_{12}^{(0)} & \ldots & T_{1 N}^{(0)} & 1 \\
+T_{21}^{(0)} & \eta_2 & \ldots & T_{2 N}^{(0)} & 1 \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+T_{N 1}^{(0)} & T_{N 2}^{(0)} & \ldots & \eta_N & 1 \\
+1 & 1 & \ldots & 1 & 0
+\end{array}\right)^{-1}\left(\begin{array}{c}
+    \xi_1 \\
+    \xi_2 \\
+    \vdots \\
+    \xi_N \\
+    q^{\mathrm{mol}}
+\end{array}\right) 
+\end{equation}
+
+สรุปก็คือในการคำนวณประจุเชิงอะตอมนั้น เราจำเป็นที่จะต้องแก้สมการด้านบนเพื่อที่จะหาค่า $\xi_I$ และ $\eta_I$ ซึ่งทั้งสองค่านี้นั้นขึ้นอยู่กับชนิด%
+ของอะตอม ซึ่งวิธีการหาค่าพารามิเตอร์ของทั้งสองค่าสำหรับแต่ละอะตอมแต่ละชนิดนั้นเรียกว่า Parameterization ซึ่งสามารถทำได้หลายวิธีด้วยกัน เช่น 
+ใช้ Delft Molecular Mechanics (DMM) Force Field ซึ่งเป็นเทคนิคที่ถูกพัฒนาขึ้นมาเพื่อทำการปรับค่าพารามิเตอร์ของสารประกอบอินทรีย์หรือ
+Hydrocarbon โดยการใช้ข้อมูลจากผลการทดลอง 
+
+วิธี EEM มีประโยชน์มากโดยเฉพาะการนำมาใช้ในทางเคมีอินทรีย์เพื่อใช้ในการบอกถึงโอกาสของการเกิดปฏิกิริยา Electrophilic และ Nucleophilic 
+Attack ที่เกิดขึ้นในโมเลกุลเนื่องจากว่าปฏิกิริยาเคมีทั้งสองประเภทนี้ขึ้นอยู่กับความแตกต่างเชิงอิเล็กทรอนิกส์ของค่าศักย์เชิงไฟฟ้าสถิตย์ภายในโมเลกุล 
+
+%----------------------------------------
+\subsubsection{Hydrogen Bonding}
+\idxth{พันธะไฮโดรเจน}
+\idxen{Hydrogen Bonding}
+%----------------------------------------
+
+พันธะไฮโดรเจน (Hydrogen Bonding) นั้นเป็นหนึ่งในพันธะที่อธิบายได้ยากมาก ๆ ในทางทฤษฎี ซึ่งทำให้การสร้างโมเดลที่สามารถอธิบาย Hydrogen 
+Bond นั้นมีความท้าทายไปด้วยโดยเฉพาะการทำให้ Force Field นั้นนำไปใช้ได้กับระบบที่มี Hydrogen Bond แบบที่เข้มมาก ๆ 
+
+ตัวอย่างอันหนึ่งของการโมเดล Hrodrogen Bonding ใน Force Field นั้นก็คือ Force Field ที่ชื่อว่า YETI ซึ่งมีการเพิ่มเทอมพิเศษเข้าไป ดังนี้ 
+
+\begin{equation}
+    V_{YETI}
+    =
+    \left(
+        \frac{A}{R^{12}_{H \cdots O}} 
+        - \frac{C}{R^{10}_{H \cdots O}} 
+    \right)
+    \cos^{2} \theta 
+    \cos^{4} \omega
+\end{equation}
+
+\noindent โดยที่ $A$ กับ $C$ นั้นเป็นพารามิเตอร์เฉพาะสำหรับโมเลกุลที่ต้องการศึกษา ซึ่งในที่นี้ก็คือโมเลกุลน้ำ (Water Dimer) นอกจากนี้แล้ว%
+จะสังเกตได้ว่าค่าพลังงานนั้นจะขึ้นอยู่กับมุม $\theta$ กับมุม $\omega$ อีกด้วย ซึ่งอันนี้เป็นความตั้งใจของผู้พัฒนา Force Field ที่ต้องการให้โมเดล%
+นี้สามารถอธิบาย Hydrogen Bond ที่ขึ้นอยู่กับ Oreintation ของโมเลกุล 
+
+%----------------------------------------
 \subsection{Electronic Polarization}
 \idxth{โพลาไรเซชั่นเชิงอิเล็กทรอนิกส์}
 \idxen{Electronic Polarization}
