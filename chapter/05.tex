@@ -16,6 +16,123 @@
 %----------------------------------------
 
 %----------------------------------------
+\section{การวัดประสิทธิภาพ(ซุปเปอร์)คอมพิวเตอร์}
+%----------------------------------------
+
+ผู้อ่านเคยสงสัยกันไหมครับว่าเราวัดประสิทธิภาพการคำนวณของคอมพิวเตอร์กันยังไง จริง ๆ แล้วไม่จำเป็นต้องเป็นคอมพิวเตอร์ที่เราใช้ทำงานกันเท่านั้น 
+แต่ขอแค่เป็นอุปกรณ์อิเล็กทรอนิกส์อะไรก็ได้ที่ใช้ Processor ในการประมวลผล เช่น โทรศัพท์หรือแล็ปท็อปของเรา ซึ่งการวัดประสิทธิภาพหรือ 
+Performance ของคอมพิวเตอร์หรือคลัสเตอร์ของเรานั้นต้องวัดออกมาเป็นตัวเลขเพื่อที่เราจะสามารถนำตัวเลขมาเปรียบเทียบประสิทธิภาพหรือ 
+\enquote{ความแรง} ของคอมพิวเตอร์ได้ โดยสิ่งที่เราวัดออกมานั้นจะใช้ค่าเทียบเคียงที่เป็นการดำเนินการจุดทศนิยมต่อหนึ่งหน่วยวินาทีหรือ 
+Floating Point Operations Per Second (FLOPS)  ซึ่งค่า FLOPS นี้เป็นการวัดประสิทธิภาพมาตรฐานที่ใช้โดยรายการซูเปอร์คอมพิวเตอร์ 
+TOP500\footnote{\url{https://www.top500.org}} โดยเป็นเว็นไซต์จัดอันดับซุปเปอร์คอมพิวเตอร์ตามการดำเนินการ 64 บิต 
+(รูปแบบจุดทศนิยมแบบ Double-Precision) ต่อวินาทีโดยใช้ Library ที่ชื่อว่า HPL (High Performance LINPACK) ซึ่งพัฒนาโดยกลุ่มวิจัยของ 
+Jack Dongarra ซึ่งดำรงตำแหน่งศาสตราจารย์ที่ University of Tennessee, Knoxville โดยในแต่ละปี TOP500 จะทำการจัดอันดับทั้งหมด 2 
+ครั้ง 
+
+สำหรับค่า FLOPS ก็มีการแบ่งตามเลข Prefix ที่มีความต่างยกกำลังระดับ 1000 เท่า ตัวอย่างเช่น 
+
+\begin{itemize}[topsep=0pt,noitemsep]
+  \setlength\itemsep{1em}
+  \item GigaFLOPS = $10^{9}$ Operations Per Second
+  
+  \item TeraFLOPS = $10^{12}$ Operations Per Second
+  
+  \item PetaFLOPS = $10^{15}$ Operations Per Second
+  
+  \item ExaFLOPS = $10^{18}$ Operations Per Second
+\end{itemize}
+
+\noindent โดยค่า FLOPS สามารถคำนวณได้โดยใช้สมการต่อไปนี้ (สำหรับค่า GigaFLOPS)
+
+\begin{equation}
+  \texttt{Performance in GFlops} = A \times B \times C \times D 
+\end{equation}
+
+\noindent โดยตัวแปรแต่ละตัวคือ
+
+\begin{itemize}[topsep=0pt,noitemsep]
+  \setlength\itemsep{1em}
+  \item A = CPU Speed in GHz หรือความเร็วของ CPU ในหน่วย GHz
+  
+  \item B = Number of CPU Cores หรือจำนวน CPU cores
+  
+  \item C = CPU Instruction Per Cycle หรือค่า Instruction ของ CPU ต่อรอบ
+  
+  \item D = Number of CPUs Per Node หรือจำนวน CPU ต่อหนึ่งหน่วยประมวลผล
+\end{itemize}
+
+ตัวอย่างด้านล่างคือการใช้ HPL ในการคำนวณค่า GFlops ของคอมพิวเตอร์ของผู้เขียนที่ใช้หน่วยประมวลผล Intel Xeon โดยเครื่องคอมพิวเตอร์%
+ที่ใช้ในการทดสอบครั้งนี้มี Specfification ตามนี้
+
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize\linespread{0.5}]
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                24
+On-line CPU(s) list:  0-23
+Thread(s) per core:   2
+Core(s) per socket:    6
+Socket(s):             2
+NUMA node(s):          2
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 63
+Stepping:              2
+CPU MHz:               2400.221
+BogoMIPS:              4799.29
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              15360K
+NUMA node0 CPU(s): 0,2,4,6,8,10,12,14,16,18,20,22
+NUMA node1 CPU(s): 1,3,5,7,9,11,13,15,17,19,21,23
+\end{lstlisting}
+
+\noindent โดยหน่วยประมวล (computing node) เครื่องนี้มี 24 CPUs และมีหน่วยความจำ 32 GB 
+
+โดยผมสามารถวัดประสิทธิภาพของคอมพิวเตอร์เครื่องนี้ได้โดยการวัดค่า FLOPS โดยใช้ไลบรารี่ HPL โดยด้านล่างแสดงตัวอย่างผลลัพธ์ (Output) 
+ที่ได้\footnote{ผมได้ละขั้นตอนการใช้งาน HPL และการคำนวณแบบละเอียดไป ถ้าหากผู้อ่านสนใจก็สามารถติดต่อผมได้ครับ}
+
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize\linespread{0.5}]
+CPU frequency:    3.199 GHz
+Number of CPUs: 2
+Number of cores: 12
+Number of threads: 12
+Parameters are set to:
+Number of tests: 15
+Number of equations to solve (problem size) : 1000  2000  5000  10000 15000 18000 20000 22000 25000 26000 27000 30000 35000 40000 45000
+Leading dimension of array                  : 1000  2000  5008  10000 15000 18008 20016 22008 25000 26000 27000 30000 35000 40000 45000
+Number of trials to run                     : 4     2     2     2     2     2     2     2     2     2     1     1     1     1     1
+Data alignment value (in Kbytes)            : 4     4     4     4     4     4     4     4     4     4     4     1     1     1     1
+
+Maximum memory requested that can be used=16200901024, at the size=45000
+
+=================== Timing linear equation system solver ===================
+Size   LDA    Align. Time(s)    GFlops   Residual     Residual(norm) Check
+1000   1000   4      0.024      27.2993  9.394430e-13 3.203742e-02   pass
+1000   1000   4      0.006      107.6577 9.394430e-13 3.203742e-02   pass
+…
+content skipped
+…
+35000  35000  1      99.141     288.3358 1.275258e-09 3.701880e-02   pass
+40000  40000  1      146.370    291.5210 1.516881e-09 3.373595e-02   pass
+45000  45000  1      213.964    283.9451 2.008430e-09 3.533621e-02   pass
+
+Performance Summary (GFlops)
+Size   LDA    Align.  Average  Maximal
+1000   1000   4       86.9113  107.6577
+…
+content skipped
+…
+40000  40000  1       291.5210 291.5210
+45000  45000  1       283.9451 283.9451
+\end{lstlisting}
+
+จาก Output ของ HPL ด้านบนบอกอะไรเราบ้าง จริง ๆ ก็บอกหลายอย่าง แต่อยากผมให้ดูในส่วนท้ายสุดที่มีการบอกค่า GigaFLOPS ของเครื่อง 
+Intel Xeon Node ของผมว่ามีประสิทธิภาพอยู่ที่ 283.945 GFlop/s สรุปง่าย ๆ คือยิ่งมีค่า FLOPS เยอะยิ่งดี 
+
+%----------------------------------------
 \section{ทักษะและเครื่องมือสำหรับการเขียนโปรแกรมสำหรับ HPC}
 %----------------------------------------
 
