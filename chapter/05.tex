@@ -346,12 +346,81 @@ END SUBROUTINE normalize_velocities
 %----------------------------------------
 
 %----------------------------------------
+\subsection{GPU เข้ามามีบทบาทต่อเคมีควอนตัมได้อย่างไร}
+%----------------------------------------
+
+เป็นระยะเวลามากกว่า 10 ปีแล้วที่ Graphical Processor Units (GPUs) นั้นเข้ามามีบทบาทในชีวิตประจำวันของเรา โดยเฉพาะในวงการไอที
+เทคโนโลยี เกมส์ กราฟฟิค รวมไปถึงวิทยาศาสตร์ด้วย โดย GPU นั้นเป็นหนึ่งในผลผลิตจากการพัฒนาอุปกรณ์คอมพิวเตอร์เพื่อนำมาช่วยในการประมวลผล%
+ด้านกราฟฟิคโดยเฉพาะการนำไปใช้เป็นเครื่องมือในการเพิ่มความเร็วในการสร้างและประมวลข้อมูลที่เป็นรูปภาพในปริมาณมาก ๆ ตัวอย่างเช่น
+มีการนำ GPU จากค่าย NVIDIA ซึ่งก็คือ NVIDIA DGX A100 มาใช้งานร่วมกับ CPU จากค่าย AMD นั่นก็คือ AMD Rome 7742 CPU โดยใช้ GPU
+A100 ทั้งหมด 8 อันและใช้ CPU ทั้งหมด 2 อัน ซึ่งทำให้สามารถประมวลผลแบบ Double Precision ได้โดยมี FLOP Rate อยู่ที่ 78 TFLOPS
+
+ในวงการวิจัยเคมีควอนตัมนั้นก็มีการนำ GPU เข้ามาเพื่อช่วยในการเพิ่มความเร็วในการคำนวณทางควอนตัม เราสามารถใช้ GPU ในการคำนวณ
+Semi-Empirical, Hartree-Fock (HF), Density Functional Theory (DFT), Post-HF, Energy Gradient Calculations เป็นต้น
+ถ้าหากว่าเราไล่ดูตามไทม์ไลน์ของการพัฒนาวิธีการทางโครงสร้างเชิงอิเล็กโทรนิกส์เพื่อให้สามารถไปรันได้บน GPU นั้น บทความงานวิจัยแรกสุดเลย%
+ที่มีการศึกษาการคำนวณ Electron Repulsion Integral สำหรับออร์บิทัล s กับออร์บิทัล p นั้นคือเมื่อปี 2008 โดย Koji Yasuda
+ซึ่งได้เสนออัลกอริทึมสำหรับการคำนวณ Coulomb Integral สำหรับการคำนวณ \textit{ab initio} DFT บน NVIDIA GeForce 8800 GTX
+โดยใช้โปรแกรม Gaussian 03 และโมเลกุลที่ใช้ในการทดสอบก็คือ Taxol กับ Valinomycin\autocite{yasuda2008}
+แล้วหลังจากนั้นก็มีงานวิจัยที่พัฒนาต่อยอดที่เกี่ยวกับการ GPU ตามมาอีกเยอะมาก\autocite{qi2023} สำหรับลำดับเหตุการณ์ในงานวิจัยที่นำ GPU
+เข้ามาใช้นั้นมีดังนี้
+
+\begin{itemize}[topsep=0pt,noitemsep]
+  \setlength\itemsep{1em}
+  \item Yasuda เสนออัลกอริทึมสำหรับการคำนวณ ERI สำหรับออร์บิทัล s และ p\autocite{yasuda2008}
+
+  \item Yasuda และ Maruoka เสนอวิธีคำนวณ ERI สำหรับ Angular Moment Basis Function แบบอันดับสูง (High-Order)%
+  \autocite{yasuda2014}
+
+  \item Ufimtsev และ Martínez ได้ศึกษาวิธีที่แตกต่างกัน 3 วิธีที่ช่วยในการจับคู่ (Mapping) Integrals ให้เข้ากันกับ GPU Threads%
+        \autocite{ufimtsev2008} ในการคำนวณ Direct Self-Consistent Field (Direct SCF)\autocite{ufimtsev2009}
+
+  \item Titov และทีมวิจัย ใช้ระบบการคำนวณคอมพิวเตอร์แบบพีชคณิต (Computer Algebra System) ในการสร้าง Kernels
+        สำหรับการคำนวณ ERI ที่รวมออร์บิทัล d เข้าไปได้ด้วย\autocite{titov2013}
+
+  \item Leuhr และทีมวิจัย ได้เสนอ Dynamic Precision Scheme ในการปรับและควบคุมค่าความถูกต้องในการประมวลผลแบบ Single
+        Precision Operation ของ GPU\autocite{luehr2011}
+
+  \item Johnson และทีมวิจัย ได้ทำการ Implement การคำนวณ ERI แบบทั้ง Multi-Node และ Multi-GPU ซึ่งทำให้สามารถคำนวณ
+        Integral ได้บน GPU หลาย ๆ ตัวหรือบน Compute Node หลาย ๆ เครื่อง\autocite{johnson2022}
+
+  \item Asadchev และทีมวิจัย ได้ Implement Uncontracted Rys Quadrature Algorithm สำหรับการคำนวณ ERI บน GPU
+        ซึ่งสามารถรวมออร์บิทัล g เข้าไปได้ด้วย\autocite{asadchev2010}
+
+  \item Asadchev และ Gordon ได้เสนอวิธีสำหรับการคำนวณ HF ด้วย CPU และ GPU แบบ Hybrid Multi-Thread%
+        \autocite{asadchev2012}
+
+  \item Barca และทีมวิจัย ได้ออกแบบอัลกอริทึมแบบใหม่สำหรับการสร้าง Fock Matrix บน GPU\autocite{barca2020} 
+        และปรับปรุงการเพิ่มประสิทธิภาพในการ Digestion ของ ERI\autocite{barca2021}
+
+  \item Kussmann และ Ochsenfeld พัฒนาอัลกอริทึมสำหรับการคำนวณ Linear-Scaling Matrix Evaluation โดยการใช้เทคนิค
+        Schwarz Integral Estimates\autocite{kussmann2013}
+
+  \item Miao และ Merz ได้พัฒนาวิธีที่สามารถเพิ่มความเร็วในการคำนวณ ERI ซึ่งรวมออร์บิทัล s, p, d\autocite{miao2013} และ g 
+        เข้าไปได้ด้วยโดยใช้เทคนิค Recursive Relation\autocite{miao2015}
+
+  \item Rák และ Cserey พัฒนาอัลกอริทึม BRUSH สำหรับคำนวณ ERI บน GPU\autocite{rak2015}
+  
+  \item Tornai และทีมวิจัย ปรับปรุงอัลกอริทึม BRUSH โดยทดสอบกับ Compilers เพื่อให้สามารถคำนวณ ERI ที่รวมออร์บิทัล g เข้าไปได้%
+        \autocite{tornai2019}
+
+  \item Fernandes และทีมวิจัย ได้พัฒนาไลบรารี่ Quantum Supercharge\autocite{fernandes2015}
+  
+  \item Tian และทีมวิจัย ได้ทำการปรับปรุงการคำนวณ ERI บน GPU\autocite{tian2021}
+\end{itemize}
+
+ยิ่งไปกว่านั้น ในช่วงเดือนพฤษภาคมของปี ค.ศ. 2022 ทางสถาบันวิจัย Oak Ridge Leadership Computing Facility ในรัฐ Tennessee
+ประเทศสหรัฐอเมริกาก็ได้เปิดตัวซุปเปอร์คอมพิวเตอร์สมรรถนะสูงที่ชื่อ Frontier\footnote{มีชื่อเต็มคือ Hewlett Packard Enterprise Frontier
+  หรือ OLCF-5} ซึ่งเป็นซุปเปอร์คอมพิวเตอร์ที่เร็วที่สุดในโลกและมีความเร็วในระดับ Exascale เครื่องแรกของโลก โดยมี Speed สูงสุดคือ 1.194
+exaFLOPS (Rmax) และ 1.67982 exaFLOPS (Rpeak) โดย Rmax คือความเร็วสูงสุดที่วัดได้และ Rpeak คือความเร็วสูงสุดที่เป็นไปได้ทางทฤษฎี%
+\footnote{ข้อมูลจากเว็บไซต์ \url{https://www.top500.org/lists/top500/2023/06/}}
+
+%----------------------------------------
 \subsection{อัลกอริทึมสำหรับการคำนวณ Self-Consisten Field แบบผสมบน CPU และ GPU}
 %----------------------------------------
 
 ในหัวนี้ผู้อ่านจะได้ศึกษาความก้าวหน้าเกี่ยวกับงานวิจัยที่พัฒนาวิธีในการคำนวณ Self-Consistent Field (SCF) เพื่อให้สามารถรันได้บนทั้ง CPU
-และ GPU แบบพร้อม ๆ กัน ซึ่งช่วยลดระยะเวลาในการคำนวณของวิธี Hartree-Fock (HF) ไปได้เยอะมาก ๆ ซึ่งการที่เราสามารถคำนวณ HF
-ได้เร็วขึ้นนั้น ก็ทำให้การคำนวณวิธีอื่น ๆ ที่ใช้ HF เป็น Single Reference นั้นเร็วขึ้นตามไปด้วย เช่น วิธี Post-HF ต่าง ๆ
+และ GPU แบบพร้อม ๆ กัน ซึ่งช่วยลดระยะเวลาในการคำนวณของวิธี HF ไปได้เยอะมาก ๆ ซึ่งการที่เราสามารถคำนวณ HF ได้เร็วขึ้นนั้น
+ก็ทำให้การคำนวณวิธีอื่น ๆ ที่ใช้ HF เป็น Single Reference นั้นเร็วขึ้นตามไปด้วย เช่น วิธี Post-HF ต่าง ๆ
 
 เริ่มต้นเลยต้องเข้าใจก่อนว่าในการคำนวณทางเคมีควอนตัมที่ต้องมีการใช้วิธี HF เพื่อมาสร้าง Single Wavefunction Reference นั้นจะมีส่วนที่%
 สิ้นเปลืองการคำนวณมากที่สุดอยู่ด้วยกัน 2 ส่วน นั่นคือ
@@ -362,10 +431,6 @@ END SUBROUTINE normalize_velocities
 
   \item การสร้าง Fock Matrix ขึ้นมาจาก ERI และ Density Matrix
 \end{enumerate}
-
-ถ้าหากว่าเราไล่ดูตามไทม์ไลน์ของการพัฒนาวิธีการทางโครงสร้างเชิงอิเล็กโทรนิกส์เพื่อให้สามารถไปรันได้บน GPU นั้น บทความงานวิจัยแรกสุดเลย%
-ที่มีการศึกษาการคำนวณ ERI สำหรับออร์บิทัล s กับออร์บิทัล p นั้นคือเมื่อปี 2008 โดย K. Yasuda แล้วหลังจากนั้นก็มีงานวิจัยที่พัฒนาต่อยอดที่%
-เกี่ยวกับการ GPU ตามมาอีกเยอะมาก\autocite{qi2023}
 
 ในการคำนวณ HF นั้น เริ่มต้นเราจะต้องสร้าง Fock Matrix ขึ้นมาก่อน ซึ่งเมทริกซ์อันนี้เป็นแบบ 2 มิติ จำนวนสมาชิกของเมทริกซ์เท่ากับจำนวน
 Basis Functions คูณกัน โดย Fock Matrix คำนวณได้จากการนำ Hamiltonian Matrix มารวมกันกับ Density Matrix คูณกับ ERI
@@ -416,36 +481,36 @@ $(\mu v \mid$ and $\mid \lambda \sigma)$ ว่าเป็น bra กับ ket
 
 \noindent ซึ่งสมการด้านบนนั้นจริง ๆ แล้วก็เป็นแค่การเขียนให้ Contracted Gaussian Functions $\varphi(r)$ นั้นอยู่ในรูปของผลรวม%
 เชิงเส้นของ Primitive Gaussian Functions $\phi_k\left(\boldsymbol{a}, \boldsymbol{r}, \boldsymbol{A}\right.$, และ
-$\left.\alpha_k\right)$ นั่นเอง ซึ่ง Primitive Gaussian Functions ทั้งหมดนั้นจะถูกกำหนดให้มีตำแหน่งจุดศูนย์กลางอยู่บนอะตอม%
-ที่ $\boldsymbol{A} = \left(A_x, A_y, A_z\right)$ พร้อมกับมีเลข Orbital Exponent $\alpha_k$ และโมเมนตัมเชิงมุม (Angular 
-Momentum) คือ $\boldsymbol{a} = \left(a_x, a_y, a_z\right)$ ส่วน $K$ กับ $C_k$ นั้นจะเป็นตัวที่บ่งบอกถึงอันดับและสัมประสิทธิ์ของการ 
-Contraction ส่วนเลข Angular Momentum ของ Basis Function $\varphi(r)$ นั้นมีนิยามคือ $I_a = a_x + a_y + a_z$ 
+  $\left.\alpha_k\right)$ นั่นเอง ซึ่ง Primitive Gaussian Functions ทั้งหมดนั้นจะถูกกำหนดให้มีตำแหน่งจุดศูนย์กลางอยู่บนอะตอม%
+ที่ $\boldsymbol{A} = \left(A_x, A_y, A_z\right)$ พร้อมกับมีเลข Orbital Exponent $\alpha_k$ และโมเมนตัมเชิงมุม (Angular
+Momentum) คือ $\boldsymbol{a} = \left(a_x, a_y, a_z\right)$ ส่วน $K$ กับ $C_k$ นั้นจะเป็นตัวที่บ่งบอกถึงอันดับและสัมประสิทธิ์ของการ
+Contraction ส่วนเลข Angular Momentum ของ Basis Function $\varphi(r)$ นั้นมีนิยามคือ $I_a = a_x + a_y + a_z$
 
-ในส่วนของ Contracted ERI นั้นสามารถเขียนได้ง่ายกว่านี้โดยการใช้ Summation โดยลูปตามจำนวนของ Primitive Gaussian Functions 
+ในส่วนของ Contracted ERI นั้นสามารถเขียนได้ง่ายกว่านี้โดยการใช้ Summation โดยลูปตามจำนวนของ Primitive Gaussian Functions
 ซึ่งเราสามารถ Represented แทนได้ด้วย Notation ง่าย ๆ คือ $[a b \mid c d]$
 
 \begin{equation}
-  (\mu \nu \mid \lambda \sigma) 
-  = 
-  \sum_{i=1}^{K_a} 
-  \sum_{j=1}^{K_b} 
-  \sum_{k=1}^{K_c} 
-  \sum_{l=1}^{K_d} 
+  (\mu \nu \mid \lambda \sigma)
+  =
+  \sum_{i=1}^{K_a}
+  \sum_{j=1}^{K_b}
+  \sum_{k=1}^{K_c}
+  \sum_{l=1}^{K_d}
   C_{a i} C_{b j} C_{c k} C_{d l}[a b \mid c d]
 \end{equation}
 
-\noindent และ 
+\noindent และ
 
 \begin{equation}
-  [a b \mid c d] 
-  = 
-  \iint \phi_a\left(\boldsymbol{r}_1\right) \phi_b\left(\boldsymbol{r}_1\right) 
-  \frac{1}{r_{12}} 
-  \phi_c\left(\boldsymbol{r}_2\right) \phi_d\left(\boldsymbol{r}_2\right) \mathrm{d} \boldsymbol{r}_1 
+  [a b \mid c d]
+  =
+  \iint \phi_a\left(\boldsymbol{r}_1\right) \phi_b\left(\boldsymbol{r}_1\right)
+  \frac{1}{r_{12}}
+  \phi_c\left(\boldsymbol{r}_2\right) \phi_d\left(\boldsymbol{r}_2\right) \mathrm{d} \boldsymbol{r}_1
   \mathrm{~d} \boldsymbol{r}_2
 \end{equation}
 
-เนื่องจากว่าการคำนวณ Direct SCF นั้นจะเกี่ยวข้องกับการคำนวณระหว่าง Basis Functions หลายพัน Functions จึงทำให้การคำนวณ ERI 
+เนื่องจากว่าการคำนวณ Direct SCF นั้นจะเกี่ยวข้องกับการคำนวณระหว่าง Basis Functions หลายพัน Functions จึงทำให้การคำนวณ ERI
 นั้นเป็นส่วนที่กินเวลานานที่สุดของกระบวนนานทั้งหมด
 
 เนื่องจากว่า ERI นั้นเป็นอินทิกรัล เราจึงสามารถใช้คุณสมบัติความสมมาตรเชิงการสลับที่ของอินทิกรัลเพื่อช่วยลดความสิ้นเปลืองในการคำนวณได้สำหรับ%
@@ -453,53 +518,53 @@ Contraction ส่วนเลข Angular Momentum ของ Basis Function $\va
 
 \begin{equation}
   \begin{aligned}
-    (\mu \nu \mid \lambda \sigma) 
-    & = (\mu \nu \mid \sigma \lambda) 
-    = (\nu \mu \mid \lambda \sigma) 
-    = (\nu \mu \mid \sigma \lambda) \\
-    & = (\lambda \sigma \mid \mu \nu) 
-    = (\sigma \lambda \mid \mu \nu) 
-    = (\lambda \sigma \mid \nu \mu) 
+    (\mu \nu \mid \lambda \sigma)
+     & = (\mu \nu \mid \sigma \lambda)
+    = (\nu \mu \mid \lambda \sigma)
+    = (\nu \mu \mid \sigma \lambda)    \\
+     & = (\lambda \sigma \mid \mu \nu)
+    = (\sigma \lambda \mid \mu \nu)
+    = (\lambda \sigma \mid \nu \mu)
     = (\sigma \lambda \mid \nu \mu)
   \end{aligned}
 \end{equation}
 
-\noindent ซึ่งคุณสมบัติดังกล่าวนี้มีชื่อเรียกว่า Eight-Fold Integral Permutational Symmetry ซึ่งจะทำให้เรามี Fock Matrix 
+\noindent ซึ่งคุณสมบัติดังกล่าวนี้มีชื่อเรียกว่า Eight-Fold Integral Permutational Symmetry ซึ่งจะทำให้เรามี Fock Matrix
 ที่แตกต่างกันทั้งหมด 6 อัน ดังนี้
 
 \begin{equation}
   \begin{aligned}
-    F_{\mu \nu} & = F_{\mu \nu}+4 D_{\lambda \sigma}(\mu \nu \mid \lambda \sigma) \\
-    F_{\lambda \sigma} & =F_{\lambda \sigma}+4 D_{\mu \nu}(\mu \nu \mid \lambda \sigma) \\
-    F_{\mu \lambda} & =F_{\mu \lambda}-D_{\nu \sigma}(\mu \nu \mid \lambda \sigma) \\
-    F_{\nu \sigma} & =F_{\nu \sigma}-D_{\mu \lambda}(\mu \nu \mid \lambda \sigma) \\
-    F_{\mu \sigma} & =F_{\mu \sigma}-D_{\nu \lambda}(\mu \nu \mid \lambda \sigma) \\
-    F_{\nu \lambda} & =F_{\nu \lambda}-D_{\mu \sigma}(\mu \nu \mid \lambda \sigma) 
+    F_{\mu \nu}        & = F_{\mu \nu}+4 D_{\lambda \sigma}(\mu \nu \mid \lambda \sigma) \\
+    F_{\lambda \sigma} & =F_{\lambda \sigma}+4 D_{\mu \nu}(\mu \nu \mid \lambda \sigma)  \\
+    F_{\mu \lambda}    & =F_{\mu \lambda}-D_{\nu \sigma}(\mu \nu \mid \lambda \sigma)    \\
+    F_{\nu \sigma}     & =F_{\nu \sigma}-D_{\mu \lambda}(\mu \nu \mid \lambda \sigma)    \\
+    F_{\mu \sigma}     & =F_{\mu \sigma}-D_{\nu \lambda}(\mu \nu \mid \lambda \sigma)    \\
+    F_{\nu \lambda}    & =F_{\nu \lambda}-D_{\mu \sigma}(\mu \nu \mid \lambda \sigma)
   \end{aligned}
 \end{equation}
 
-ถึงแม้ว่าในปัจจุบันเราจะสามารถใช้เทคนิค Eight-Fold Symmetry มาช่วยในการคำนวณ Fock Matrix บน GPU ได้แล้ว แต่ว่าเรามีปัญหา 2 
+ถึงแม้ว่าในปัจจุบันเราจะสามารถใช้เทคนิค Eight-Fold Symmetry มาช่วยในการคำนวณ Fock Matrix บน GPU ได้แล้ว แต่ว่าเรามีปัญหา 2
 อย่างที่ยังต้องแก้ให้ได้คือ
 
 \begin{enumerate}[topsep=0pt,noitemsep]
   \setlength\itemsep{1em}
   \item ยังมี Conflict ที่เกิดขึ้นระหว่างการ Memory Access อยู่ในขั้นตอนที่เราต้องทำการรวม Fock Matrix
 
-  \item เราไม่สามารถเข้าถึง Global Memory เราในขณะที่เรากำลังเชียนหรืออ่านตัว Density Matrix กับ Fock Matrix ที่อยู่ใน Storage 
-  เดียวกัน
+  \item เราไม่สามารถเข้าถึง Global Memory เราในขณะที่เรากำลังเชียนหรืออ่านตัว Density Matrix กับ Fock Matrix ที่อยู่ใน Storage
+        เดียวกัน
 \end{enumerate}
 
 สำหรับปัญหาอันแรกที่เกี่ยวกับ Memory Access นั้น ได้มีงานวิจัยของ Ufimtsev และ Martínez ที่เสนอให้คำนวณ Coulomb Matrix กับ
 Exchange Matrix แบบแยกกันบน GPU โดยการป้องกันปัญหา Memory Access ในการคำนวณ Coulomb Matrix นั้น เราสามารถใช้
-Thread Block แต่ละอันเพื่อคำนวณ Single Element ของ Primitive Coulomb Matrix ได้ นอกจากนี้แล้วเราจะไม่ใช้ Integral 
-Symmetry ที่เกิดระหว่าง bra กับ ket แต่ว่าเราจะใช้เฉพาะ Symmetry ภายใน bra หรือ ket แยกกันเท่านั้น ซึ่งทำให้เกิดการลดรูปจาก 
-Eight-Fold Integral Symmetry เหลือเป็น Four-Fold Integral Symmetry ในการคำนวณ Coulomb Matrix ส่วนการคำนวณ 
-Exchange Matrix นั้นก็ทำคล้าย ๆ กัน แต่ว่าเราจะใช้ Two-Fold Symmetry ระหว่าง bra กับ ket แทนเพื่อป้องกันปัญหาการสื่อสารระหว่าง 
+Thread Block แต่ละอันเพื่อคำนวณ Single Element ของ Primitive Coulomb Matrix ได้ นอกจากนี้แล้วเราจะไม่ใช้ Integral
+Symmetry ที่เกิดระหว่าง bra กับ ket แต่ว่าเราจะใช้เฉพาะ Symmetry ภายใน bra หรือ ket แยกกันเท่านั้น ซึ่งทำให้เกิดการลดรูปจาก
+Eight-Fold Integral Symmetry เหลือเป็น Four-Fold Integral Symmetry ในการคำนวณ Coulomb Matrix ส่วนการคำนวณ
+Exchange Matrix นั้นก็ทำคล้าย ๆ กัน แต่ว่าเราจะใช้ Two-Fold Symmetry ระหว่าง bra กับ ket แทนเพื่อป้องกันปัญหาการสื่อสารระหว่าง
 Block (Inter-Block Communication)
 
-ที่กล่าวมาด้านบนนั้นเป็น Algorithm ที่เราสามารถ Implement ลงไปบน CPU ได้โดยการแบ่ง Task ออกเป็น Batch ย่อย ๆ คราวนี้เราลองมาดู 
-Algorithm สำหรับกรณีของ GPU ซึ่งจะแบ่ง Task ออกเป็นตามจำนวน Kernel แทน ตัวอย่างเช่น การคำนวณ Integrals $(sp \mid sd)$ 
-บน CPU นั้นจะสอดคล้องกับการคำนวณ Coulomb Integral $(sp \mid sd)$ และ $(sd \mid sp)$ แล้วก็สอดคล้องกับการคำนวณ 
+ที่กล่าวมาด้านบนนั้นเป็น Algorithm ที่เราสามารถ Implement ลงไปบน CPU ได้โดยการแบ่ง Task ออกเป็น Batch ย่อย ๆ คราวนี้เราลองมาดู
+Algorithm สำหรับกรณีของ GPU ซึ่งจะแบ่ง Task ออกเป็นตามจำนวน Kernel แทน ตัวอย่างเช่น การคำนวณ Integrals $(sp \mid sd)$
+บน CPU นั้นจะสอดคล้องกับการคำนวณ Coulomb Integral $(sp \mid sd)$ และ $(sd \mid sp)$ แล้วก็สอดคล้องกับการคำนวณ
 Exchange Integrals $(sp \mid sd)$, $(sp \mid ds)$, $(ps \mid sd)$ และ $(ps \mid ds)$ บน GPU
 
 สำหรับข้อดีของการใช้ Hybrid Algorithm ก็คือ
@@ -508,9 +573,9 @@ Exchange Integrals $(sp \mid sd)$, $(sp \mid ds)$, $(ps \mid sd)$ และ $(ps
   \setlength\itemsep{1em}
   \item เราสามารถแบ่ง Tasks เพื่อให้ไปคำนวณบน CPU กับ GPU แบบแยกกันได้ซึ่งทำให้การจัดการ Tasks นั้นมีประสิทธิภาพมากขึ้น
 
-  \item การคำนวณ ERI ที่เกิดขึ้นบน CPU กับ GPU นั้นแยกกันอย่างสิ้นเชิง ทำให้ไม่มีปัญหาจากการ Communication ทำให้ Operation 
-  นั้นเป็นแบบ Asynchronous แบบสมบูรณ์แบบ
-  
+  \item การคำนวณ ERI ที่เกิดขึ้นบน CPU กับ GPU นั้นแยกกันอย่างสิ้นเชิง ทำให้ไม่มีปัญหาจากการ Communication ทำให้ Operation
+        นั้นเป็นแบบ Asynchronous แบบสมบูรณ์แบบ
+
   \item วิธีการนี้สามารถนำไปใช้ในการคำนวณ ERI ได้สำหรับ Angular Momentum ทุกอัน
 \end{enumerate}
 
