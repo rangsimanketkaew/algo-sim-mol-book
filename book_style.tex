@@ -62,6 +62,12 @@
 \usepackage{enumitem}
 \usepackage{hyphenat}
 \usepackage[bookmarks,breaklinks]{hyperref}
+\usepackage[most]{tcolorbox} % see https://tex.stackexchange.com/a/237855/117615
+\tcbset{colback=yellow!10!white, colframe=orange!50!orange, 
+        highlight math style= {enhanced, %<-- needed for the ’remember’ options
+            colframe=red,colback=red!10!white,boxsep=0pt}
+        }
+
 % import lstlisting setting
 \input{lstlisting.tex}
 
