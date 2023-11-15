@@ -39,41 +39,57 @@ Workload ไปยัง Compute Node ต่าง ๆ และการ Commun
 \section{ทักษะและเครื่องมือสำหรับการเขียนโปรแกรมสำหรับ HPC}
 %----------------------------------------
 
-- Architecture
-- Memory management
-- Threading, multithreading
-- Block
+\noindent \textbf{ทักษะที่จำเป็น}
 
-- Parallel computing (SPMD)
-- Shared memory: OpenMP
-- Distributed memory: MPI
-- Implementations: OpenMPI, Intel MPI, MVAPICH
+\begin{itemize}[topsep=0pt,noitemsep]
+  \setlength\itemsep{0.5em}
+  \item สถาปัตยกรรม (Architecture)
+  
+  \item การจัดการหน่วยความจำ (Memory Management)
+  
+  \item Kernels, Threading, Multithreading
+  
+  \item Block
+\end{itemize}
 
-- Intel ecosystem
-- OpenMP compiler: icc, ifort
-- MPI compiler: mpicc, mpiicc (for Intel C compiler), mpicxx (for C++), mpiifort (for Fortran)
+อัลกอริทึมสำหรับการเขียนโค้ดแบบขนาน
 
-- Cloud computing (bonus)
+\begin{itemize}[topsep=0pt,noitemsep]
+  \setlength\itemsep{0.5em}
+  \item Parallel Computing (SPMD)
+  
+  \item Shared Memory: OpenMP
+  
+  \item Distributed Memory: MPI
+  
+  \item Implementations: OpenMPI, Intel MPI, MVAPICH
+\end{itemize}
 
-- Server and database
+คอมไพเลอร์ของ Intel
 
-- Networking
+\begin{itemize}[topsep=0pt,noitemsep]
+  \setlength\itemsep{0.5em} 
+  \item OpenMP Compiler: \inlinehighlight{icc}, \inlinehighlight{ifort}
+  
+  \item MPI Compiler: \inlinehighlight{mpicc}, \inlinehighlight{mpiicc} (สำหรับ Intel C Compiler), 
+  \inlinehighlight{mpicxx} (สำหรับ \cpp), \inlinehighlight{mpiifort} (สำหรับ Fortran)
+\end{itemize}
 
-Essential skills for coding GPU
+\noindent \textbf{ทักษะสำหรับการเขียนโค้ดสำหรับ GPU}
 
-- Intermediate/advanced C or C++ skills
-
-- Programming model: Kernels, thread hierarchy, memory hierarchy, heterogeneous hierarchy, asynchronous SIMT
-
-- CUDA
-- Understand CUDA operation:
-1. Declare and allocate host and device memory.
-2. Initialize host data.
-3. Transfer data from the host to the device.
-4. Execute one or more kernels.
-5. Transfer results from the device to the host.
-- CUDA C and CUDA C++ API
-- Compiler: nvcc
+เข้าใจ CUDA Operation
+\begin{enumerate}[topsep=0pt,noitemsep]
+  \setlength\itemsep{0.5em}
+  \item Declare and allocate host and device memory
+  
+  \item Initialize host data.
+  
+  \item Transfer data from the host to the device.
+  
+  \item Execute one or more kernels.
+  
+  \item Transfer results from the device to the host.Intel ecosystem
+\end{enumerate}
 
 %----------------------------------------
 \section{การทำให้เกิดเมทริกซ์รูปทแยง (Matrix Diagonalization)}
@@ -144,7 +160,7 @@ Divide and Conquer แล้วก็ทำการแปลงย้อนก�
 ปกติแล้วการทำ MatDiag นั้นจะขึ้นอยู่กับปัจจัยหลายตัว โดยหลัก ๆ แล้วมีดังนี้
 
 \begin{itemize}[topsep=0pt,noitemsep]
-  \setlength\itemsep{1em}
+  \setlength\itemsep{0.5em}
   \item ขนาดของ Matrix
 
   \item โครงสร้างของ Matrix
