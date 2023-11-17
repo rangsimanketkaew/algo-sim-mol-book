@@ -1889,7 +1889,664 @@ Coeffients
 \end{enumerate}
 
 %----------------------------------------
-\section{เขียนโปรแกรมคำนวณ M\o{}ller-Plesset Perturbation (ภาษา Python)}
+\section{เขียนโปรแกรม Direct Inversion of the Iterative Subspace}
+\idxen{Direct Inversion of the Iterative Subspace}
+\idxen{DIIS}
+%----------------------------------------
+
+%----------------------------------------
+\subsection{ไอเดียเริ่มต้นของ DIIS}
+%----------------------------------------
+
+Direct Inversion of the Iterative Subspace (DIIS) เป็นวิธีที่พัฒนาโดย Peter Pulay เพื่อเพิ่มความเร็วของการลู่เข้า (Convergence) 
+ของการคำนวณ SCF\autocite{pulay1980} โดยมีไอเดียเริ่มต้นก็คือการใช้ Resodual (หรือเรียกว่า Error ก็ได้) ซึ่งเป็นผลต่างระหว่าง 
+Trial Vecotrs $\{ P^{i}\}$ ระหว่างรอบ (Iteration)
+
+\begin{equation}
+  \mathbf{e}^i 
+  = 
+  \mathbf{p}^{i+1} - \mathbf{p}^i
+\end{equation}
+
+\noindent ซึ่ง DIIS นั้นจะมองว่าคำตอบสุดท้ายที่ได้จากการหาคำตอบด้วยกระบวนการ SCF นั้นสามารถถูก Extrapolate ให้อยู่ในรูปของผลรวมเชิงเส้น 
+(Linear Combination) ของปริภูมิย่อย (Subspace) ของรอบการคำนวณปัจจุบันซึ่งได้มาจากการคำนวณในรอบก่อนหน้า ดังนี้ 
+
+\begin{equation}
+  \mathbf{p} 
+  = 
+  \sum_{i=1}^{m} c_i \mathbf{p}^i
+\end{equation}
+
+\noindent โดยที่สัมประสิทธฺ์นั้นสามารถหาได้จากการลดค่าความคลาดเคลื่อนซึ่งได้จาก 
+
+\begin{equation}
+  \mathbf{e} 
+  = 
+  \sum_{i=1}^{m} c_i \mathbf{e}^i
+\end{equation}
+
+\noindent ซึ่งถ้าหากว่าเราสังเกตดี ๆ แล้วเราจะว่าเราสามารถทำการลดค่าความคลาดเคลื่อน (Error minimization) ได้จาก
+
+\begin{equation}
+  \mathbf{p} 
+  = 
+  \sum_{i=1}^{m} c_i \left( \mathbf{p}^f + \mathbf{e}^i\right) 
+  = 
+  \mathbf{p}^f \sum_{i=1}^{m} c_i  + \sum_{i=1}^{m} c_i \mathbf{e}^i
+\end{equation}
+
+\noindent แล้วก็ในกรณีที่ $\mathbf{p} = \mathbf{p}^f$ เราจะได้ว่า 
+
+\begin{equation}
+  \sum_{i=1}^{m} c_i = 1
+  \quad 
+  \text{ และ }
+  \quad
+  \sum_{i=1}^{m} c_i \mathbf{e}^i = 0
+\end{equation}
+
+\noindent ทีนี้ เราก็มีการกำหนด Lagrangian ขึ้นมาเพื่อใช้ในการลดค่า Norm ของเวกเตอร์ความคลาดเคลื่อน (Error Vector) ด้วย 
+$(\langle \mathbf{e} | \mathbf{e} \rangle = \sum_{i,j = 1}^{m} c_i^* c_j \langle e_i | e_j \rangle)$ ดังนี้
+
+\begin{equation}
+  \mathcal{L} 
+  = 
+  \mathbf{c}^\dagger \mathbf{B} \mathbf{c} - \lambda \left( 1-\sum_{i=1}^m c_i \right)
+\end{equation}
+
+\noindent โดยที่ $\mathbf{B}_{ij} = \mathbf{e}_i \cdot \mathbf{e}_j$
+
+\begin{equation}
+  \frac{\partial\mathcal{L}}{\partial c_k} 
+  = 
+  0 
+  = 
+  2 \sum_{i=1}^m c_i B_{ki} -\lambda
+\end{equation}
+
+\noindent แล้วเราก็ทำการแก้ชุดสมการเชิงเส้นดังต่อไปนี้เพื่อหาสัมประสิทธิ์สำหรับ DIIS Extrapolation
+
+\begin{equation}
+  \begin{pmatrix} 
+    \mathbf{B}_{11} & \mathbf{B}_{12} & \dots & \mathbf{B}_{1m} & -1 \\ 
+    \mathbf{B}_{21} & \mathbf{B}_{22} & \dots & \mathbf{B}_{2m} & -1 \\ 
+    \dots & \dots & \dots & \dots & \dots \\ 
+    \mathbf{B}_{m1} & \mathbf{B}_{m2} & \dots & \mathbf{B}_{mm} & -1 \\ 
+    -1 & -1 & \dots & -1 & 0 
+  \end{pmatrix}
+  \begin{pmatrix} 
+    c_1 \\ c_2 \\ \dots \\ c_m \\ \lambda 
+  \end{pmatrix} 
+  =
+  \begin{pmatrix} 
+    0 \\ 0 \\ \dots \\ 0 \\ -1 
+  \end{pmatrix}
+\end{equation}
+
+%----------------------------------------
+\subsection{รู้จักกับ Commutator-DIIS}
+\idxen{DIIS!Commutator-DIIS}
+%----------------------------------------
+
+Commutator-DIIS หรือ C-DIIS เป็นเทคนิคที่นำ DIIS มาปรับปรุงเพื่อให้มีประสิทธิมากขึ้นโดยมีการปรับเปลี่ยนเงื่อนไขที่ใช้ในการสร้าง 
+Residual หรือ Error\autocite{pulay1982} นั่นก็คือแทนที่จะใช้ Trial Vector ก็เปลี่ยนมาใช้ Fock Matrix และ Density Matrix แทน 
+เพื่อที่เราจะได้นำไปใช้ในการหาคำตอบของ Hartree-Fock ได้โดยการใช้กระบวนการ SCF โดยเงื่อนไขที่เมทริกซ์ทั้งหมดอันจะต้องมีนั้นก็คือ 
+Commutativity นั่นก็คือ Fock Matrix $\mathbf{F'}$ นั้นจะต้อง Commute กับ $\mathbf{P'}$\footnote{การ Commute 
+ก็คือ $\mathbf{A B} = \mathbf{B A}$ หรือ $\mathbf{A B} - \mathbf{B A} = 0$} ซึ่งสามารถเขียนเงื่อนไขของการ Commute 
+ด้วยสมการดังต่อไปนี้\footnote{ในหัวข้อนี้ผมใช้ $\mathbf{F'}, \mathbf{P'}$ สำหรับเมทริกซ์ที่อยู่ในรูปของ MO Basis และใช้ 
+$\mathbf{F}, \mathbf{P}$ สำหรับเมทริกซ์ที่อยูู่ในรูปของ AO Basis}
+
+\begin{equation}
+  [\mathbf{F'},\mathbf{P'}] 
+  = 
+  \mathbf{F'}\mathbf{P'} - \mathbf{P'}\mathbf{F'} 
+  = 
+  0
+\end{equation}
+
+\noindent ดังนั้น Error ที่เกิดขึ้นระหว่างแต่ละรอบของกระบวนการ SCF คือ 
+
+\begin{equation}
+  \mathbf{e}_i 
+  = 
+  \mathbf{F'}_i \mathbf{P'}_i - \mathbf{P'}_i \mathbf{F'}_i
+\end{equation}
+
+\noindent ทีนี้เราก็มาพิจารณาสมการ Roothan, $\mathbf{F}\mathbf{C} = \mathbf{S}\mathbf{C}\varepsilon$, ซึ่งเราสามารถทำ
+Transformation หรือการเปลี่ยนรูปเพื่อให้เป็น Eivalue Problem (สมการไอเกน) ที่อยู่ในรูปของ MO Basis ได้โดยการใช้เงื่อนไข Orthonormality 
+นั่นคือ $\mathbf{C^\dagger}\mathbf{S}\mathbf{C} = \mathbf{1}$ ดังนี้
+
+\begin{equation}
+  \mathbf{F'}\mathbf{C'} 
+  = 
+  \mathbf{C'}\varepsilon
+\end{equation}
+
+\noindent โดยที่
+
+\begin{equation}
+  \mathbf{F'} 
+  = 
+  \mathbf{S^{-\frac{1}{2}}}^\dagger \mathbf{F}\ \mathbf{S^{-\frac{1}{2}}}
+  \quad
+  \text{ และ }
+  \quad
+  \mathbf{C} 
+  = 
+  \mathbf{S^{-\frac{1}{2}}} \mathbf{C'}
+\end{equation}
+
+\noindent ซึ่งจะทำให้เราได้ Density Matrix ที่อยู่ในรูปของ AO Basis ดังนี้ 
+
+\begin{equation}
+  \mathbf{P} 
+  = 
+  \mathbf{C}\mathbf{C^\dagger}
+\end{equation}
+
+\noindent และในรูปของ MO Basis ดังนี้ 
+
+\begin{equation}
+  \mathbf{P'} 
+  = 
+  \mathbf{C'}\mathbf{{C'}^{\dagger}}
+\end{equation}
+
+\noindent แล้วเราก็จะได้การแปลง Density Matrix จากรูปของ MO Basis ไปเป็น AO Basis ดังนี้
+
+\begin{tcolorbox}[ams equation]
+  \mathbf{P'} 
+  = 
+  (\mathbf{S^{-\frac{1}{2}}})^{-1} \mathbf{P}\ (\mathbf{S^{-\frac{1}{2}}}^\dagger)^{-1}
+\end{tcolorbox}
+
+\noindent และเพื่อให้ง่ายกว่านี้ เราจะกำหนดตัวแปรใหม่ขึ้นมาคือ $\mathbf{X} = \mathbf{S^{-\frac{1}{2}}}$ โดยที่ $\mathbf{X}$ 
+นั้นเป็น Hermitian ดังนั้นเราจะได้ว่า 
+
+\begin{gather}
+  \mathbf{F'} = \mathbf{X} \mathbf{F} \mathbf{X} \\
+  \mathbf{P'} = \mathbf{X}^{-1} \mathbf{P} \mathbf{X}^{-1}
+\end{gather}
+
+\noindent ถ้าหากว่าเราทำการแทนสมการด้านบนนี้เข้าไปใน Commutator ที่อยู่ในรูปของ MO Basis เราจะได้ว่า 
+\begin{equation}
+  \mathbf{X} \mathbf{F} \mathbf{P} \mathbf{X}^{-1} - \mathbf{X}^{-1} \mathbf{P} \mathbf{F} \mathbf{X} 
+  = 
+  0
+\end{equation}
+
+\noindent แล้วถ้าเราทำการคูณสมการด้านบนนี้ด้วย $\mathbf{X}^{-1}$ ทั้งทางด้านซ้ายและด้านขวาของทั้งสองข้างของสมการ 
+
+\begin{equation}
+  \mathbf{X}^{-1} \mathbf{X} \mathbf{F} \mathbf{P} \mathbf{X}^{-1} \mathbf{X}^{-1} 
+  - 
+  \mathbf{X}^{-1} \mathbf{X}^{-1} \mathbf{P} \mathbf{F} \mathbf{X} \mathbf{X}^{-1} 
+  =
+  0
+\end{equation}
+
+\noindent เราจะได้ Commutator ที่อยู่ในรูปของ AO Basis ออกมาดังนี้ 
+
+\begin{equation}
+  \mathbf{F'}\mathbf{P'} - \mathbf{P'}\mathbf{F'} 
+  = 
+  \mathbf{F} \mathbf{P} \mathbf{S} - \mathbf{S} \mathbf{P} \mathbf{F} 
+  = 
+  0
+\end{equation}
+
+\noindent ซึ่งเราก็จะนำมาใช้ในการกำหนด Error ของวิธี DIIS นั่นเอง ดังนี้
+
+\begin{equation}
+  \label{eq:diis_error_hf}
+  \mathbf{e}_i 
+  = 
+  \mathbf{F}_i \mathbf{P}_i \mathbf{S} - \mathbf{S} \mathbf{P}_i \mathbf{F}_i
+\end{equation}
+
+%----------------------------------------
+\subsection{อัลกอริทึม DIIS}
+%----------------------------------------
+
+อัลกอริทึมของ DIIS ที่ถูกนำมาใช้ในโปรแกรมเคมีควอนตัมทั่วไปนั้นมีดังนี้ 
+
+\begin{enumerate}[topsep=0pt,noitemsep]
+  \setlength\itemsep{1em}
+  \item คำนวณ Error Vector โดยการใช้สมการที่ \refeq{eq:diis_error_hf} ในแต่ละรอบของการคำนวณ
+  
+  \item สร้าง Matrix $\mathbf{B}$ โดยการใช้ Error Vector $(\mathbf{B}_{ij} = \mathbf{e}_i \cdot \mathbf{e}_j)$ 
+  และแก้ชุดสมการเชิงเส้นต่อไปนี้
+  \begin{equation}
+    \begin{pmatrix} 
+      \mathbf{B}_{11} & \mathbf{B}_{12} & \dots & \mathbf{B}_{1m} & -1 \\ 
+      \mathbf{B}_{21} & \mathbf{B}_{22} & \dots & \mathbf{B}_{2m} & -1 \\ 
+      \dots & \dots & \dots & \dots & \dots \\ 
+      \mathbf{B}_{m1} & \mathbf{B}_{m2} & \dots & \mathbf{B}_{mm} & -1 \\ 
+      -1 & -1 & \dots & -1 & 0 
+    \end{pmatrix}
+    \begin{pmatrix} 
+      c_1 \\ 
+      c_2 \\ 
+      \dots \\ 
+      c_m \\ 
+      \lambda 
+    \end{pmatrix} 
+      =
+    \begin{pmatrix} 
+      0 \\ 
+      0 \\ 
+      \dots \\ 
+      0 \\ 
+      -1 
+    \end{pmatrix}
+  \end{equation}
+
+  \item คำนวณ Fock Matrix อันใหม่ที่ถูก Extrapolate มาแล้วโดยการใช้สมการ Extrapolation ดังนี้ 
+  \begin{equation}
+    \mathbf{F} 
+    = 
+    \sum_{i=1}^{m} c_i \mathbf{F}_i
+  \end{equation}
+
+  \item ทำการวนซ้ำกระบวนการ SCF จนกว่าคำตอบจะลู่เข้า (Converged)
+\end{enumerate}
+
+คราวนี้ก็ถึงเวลาสนุกแล้ว เรามาดูรายละเอียดการเขียนโค้ดสำหรับคำนวณพลังงานของโมเลกุลน้ำ \ce{H2O} ด้วยวิธี SCF และวิธี DIIS กันครับ 
+โดย Basis Set ที่ใช้คือ STO-3G ซึ่งมีจำนวน Basis Functions ทั้งหมด 7 Functions 
+
+\vspace{5pt}
+
+\begin{lstlisting}[style=MyPython]
+import numpy as np
+
+from math import sqrt, pi
+from timeit import default_timer as timer
+
+start_time = timer()
+
+
+def readoneint(filename, naos, t):
+    text = open(filename, "r").read()
+    splitfile = text.strip().split("\n")
+    # print splitfile
+    k = 0
+    for i in range(naos):
+        for j in range(i + 1):
+            # print i, j
+            line = splitfile[k]
+            t[i, j] = line.split()[2]
+            t[j, i] = t[i, j]
+            k = k + 1
+    return
+
+
+def readtwoint(filename, naos, eri):
+    text = open(filename, "r").read()
+    splitfile = text.strip().split("\n")
+    ntwoints = len(splitfile)
+    for k in range(ntwoints):
+        line = splitfile[k]
+        m = int(line.split()[0]) - 1
+        n = int(line.split()[1]) - 1
+        k = int(line.split()[2]) - 1
+        l = int(line.split()[3]) - 1
+        eri[m, n, k, l] = line.split()[4]
+        eri[n, m, k, l] = eri[m, n, k, l]
+        eri[m, n, l, k] = eri[m, n, k, l]
+        eri[n, m, l, k] = eri[m, n, k, l]
+        eri[k, l, m, n] = eri[m, n, k, l]
+        eri[k, l, n, m] = eri[m, n, k, l]
+        eri[l, k, m, n] = eri[m, n, k, l]
+        eri[l, k, n, m] = eri[m, n, k, l]
+    return
+
+
+# Read one/two electron intergrals
+def readint(naos, t, s, v, eri):
+    readoneint("STO-3G/t.dat", naos, t)
+    readoneint("STO-3G/s.dat", naos, s)
+    readoneint("STO-3G/v.dat", naos, v)
+    readtwoint("STO-3G/eri.dat", naos, eri)
+    return
+
+
+# Builds new (i)th fock matrix from the (i-1)th density matrix
+def build_new_fock(denmat, naos, hcore):
+    fmat = np.zeros((naos, naos))
+    for m in range(naos):
+        for n in range(naos):
+            fmat[m, n] = hcore[m, n]
+            for k in range(naos):
+                for l in range(naos):
+                    fmat[m, n] += denmat[k, l] * (
+                        2 * erimat[m, n, k, l] - erimat[m, k, n, l]
+                    )
+    return fmat
+
+
+# Diagonalises (i)th fock matrix and obtain (i)th density matrix,
+# electronic energy, etc (check line 92)
+def diagonalize_fock(fmat, smat_half, hcore):
+    fmatp = np.dot(
+        smat_half, np.dot(fmat, smat_half)
+    )  # transforming to canonical AO basis
+
+    epsilon, cmatp = np.linalg.eig(fmatp)  # diagonalising fmatp
+    idx = epsilon.argsort()[::1]  # sorting the eigenvalues
+    epsilon = epsilon[idx]
+    cmatp = cmatp[:, idx]
+    cmat = np.dot(smat_half, cmatp)
+    # only first 5 MOs are occupied in case of water
+    cmat_occ = cmat[:, 0:5]
+
+    denmat = np.dot(
+        cmat_occ, cmat_occ.transpose()
+    )  # building density matrix and calculating electronic energy
+    var1 = hcore + fmat
+    eelec = np.trace(np.dot(denmat, var1))
+
+    return denmat, eelec, fmatp, cmat, epsilon
+
+
+# builds a new error matrix based on (e = FDS-SDF)
+def build_error_vector(fmat, denmat, smat):
+    errvec = (
+        np.dot(fmat, np.dot(denmat, smat)) - np.dot(smat, np.dot(denmat, fmat))
+    ).reshape(naos * naos, 1)
+    norm_errvec = sqrt(np.dot(errvec.transpose(), errvec)[0, 0])
+    return errvec, norm_errvec
+
+
+# builds the B-matrix and solve for DIIS coefficient
+def get_diis_coeff(errvec_subspace):
+    b_mat = np.zeros((len(errvec_subspace) + 1, len(errvec_subspace) + 1))
+    b_mat[-1, :] = -1
+    b_mat[:, -1] = -1
+    b_mat[-1, -1] = 0
+
+    rhs = np.zeros((len(errvec_subspace) + 1, 1))
+    rhs[-1, -1] = -1
+
+    for i in range(len(errvec_subspace)):
+        for j in range(i + 1):
+            b_mat[i, j] = np.dot(errvec_subspace[i].transpose(), errvec_subspace[j])
+            b_mat[j, i] = b_mat[i, j]
+
+    *diis_coeff, _ = np.linalg.solve(b_mat, rhs)
+
+    return diis_coeff
+
+
+# Builds an extrapolated fock matrix by a linear combination
+# (These won't be a part of fmat_subspace)
+def extrapolated_fock(fmat_subspace, diis_coeff):
+    extrapolated_fmat = np.zeros((naos, naos))
+
+    for i in range(len(fmat_subspace)):
+        extrapolated_fmat += fmat_subspace[i] * diis_coeff[i]
+
+    return extrapolated_fmat
+
+
+# Defining a class = Subspace for storing error vectors,
+# fock, and density matrices
+class Subspace(list):
+    def append(self, item):
+        list.append(self, item)
+        if len(self) > dimSubspace:
+            del self[0]
+
+
+print("=" * 58)
+print(f"* Output for SCF energy calculation using DIIS algorithm *")
+print("=" * 58, "\n\n")
+
+
+# Bunch of global variables defined; initalizing some arrays
+
+naos = 7  # STO-3G has 7 AOs for H2O
+
+tmat = np.zeros((naos, naos))
+smat = np.zeros((naos, naos))
+vmat = np.zeros((naos, naos))
+erimat = np.zeros((naos, naos, naos, naos))
+denmat = np.zeros((naos, naos))
+
+with open("STO-3G/enuc.dat", "r") as f:
+    enuc = float(f.read())
+
+readint(naos, tmat, smat, vmat, erimat)
+
+# This will be initial guess for fock matrix
+hcore = tmat + vmat
+
+iterations = 12  # maximum number of iterations
+
+scftol = 1e-12  # energy convergence criterion
+dentol = 1e-12  # density convergence criterion
+errtol = 1e-15  # error vector should be as close to 0
+
+print(f"Molecule = H2O")
+print(f"Basis Set = STO-3G")
+print(f"Total number of basis functions = {naos}\n\n")
+
+print(f"CONVERGENCE CRITERIA:\n~~~~~~~~~~~~~~~~~~~~~")
+print(f"Energy convergence criterion: {scftol}")
+print(f"Norm of density matrix convergence criterion: {dentol}")
+print(f"Norm of DIIS-error vector convergence criterion: {errtol}\n\n")
+
+
+# S^(-1/2) is used to diagonalise Fock matrix
+s_eigval, s_eigvec = np.linalg.eig(smat)
+s_halfeig = np.zeros((naos, naos))
+
+for i in range(naos):
+    s_halfeig[i, i] = s_eigval[i] ** (-0.5)
+
+a = np.dot(s_eigvec, s_halfeig)  # a = L*s^(-1/2)
+b = s_eigvec.transpose()
+smat_half = np.dot(a, b)
+
+
+####################
+# DIIS Code begins #
+####################
+
+# Usually, around 6-8 to give a reasonable result
+dimSubspace = 6
+
+# Creating instances of the class=Subspace.
+# The maximum dimension if defined above.
+errvec_subspace = Subspace()
+fmat_subspace = Subspace()
+denmat_subspace = Subspace()
+
+# Initilizing these variables to check convergence
+old_energy, old_denmat = 0, np.zeros((naos, naos))
+
+# Providing the guess fock matrix to begin with
+# (This will not be a part of fmat_subspace)
+fmat = np.zeros((naos, naos))
+for m in range(naos):
+    for n in range(naos):
+        fmat[m, n] = hcore[m, n]
+
+print(f"SCF ITERATIONS BEGIN:\n~~~~~~~~~~~~~~~~~~~~~")
+
+# Begining the DIIS-SCF iterations
+for i in range(iterations):
+    print(f"Iteration {i+1}:")
+
+    if i <= 1:
+        denmat = diagonalize_fock(fmat, smat_half, hcore)[0]
+        denmat_subspace.append(denmat)
+
+        energy = diagonalize_fock(fmat, smat_half, hcore)[1]
+        print(f"    * Electronic energy = {energy} Eh")
+
+        fmat = build_new_fock(denmat, naos, hcore)
+        fmat_subspace.append(fmat)
+
+        errvec, norm_errvec = build_error_vector(fmat, denmat, smat)
+        errvec_subspace.append(errvec)
+        print(f"    * Norm of DIIS error vector = {norm_errvec}")
+
+    else:
+        # Start building and solving B-matrix to obatined DIIS coefficient
+        # after we have at least 2 error vectors
+        diis_coeff = get_diis_coeff(errvec_subspace)
+
+        # Building extrapolated fock matrices
+        extrapolated_fmat = extrapolated_fock(fmat_subspace, diis_coeff)
+
+        # Density matrix from extrapolated fock
+        denmat = diagonalize_fock(extrapolated_fmat, smat_half, hcore)[0]
+        denmat_subspace.append(denmat)
+
+        # Next entry in the fock subspace obtained
+        # from the recent density matrix obtained
+        fmat = build_new_fock(denmat, naos, hcore)
+        fmat_subspace.append(fmat)
+
+        # Electronic energy
+        energy = diagonalize_fock(fmat, smat_half, hcore)[1]
+        print(f"    * Electronic energy = {energy} Eh")
+
+        # Error vector calculation
+        errvec, norm_errvec = build_error_vector(fmat, denmat, smat)
+        errvec_subspace.append(errvec)
+        print(f"    * Norm of DIIS error vector = {norm_errvec}")
+        # DIIS algorithm ends here ####
+
+    ### Checking for various convergence criteria
+    deltaE = energy - old_energy
+    print(f"    * Energy convergence = {deltaE} Eh")
+
+    denmat_vector, olddenmat_vector = np.reshape(denmat, (naos * naos, 1)), np.reshape(
+        old_denmat, (naos * naos, 1)
+    )
+    norm_denmat = denmat_vector - olddenmat_vector
+    denconv = (np.dot(norm_denmat.transpose(), norm_denmat)) ** 0.5
+    print(f"    * Norm of density matrix convergence = {denconv[0,0]}\n")
+
+    # Stop the iterations when convergence is reached
+    if abs(deltaE) < scftol and abs(denconv[0, 0]) < dentol:
+        print(f"SCF ENERGY AND DENSITY CONVERGED WITHIN {i+1} ITERATIONS!\n\n")
+        MOenergies = diagonalize_fock(fmat, smat_half, hcore)[4]
+        print(f"ORBITAL ENERGIES:\n~~~~~~~~~~~~~~~~~\n{MOenergies}\n\n")
+        print(f"FINAL RESULT:\n~~~~~~~~~~~~~")
+        print(f"    * Electronic energy = {energy} Eh")
+        print(f"    * Total energy = {energy+enuc} Eh")
+        print(f"    * HOMO-LUMO gap = {MOenergies[5]-MOenergies[4]} Eh")
+        break
+    else:
+        old_denmat = denmat
+        old_energy = energy
+
+print(f"\n")
+end_time = timer()
+print(f"Wall time = {end_time-start_time} seconds\n")  
+\end{lstlisting}
+
+\vspace{5pt}
+
+โดยมีเอาต์พุตดังนี้ 
+
+\vspace{5pt}
+
+\begin{lstlisting}
+==========================================================
+* Output for SCF energy calculation using DIIS algorithm *
+========================================================== 
+
+
+Molecule = H2O
+Basis Set = STO-3G
+Total number of basis functions = 7
+
+
+CONVERGENCE CRITERIA:
+~~~~~~~~~~~~~~~~~~~~~
+Energy convergence criterion: 1e-12
+Norm of density matrix convergence criterion: 1e-12
+Norm of DIIS-error vector convergence criterion: 1e-15
+
+
+SCF ITERATIONS BEGIN:
+~~~~~~~~~~~~~~~~~~~~~
+Iteration 1:
+    * Electronic energy = -125.84207743769872 Eh
+    * Norm of DIIS error vector = 0.7071326622354689
+    * Energy convergence = -125.84207743769872 Eh
+    * Norm of density matrix convergence = 2.5502610775639942
+
+Iteration 2:
+    * Electronic energy = -78.28658328473979 Eh
+    * Norm of DIIS error vector = 0.2916188629562465
+    * Energy convergence = 47.55549415295893 Eh
+    * Norm of density matrix convergence = 1.8266730844790497
+
+... [Trimmed]
+
+Iteration 11:
+    * Electronic energy = -82.94444699000206 Eh
+    * Norm of DIIS error vector = 3.77585115992646e-14
+    * Energy convergence = 1.8474111129762605e-13 Eh
+    * Norm of density matrix convergence = 6.63375456196504e-14
+
+SCF ENERGY AND DENSITY CONVERGED WITHIN 11 ITERATIONS!
+
+
+ORBITAL ENERGIES:
+~~~~~~~~~~~~~~~~~
+[-20.26289162  -1.20969737  -0.54796465  -0.4365272   -0.38758672
+   0.47761872   0.58813928]
+
+
+FINAL RESULT:
+~~~~~~~~~~~~~
+    * Electronic energy = -82.94444699000206 Eh
+    * Total energy = -74.94207992819162 Eh
+    * HOMO-LUMO gap = 0.8652054408643053 Eh
+
+
+Wall time = 0.06017093900300097 seconds
+\end{lstlisting}
+
+\vspace{5pt}
+
+โดยส่วนประกอบของโค้ดด้านบนนี้ประกอบไปด้วยฟังก์ชันและคลาสซึ่งมีหน้าที่ดังนี้
+
+\begin{itemize}[topsep=0pt,noitemsep]
+  \setlength\itemsep{1em}
+  \item \pyinline{readoneint} เป็นฟังก์ชันสำหรับอ่านไฟล์ที่เก็บข้อมูล One-Electron Integral
+  
+  \item \pyinline{readtwoint} เป็นฟังก์ชันสำหรับอ่านไฟล์ที่เก็บข้อมูล Two-Electron Integral
+  
+  \item \pyinline{readint} เป็นฟังก์ชันสำหรับอ่านข้อมูล Integral ก็คือเรียกใช้ฟังก์ชัน \pyinline{readoneint} 
+  กับ \pyinline{readtwoint}
+  
+  \item \pyinline{build_new_fock} เป็นฟังก์ชันสำหรับสร้าง Fock Matrix อันใหม่
+  
+  \item \pyinline{diagonalize_fock} เป็นฟังก์ชันสำหรับทำ Diagonalization เพื่อแก้คำตอบหาค่าพลังงานของแต่ละออร์บิทัล
+  
+  \item \pyinline{build_error_vector} เป็นฟังก์ชันสำหรับคำนวณ Error Vector สำหรับวิธี DIIS
+  
+  \item \pyinline{get_diis_coeff} เป็นฟังก์ชันสำหรับคำนวณสัมประสิทธิ์เพื่อนำไปคำนวณ Extrapolated Fock 
+  
+  \item \pyinline{extrapolated_fock} เป็นฟังก์ชันสำหรับคำนวณ Extrapolated Fock ด้วยวิธี DIIS
+  
+  \item \pyinline{Subspace} เป็นคลาสสำหรับสร้าง Subspace เพื่อทำการเก็บข้อมูล Error Vector, Fock Matrix, และ 
+  Density Matrix
+\end{itemize}
+
+\noindent ข้อมูลของ Electron Integrals ของ STO-3G นั้นผมเอามาจาก GitHub 
+\url{https://github.com/CrawfordGroup/ProgrammingProjects/tree/master/Project%2303/input/h2o/STO-3G}
+ซึ่งดาวน์โหลดมาใช้ได้ฟรี แล้วก็ประสิทธิภาพของ DIIS เมื่อเทียบกับวิธี SCF แบบปกตินั้นถือว่าเยอะกว่ามาก ถ้าหากว่าเราคำนวณพลังงานของโมเลกุลน้ำด้วย 
+SCF แบบปกติ จะใช้จำนวนรอบประมาณ 38 รอบ แต่เมื่อใช้ DIIS เข้ามาช่วย พบว่าพลังงานนั้นลู่เข้าภายใน 11 รอบเท่านั้น
+
+%----------------------------------------
+\section{เขียนโปรแกรม M\o{}ller-Plesset Perturbation (ภาษา Python)}
 %----------------------------------------
 
 ถ้าหากว่าเราสามารถเขียนโปรแกรมสำหรับคำนวณ Hartree-Fock ได้แล้ว การเขียนโปรแกรมคำนวณ M\o{}ller-Plesset นั้นก็ทำได้ไม่ยาก
@@ -2063,7 +2720,7 @@ kcal/mol นั่นหมายความว่าความคลาด�
 เข้าไปด้วยเพื่อให้ผลการคำนวณนั้นมีค่าถูกต้องและแม่นยำมากที่สุดเท่าที่จะเป็นไปได้
 
 %----------------------------------------
-\section{เขียนโปรแกรมคำนวณ Coupled Cluster (ภาษา Python)}
+\section{เขียนโปรแกรม Coupled Cluster (ภาษา Python)}
 %----------------------------------------
 
 %----------------------------------------
@@ -2671,7 +3328,7 @@ print("E(CCSD) = ", ECCSD + ENUC + EN)
 \vspace{5pt}
 
 %----------------------------------------
-\section{เขียนโปรแกรมคำนวณ DFT (ภาษา Python)}
+\section{เขียนโปรแกรม DFT (ภาษา Python)}
 %----------------------------------------
 
 %----------------------------------------
