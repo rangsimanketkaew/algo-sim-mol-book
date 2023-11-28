@@ -3555,8 +3555,8 @@ def E(i, j, t, Qx, a, b):
 
 \vspace{5pt}
 
-จะเห็นว่าสำหรับ Overlap แบบหนึ่งมิติ (1D) ระหว่าง Gaussian Function 2 อันนั้น เราก็แค่ทำการคำนวณ $E_0^{ij}$ แล้วก็คูณด้วย 
-$\sqrt{\frac{\pi}{p}}$ แล้วก็ถ้าเป็นแบบสามมิติ (3D) เราก็แค่นำ Overlap แบบ 1D สำหรับ $x,y,z$ มาคูณเข้าด้วยกัน 
+จะเห็นว่าสำหรับ Overlap แบบหนึ่งมิติ (1D) ระหว่าง Gaussian Function 2 อันนั้น เราก็แค่ทำการคำนวณ $E_0^{ij}$ แล้วก็คูณด้วย
+$\sqrt{\frac{\pi}{p}}$ แล้วก็ถ้าเป็นแบบสามมิติ (3D) เราก็แค่นำ Overlap แบบ 1D สำหรับ $x,y,z$ มาคูณเข้าด้วยกัน
 ดังนั้น เราสามารถเขียนโค้ดสำหรับการคำนวณ 3D Overlap ได้ดังนี้
 
 \vspace{5pt}
@@ -3570,13 +3570,13 @@ def overlap(a, lmn1, A, b, lmn2, B):
     Evaluates overlap integral between two Gaussians
 
     Returns a float.
-    a:    orbital exponent on Gaussian 'a' (e.g. alpha in the text)
-    b:    orbital exponent on Gaussian 'b' (e.g. beta in the text)
+    a: orbital exponent on Gaussian 'a' (e.g. alpha in the text)
+    b: orbital exponent on Gaussian 'b' (e.g. beta in the text)
     lmn1: int tuple containing orbital angular momentum (e.g. (1,0,0))
           for Gaussian 'a'
     lmn2: int tuple containing orbital angular momentum for Gaussian 'b'
-    A:    list containing origin of Gaussian 'a', e.g. [1.0, 2.0, 0.0]
-    B:    list containing origin of Gaussian 'b'
+    A: list containing origin of Gaussian 'a', e.g. [1.0, 2.0, 0.0]
+    B: list containing origin of Gaussian 'b'
     """
     l1, m1, n1 = lmn1  # shell angular momentum on Gaussian 'a'
     l2, m2, n2 = lmn2  # shell angular momentum on Gaussian 'b'
@@ -3589,11 +3589,11 @@ def overlap(a, lmn1, A, b, lmn2, B):
 
 \vspace{5pt}
 
-เราใช้ไลบรารี่ NumPy เพื่อที่ว่าเราสามารถใช้ค่าคงที่ของ $\pi$ และเลขกกำลังแบบเศษส่วน $(3/2)$ ได้นั่นเอง แล้วก็การเขียนฟังก์ชันด้านบน 
-ท\pyinline{overlap} และ \pyinline{E} ทั้งสองอันนั้นก็เพียงพอแล้วต่อการคำนวณหา Overlap Integrals ระหว่าง Gaussian Function 
-แบบที่เป็น Primitive แต่ประเด็นก็คือว่า Basis Functions ส่วนใหญ่ในการคำนวณทางควอนตัมนั้นเป็นแบบ Contracted Basis Functions 
-นั่นก็คือเป็น Basis Function ที่เกิดจากการรวมเอา Gaussian Primitive Function หลาย ๆ อันมารวมกัน ซึ่งจริง ๆ ถ้าหากว่าเราจะต้องหา 
-Overlap Integrals ระหว่าง Contracted Gaussian Function นั้นก็ทำได้ไม่ยาก โดยสามารถดูได้ในฟังก์ชัน \pyinline{S(a,b)} ดังนี้ 
+เราใช้ไลบรารี่ NumPy เพื่อที่ว่าเราสามารถใช้ค่าคงที่ของ $\pi$ และเลขกกำลังแบบเศษส่วน $(3/2)$ ได้นั่นเอง แล้วก็การเขียนฟังก์ชันด้านบน
+ท\pyinline{overlap} และ \pyinline{E} ทั้งสองอันนั้นก็เพียงพอแล้วต่อการคำนวณหา Overlap Integrals ระหว่าง Gaussian Function
+แบบที่เป็น Primitive แต่ประเด็นก็คือว่า Basis Functions ส่วนใหญ่ในการคำนวณทางควอนตัมนั้นเป็นแบบ Contracted Basis Functions
+นั่นก็คือเป็น Basis Function ที่เกิดจากการรวมเอา Gaussian Primitive Function หลาย ๆ อันมารวมกัน ซึ่งจริง ๆ ถ้าหากว่าเราจะต้องหา
+Overlap Integrals ระหว่าง Contracted Gaussian Function นั้นก็ทำได้ไม่ยาก โดยสามารถดูได้ในฟังก์ชัน \pyinline{S(a,b)} ดังนี้
 
 \vspace{5pt}
 
@@ -3623,31 +3623,41 @@ def S(a, b):
 
 \vspace{5pt}
 
-เมื่อเราได้ฟังก์ชัน \pyinline{S(a,b)} แล้ว สิ่งที่เราจะทำต่อไปก็คือเราจะมาลองทดสอบคำนวณค่าของ $S$ กันครับ โดยเราจะลองคำนวณหา $S$ 
-ของ Basis Function 2 อันที่เหมือนกัน ซึ่งคำตอบที่เราจะต้องได้ออกมานั้นแน่นอนว่าจะต้องเท่ากับ 1 เพราะว่าฟังก์ชันที่เหมือนกันก็จะ Overlap 
-กันได้พอดี โดยเราจะต้องมาเขียนโค้ดสำหรับสร้าง Basis Function กันก่อน โดยเราจะใช้ \pyinline{class} สำหรับ \pyinline{BasisFunction} 
-แล้วเราก็จะใช้ \pyinline{class} ดังกล่าวในการสร้าง Object ที่จะมีข้อมูลของ  Basis Function เป็นจำนวนหลาย ๆ อัน 
-โดยโค้ดที่เราจะเขียนนั้นจะอ้างอิงตามสมการต่อไปนี้\footnote{ดูรายละเอียดการพิสูจน์ได้ที่ Fundamentals of Molecular Integrals Evaluation 
-โดย Justin T. Fermann และ Edward F. Valeev\autocite{fermann2020}}
+เมื่อเราได้ฟังก์ชัน \pyinline{S(a,b)} แล้ว สิ่งที่เราจะทำต่อไปก็คือเราจะมาลองทดสอบคำนวณค่าของ $S$ กันครับ โดยเราจะลองคำนวณหา $S$
+ของ Basis Function 2 อันที่เหมือนกัน ซึ่งคำตอบที่เราจะต้องได้ออกมานั้นแน่นอนว่าจะต้องเท่ากับ 1 เพราะว่าฟังก์ชันที่เหมือนกันก็จะ Overlap
+กันได้พอดี โดยเราจะต้องมาเขียนโค้ดสำหรับสร้าง Basis Function กันก่อน โดยเราจะใช้ \pyinline{class} สำหรับ \pyinline{BasisFunction}
+แล้วเราก็จะใช้ \pyinline{class} ดังกล่าวในการสร้าง Object ที่จะมีข้อมูลของ  Basis Function เป็นจำนวนหลาย ๆ อัน
+โดยโค้ดที่เราจะเขียนนั้นจะอ้างอิงตามสมการต่อไปนี้\footnote{ดูรายละเอียดการพิสูจน์ได้ที่ Fundamentals of Molecular Integrals Evaluation
+  โดย Justin T. Fermann และ Edward F. Valeev\autocite{fermann2020}}
 
 เริ่มด้วย Self-Overlap คือ
 
 \begin{equation}
   \int \phi^*(\mathbf{r}) \phi(\mathbf{r}) d \mathbf{r}
   =
-  \frac{N^2 \pi^{3 / 2}(2 l-1) ! !(2 m-1) ! !(2 n-1) ! !}{2^{l+m+n}} 
+  \frac{N^2 \pi^{3 / 2}(2 l-1) ! !(2 m-1) ! !(2 n-1) ! !}{2^{l+m+n}}
   \sum_{i, j}^n \frac{a_i a_j}{\left(\alpha_i+\alpha_j\right)^{l+m+n+3 / 2}}
 \end{equation}
 
-\noindent เนื่องจากว่า $l + m + n = L$ (โมเมนตัมเชิงมุมของแต่ละชั้น (Shell)) เราจะสามารถปรับสมการเพื่อคำนวณหา Normalization 
+\noindent เนื่องจากว่า $l + m + n = L$ (โมเมนตัมเชิงมุมของแต่ละชั้น (Shell)) เราจะสามารถปรับสมการเพื่อคำนวณหา Normalization
 Factor $N$ ได้ดังนี้
 
+\begin{align}
+  \int \phi^* \phi
+   & =
+  \frac{N^2 \pi^{3 / 2}(2 l-1) ! !(2 m-1) ! !(2 n-1) ! !}{2^L}
+  \sum_{i, j}^n \frac{a_i a_j}{\left(\alpha_i+\alpha_j\right)^{L+3 / 2}} \\
+   & =
+  1
+\end{align}
+
 \begin{equation}
-  \begin{gathered}
-  \int \phi^* \phi 
-  = \frac{N^2 \pi^{3 / 2}(2 l-1) ! !(2 m-1) ! !(2 n-1) ! !}{2^L} \sum_{i, j}^n \frac{a_i a_j}{\left(\alpha_i+\alpha_j\right)^{L+3 / 2}}=1 \\
-  N = \left[\frac{\pi^{3 / 2}(2 l-1) ! !(2 m-1) ! !(2 n-1) ! !}{2^L} \sum_{i, j}^n \frac{a_i a_j}{\left(\alpha_i+\alpha_j\right)^{L+3 / 2}}\right]^{-1 / 2}
-  \end{gathered}
+  N
+  =
+  \left[
+    \frac{\pi^{3 / 2}(2 l-1) ! !(2 m-1) ! !(2 n-1) ! !}{2^L}
+    \sum_{i, j}^n \frac{a_i a_j}{\left(\alpha_i+\alpha_j\right)^{L+3 / 2}}
+    \right]^{-1 / 2}
 \end{equation}
 
 Before we approach one-electron integrals, we need to consider one very important result.
@@ -3666,10 +3676,10 @@ class BasisFunction(object):
 
     Attributes:
     origin: array/list containing the coordinates of the Gaussian origin
-    shell:  tuple of angular momentum
-    exps:   list of primitive Gaussian exponents
-    coefs:  list of primitive Gaussian coefficients
-    norm:   list of normalization factors for Gaussian primitives
+    shell: tuple of angular momentum
+    exps: list of primitive Gaussian exponents
+    coefs: list of primitive Gaussian coefficients
+    norm: list of normalization factors for Gaussian primitives
     """
 
     def __init__(self, origin=[0.0, 0.0, 0.0], shell=(0, 0, 0), exps=[], coefs=[]):
@@ -3728,7 +3738,7 @@ class BasisFunction(object):
 
 \vspace{5pt}
 
-ถ้าหากว่าเรามี Basis Function STO-3G ของออร์บิทัล $1s$ ของไฮโดรเจนที่มีจุดกำเนิดอยู่ที่ $(1.0, 2.0, 3.0)$ เราจะสามารถสร้าง Basis 
+ถ้าหากว่าเรามี Basis Function STO-3G ของออร์บิทัล $1s$ ของไฮโดรเจนที่มีจุดกำเนิดอยู่ที่ $(1.0, 2.0, 3.0)$ เราจะสามารถสร้าง Basis
 Function ได้ดังนี้
 
 \vspace{5pt}
@@ -3764,7 +3774,7 @@ S   3   1.00
 
 \vspace{5pt}
 
-ดังนั้น $S(a,a) = 1.0$ เนื่องจากว่าการ Overlap ของ Basis Function กับตัวมันเองนั้นมีค่าเท่ากับ 1 เพราะว่าเราได้มีการใช้ Normalized 
+ดังนั้น $S(a,a) = 1.0$ เนื่องจากว่าการ Overlap ของ Basis Function กับตัวมันเองนั้นมีค่าเท่ากับ 1 เพราะว่าเราได้มีการใช้ Normalized
 Factor $N$ ด้วยนั่นเอง
 
 %----------------------------------------
@@ -3773,9 +3783,9 @@ Factor $N$ ด้วยนั่นเอง
 \idxen{Kinetic Energy Integrals}
 %----------------------------------------
 
-เรามาต่อกันที่อินทิกรัลอันที่สองนั่นก็คือ อินทิกรัลพลังงานจลน์ (Kinetic Energy Integrals) ซึ่งสามารถเขียนได้ในรูปของอินทิกรัลซ้อนทับ 
-(Overlap Integral) ดังนี้\footnote{นั่นจึงเป็นเหตุผลที่ว่าทำไมเราถึงต้องดูรายละเอียดของ OVerlap Integral เป็นอันดับแรก 
-เพราะว่าเป็นอินทิกรัลสำคัญที่เรานำไปใช้ในการคำนวณอินทิกรัลหรือเทอมอื่น ๆ ในวิชาโครงสร้างเชิงอิเล็กทรอนิกส์}
+เรามาต่อกันที่อินทิกรัลอันที่สองนั่นก็คือ อินทิกรัลพลังงานจลน์ (Kinetic Energy Integrals) ซึ่งสามารถเขียนได้ในรูปของอินทิกรัลซ้อนทับ
+(Overlap Integral) ดังนี้\footnote{นั่นจึงเป็นเหตุผลที่ว่าทำไมเราถึงต้องดูรายละเอียดของ OVerlap Integral เป็นอันดับแรก
+  เพราะว่าเป็นอินทิกรัลสำคัญที่เรานำไปใช้ในการคำนวณอินทิกรัลหรือเทอมอื่น ๆ ในวิชาโครงสร้างเชิงอิเล็กทรอนิกส์}
 
 \begin{equation}
   T_{ab}
@@ -3791,41 +3801,55 @@ where
   j(j-1)S_{i,j-2} - 2\beta(2j +1)S_{ij} + 4\beta^2 S_{i,j+2}
 \end{equation}
 
-สำหรับ Primitive Function แบบ 3D เราสามารถสร้างฟังก์ชันสำหรับคำนวณ Kinetic Integral ได้คล้าย ๆ กันกับฟังก์ชันของ Overlap 
-Integral ดังนี้ 
+สำหรับ Primitive Function แบบ 3D เราสามารถสร้างฟังก์ชันสำหรับคำนวณ Kinetic Integral ได้คล้าย ๆ กันกับฟังก์ชันของ Overlap
+Integral ดังนี้
+
+\vspace{5pt}
 
 \begin{lstlisting}[style=MyPython]
-def kinetic(a,lmn1,A,b,lmn2,B):
-    """ 
+def kinetic(a, lmn1, A, b, lmn2, B):
+    """
     Evaluates kinetic energy integral between two Gaussians
 
     Returns a float.
-    a:    orbital exponent on Gaussian 'a' (e.g. alpha in the text)
-    b:    orbital exponent on Gaussian 'b' (e.g. beta in the text)
+    a: orbital exponent on Gaussian 'a' (e.g. alpha in the text)
+    b: orbital exponent on Gaussian 'b' (e.g. beta in the text)
     lmn1: int tuple containing orbital angular momentum (e.g. (1,0,0))
           for Gaussian 'a'
     lmn2: int tuple containing orbital angular momentum for Gaussian 'b'
-    A:    list containing origin of Gaussian 'a', e.g. [1.0, 2.0, 0.0]
-    B:    list containing origin of Gaussian 'b'
+    A: list containing origin of Gaussian 'a', e.g. [1.0, 2.0, 0.0]
+    B: list containing origin of Gaussian 'b'
     """
-    l1,m1,n1 = lmn1
-    l2,m2,n2 = lmn2
-    term0 = b*(2*(l2+m2+n2)+3)*\
-                            overlap(a,(l1,m1,n1),A,b,(l2,m2,n2),B)
-    term1 = -2*np.power(b,2)*\
-                           (overlap(a,(l1,m1,n1),A,b,(l2+2,m2,n2),B) +
-                            overlap(a,(l1,m1,n1),A,b,(l2,m2+2,n2),B) +
-                            overlap(a,(l1,m1,n1),A,b,(l2,m2,n2+2),B))
-    term2 = -0.5*(l2*(l2-1)*overlap(a,(l1,m1,n1),A,b,(l2-2,m2,n2),B) +
-                  m2*(m2-1)*overlap(a,(l1,m1,n1),A,b,(l2,m2-2,n2),B) +
-                  n2*(n2-1)*overlap(a,(l1,m1,n1),A,b,(l2,m2,n2-2),B))
-    return term0+term1+term2
+    l1, m1, n1 = lmn1
+    l2, m2, n2 = lmn2
+    term0 = (
+        b * (2 * (l2 + m2 + n2) + 3) * overlap(a, (l1, m1, n1), A, b, (l2, m2, n2), B)
+    )
+    term1 = (
+        -2
+        * np.power(b, 2)
+        * (
+            overlap(a, (l1, m1, n1), A, b, (l2 + 2, m2, n2), B)
+            + overlap(a, (l1, m1, n1), A, b, (l2, m2 + 2, n2), B)
+            + overlap(a, (l1, m1, n1), A, b, (l2, m2, n2 + 2), B)
+        )
+    )
+    term2 = -0.5 * (
+        l2 * (l2 - 1) * overlap(a, (l1, m1, n1), A, b, (l2 - 2, m2, n2), B)
+        + m2 * (m2 - 1) * overlap(a, (l1, m1, n1), A, b, (l2, m2 - 2, n2), B)
+        + n2 * (n2 - 1) * overlap(a, (l1, m1, n1), A, b, (l2, m2, n2 - 2), B)
+    )
+    return term0 + term1 + term2
 \end{lstlisting}
+
+\vspace{5pt}
 
 \noindent และสำหรับ Contracted Gaussian Functions เราสามารถเขียนฟังก์ชัน \pyinline{T(a,b)} ได้ดังนี้
 
+\vspace{5pt}
+
 \begin{lstlisting}[style=MyPython]
-def T(a,b):
+def T(a, b):
     """
     Evaluates kinetic energy between two contracted Gaussians
 
@@ -3837,9 +3861,13 @@ def T(a,b):
     t = 0.0
     for ia, ca in enumerate(a.coefs):
         for ib, cb in enumerate(b.coefs):
-            t += a.norm[ia]*b.norm[ib]*ca*cb*\
-                     kinetic(a.exps[ia],a.shell,a.origin,\
-                     b.exps[ib],b.shell,b.origin)
+            t += (
+                a.norm[ia]
+                * b.norm[ib]
+                * ca
+                * cb
+                * kinetic(a.exps[ia], a.shell, a.origin, b.exps[ib], b.shell, b.origin)
+            )
     return t
 \end{lstlisting}
 
@@ -3849,17 +3877,13 @@ def T(a,b):
 \idxen{Nuclear Attraction Integrals}
 %----------------------------------------
 
-The last one-body integral I want to consider here is the nuclear
-attraction integrals. These differ from the overlap and kinetic energy
-integrals in that the nuclear attraction operator $1/r_C$ is Coulombic,
-meaning we cannot easily factor the integral into Cartesian components
-$x,y,z$.
-
-To evaluate these integrals, we need to set up an auxiliary Hermite
-Coulomb integral $R^n_{tuv}(p,\mathbf{P},\mathbf{C})$ that handles the
-Coulomb interaction between a Gaussian charge distribution centered at
-$\mathbf{P}$ and a nuclei centered at $\mathbf{C}$. The Hermite Coulomb
-integral, like its counterpart $E_t^{ij}$, is defined recursively:
+ในหัวข้อนี้เราจะมาดูรายละเอียดของอินทิกรัลอีกอันหนึ่งซึ่งเป็น One-Body Integral นั่นคืออินทิกรัลแรงดึงดูดเชิงนิวเคลียร์ (Nuclear Attraction
+Integrals) โดยอินทิกรัลอันนี้จะแตกต่างจาก Overlap Integral และ Kinetic Integral ตรงที่เรามีการใช้โอเปอร์เรเตอร์ $1/r_C$
+ซึ่งก็คือคูลอมป์ นั่นหมายความว่าเราไม่สามารถทำการแยกตัวประกอบ (Factorization) อินทิกรัลของเราให้อยู่ในรูปของพิกัดคาร์ทีเซียน (Cartesian
+Components) หรือ $x,y,z$ ได้นั่นเอง ดังนั้นในการคำนวณหา Nuclear Attraction Integral นั้น เราจำเป็นต้องใช้ตัวช่วยนั่นก็คือ
+Hermite Coulomb Integral $(R^n_{tuv}(p,\mathbf{P},\mathbf{C}))$ ซึ่งเป็นตัวแทนของอันตรกิริยาแบบคูลอมป์ (Coulomb Interaction)
+ที่เกิดขึ้นระหว่างการกระจายตัวของประจุแบบ Gaussian ในโมเลกุลซึ่งมีจุดศูนย์กลางคือ $\mathbf{P}$ ส่วนนิวเคลียสนั้นมีจุดศูนย์กลางอยู่ที่ $\mathbf{C}$
+โดย Hermite Coulomb Integral นั้นมีองค์ประกอบสำคัญคือ $E_t^{ij}$ ซึ่งสามารถหาได้ด้วยวิธีการวนซ้ำตามชุดสมการดังต่อไปนี้
 
 \begin{align}
   R^{n}_{t+1,u,v} & = t R^{n+1}_{t-1,u,v} + X_{PC}R^{n+1}_{t,u,v} \\
@@ -3868,7 +3892,7 @@ integral, like its counterpart $E_t^{ij}$, is defined recursively:
   R^{n}_{0,0,0}   & = (-2p)^n F_n (p R_{PC}^2)
 \end{align}
 
-where $F_n(T)$ is the Boys function
+\noindent โดยที่ $F_n(T)$ คือฟังก์ชันของบอยส์ (Boys Function)
 
 \begin{equation}
   F_n(T)
@@ -3876,7 +3900,8 @@ where $F_n(T)$ is the Boys function
   \int_0^1 \hbox{exp}(-Tx^2)x^{2n}dx
 \end{equation}
 
-which is a special case of the Kummer confluent hypergeometric function, $_1F_1(a,b,x)$
+\noindent ซึ่ง Boys Function นั้นเป็นกรณีเฉพาะแบบพิเศษของ Kummer Confluent Hypergeometric Function $_1F_1(a,b,x)$
+ดังนี้\footnote{\url{https://en.wikipedia.org/wiki/Confluent_hypergeometric_function}}
 
 \begin{equation}
   F_n(T)
@@ -3884,57 +3909,60 @@ which is a special case of the Kummer confluent hypergeometric function, $_1F_1(
   \frac{_1F_1(n+\frac{1}{2}, n+\frac{3}{2}, -T)}{2n+1}
 \end{equation}
 
-which is convenient for us, since `SciPy` has an implementation of $_1F_1$ as
-a part of `scipy.special`. So for `R` we can code up the recursion like
-so
+\noindent โดยที่เราสามารถ Implement สมการด้านบนนี้ได้ง่าย ๆ โดยการใช้ฟังก์ชันของไลบรารี่ \pyinline{SciPy} สำหรับ $_1F_1$
+ซึ่งอยู่ในโมดูล \pyinline{scipy.special}
+
+\vspace{5pt}
 
 \begin{lstlisting}[style=MyPython]
-def R(t,u,v,n,p,PCx,PCy,PCz,RPC):
-    """ 
+def R(t, u, v, n, p, PCx, PCy, PCz, RPC):
+    """
     Returns the Coulomb auxiliary Hermite integrals
 
     Returns a float.
     Arguments:
     t,u,v:   order of Coulomb Hermite derivative in x,y,z
               (see defs in Helgaker and Taylor)
-    n:       order of Boys function 
-    PCx,y,z: Cartesian vector distance between Gaussian 
+    n:       order of Boys function
+    PCx,y,z: Cartesian vector distance between Gaussian
               composite center P and nuclear center C
     RPC:     Distance between P and C
     """
-    T = p*RPC*RPC
+    T = p * RPC * RPC
     val = 0.0
     if t == u == v == 0:
-        val += np.power(-2*p,n)*boys(n,T)
+        val += np.power(-2 * p, n) * boys(n, T)
     elif t == u == 0:
         if v > 1:
-            val += (v-1)*R(t,u,v-2,n+1,p,PCx,PCy,PCz,RPC)
-        val += PCz*R(t,u,v-1,n+1,p,PCx,PCy,PCz,RPC)
+            val += (v - 1) * R(t, u, v - 2, n + 1, p, PCx, PCy, PCz, RPC)
+        val += PCz * R(t, u, v - 1, n + 1, p, PCx, PCy, PCz, RPC)
     elif t == 0:
         if u > 1:
-            val += (u-1)*R(t,u-2,v,n+1,p,PCx,PCy,PCz,RPC)
-        val += PCy*R(t,u-1,v,n+1,p,PCx,PCy,PCz,RPC)
+            val += (u - 1) * R(t, u - 2, v, n + 1, p, PCx, PCy, PCz, RPC)
+        val += PCy * R(t, u - 1, v, n + 1, p, PCx, PCy, PCz, RPC)
     else:
         if t > 1:
-            val += (t-1)*R(t-2,u,v,n+1,p,PCx,PCy,PCz,RPC)
-        val += PCx*R(t-1,u,v,n+1,p,PCx,PCy,PCz,RPC)
+            val += (t - 1) * R(t - 2, u, v, n + 1, p, PCx, PCy, PCz, RPC)
+        val += PCx * R(t - 1, u, v, n + 1, p, PCx, PCy, PCz, RPC)
     return val
 \end{lstlisting}
 
-and we can define our `boys(n,T)` function as
+\vspace{5pt}
+
+\noindent และเราสามารถทำการกำหนด Boys Function โดยการเขียนฟังก์ชัน \pyinline{boys(n,T)} ได้ดังนี้
+
+\vspace{5pt}
 
 \begin{lstlisting}[style=MyPython]
 from scipy.special import hyp1f1
 
-def boys(n,T):
-    return hyp1f1(n+0.5,n+1.5,-T)/(2.0*n+1.0) 
+def boys(n, T):
+    return hyp1f1(n + 0.5, n + 1.5, -T) / (2.0 * n + 1.0)
 \end{lstlisting}
 
-There are other definitions of the Boys function of course, in case you
-do not want to use the `SciPy` built-in. Note that `R` requires
-knowledge of the composite center $\mathbf{P}$ from two Gaussians
-centered at $\mathbf{A}$ and $\mathbf{B}$. We can determine $\mathbf{P}$
-using the Gaussian product center rule
+\vspace{5pt}
+
+\noindent แล้วเราก็สามารถคำนวณ $\mathbf{P}$ ได้โดยการใช้ Gaussian Product Center Rule ดังนี้
 
 \begin{equation}
   P
@@ -3942,16 +3970,19 @@ using the Gaussian product center rule
   \frac{\alpha A + \beta B}{\alpha + \beta}
 \end{equation}
 
-which is very simply coded up as
+\noindent ซึ่งสามารถเขียนออกมาเป็นโค้ดได้ง่าย ๆ ดังนี้
+
+\vspace{5pt}
 
 \begin{lstlisting}[style=MyPython]
-def gaussian_product_center(a,A,b,B):
-    return (a*A+b*B)/(a+b)
+def gaussian_product_center(a, A, b, B):
+    return (a * A + b * B) / (a + b)
 \end{lstlisting}
 
-Now that we have a the Coulomb auxiliary Hermite integrals
-$R^{n}_{tuv}$, we can form the nuclear attraction integrals with respect
-to a given nucleus centered at $\mathbf{C}$, $V_{ab}(C)$, *via* the
+\vspace{5pt}
+
+เมื่อเราคำนวณ Coulomb Auxiliary Hermite Integrals $R^{n}_{tuv}$ ออกมาได้แล้ว ขั้นตอนต่อไปคือเราสามารถคำนวณ Nuclear 
+Attraction Integral โดยเทียบกับนิวเคลียสที่มีจุดศูนย์กลางอยู่ที่ $\mathbf{C}$, $V_{ab}(C)$ ได้โดยการใช้สมการต่อไปนี้
 expression
 
 \begin{equation}
@@ -3962,44 +3993,53 @@ expression
   E_t^{ij} E_u^{kl} E_v^{mn} R^0_{tuv}(p,\mathbf{P},\mathbf{C})
 \end{equation}
 
+\noindent ซึ่งเราก็จะสามารถ Implement สมการด้านบนนี้ให้เป็นโค้ดตามฟังก์ชัน \pyinline{nuclear_attraction} ได้ดังนี้
+
+\vspace{5pt}
+
 \begin{lstlisting}[style=MyPython]
-def nuclear_attraction(a,lmn1,A,b,lmn2,B,C):
-    """ 
+def nuclear_attraction(a, lmn1, A, b, lmn2, B, C):
+    """
     Evaluates kinetic energy integral between two Gaussians
 
     Returns a float.
-    a:    orbital exponent on Gaussian 'a' (e.g. alpha in the text)
-    b:    orbital exponent on Gaussian 'b' (e.g. beta in the text)
+    a: orbital exponent on Gaussian 'a' (e.g. alpha in the text)
+    b: orbital exponent on Gaussian 'b' (e.g. beta in the text)
     lmn1: int tuple containing orbital angular momentum (e.g. (1,0,0))
           for Gaussian 'a'
     lmn2: int tuple containing orbital angular momentum for Gaussian 'b'
-    A:    list containing origin of Gaussian 'a', e.g. [1.0, 2.0, 0.0]
-    B:    list containing origin of Gaussian 'b'
-    C:    list containing origin of nuclear center 'C'
+    A: list containing origin of Gaussian 'a', e.g. [1.0, 2.0, 0.0]
+    B: list containing origin of Gaussian 'b'
+    C: list containing origin of nuclear center 'C'
     """
-    l1,m1,n1 = lmn1 
-    l2,m2,n2 = lmn2
+    l1, m1, n1 = lmn1
+    l2, m2, n2 = lmn2
     p = a + b
-    P = gaussian_product_center(a,A,b,B) # Gaussian composite center
-    RPC = np.linalg.norm(P-C)
+    P = gaussian_product_center(a, A, b, B)  # Gaussian composite center
+    RPC = np.linalg.norm(P - C)
 
     val = 0.0
-    for t in range(l1+l2+1):
-        for u in range(m1+m2+1):
-            for v in range(n1+n2+1):
-                val += E(l1,l2,t,A[0]-B[0],a,b) * \
-                       E(m1,m2,u,A[1]-B[1],a,b) * \
-                       E(n1,n2,v,A[2]-B[2],a,b) * \
-                       R(t,u,v,0,p,P[0]-C[0],P[1]-C[1],P[2]-C[2],RPC)
-    val *= 2*np.pi/p 
+    for t in range(l1 + l2 + 1):
+        for u in range(m1 + m2 + 1):
+            for v in range(n1 + n2 + 1):
+                val += (
+                    E(l1, l2, t, A[0] - B[0], a, b)
+                    * E(m1, m2, u, A[1] - B[1], a, b)
+                    * E(n1, n2, v, A[2] - B[2], a, b)
+                    * R(t, u, v, 0, p, P[0] - C[0], P[1] - C[1], P[2] - C[2], RPC)
+                )
+    val *= 2 * np.pi / p
     return val
 \end{lstlisting}
 
-And, just like all the other routines, we can wrap it up to treat
-contracted Gaussians like so:
+\vspace{5pt}
+
+\noindent และเราก็สามารถใช้ Contracted Gaussians ในการคำนวณอินทิกรัลของเราได้ตามที่แสดงในโค้ดดังต่อไปนี้
+
+\vspace{5pt}
 
 \begin{lstlisting}[style=MyPython]
-def V(a,b,C):
+def V(a, b, C):
     """
     Evaluates overlap between two contracted Gaussians
 
@@ -4012,16 +4052,24 @@ def V(a,b,C):
     v = 0.0
     for ia, ca in enumerate(a.coefs):
         for ib, cb in enumerate(b.coefs):
-            v += a.norm[ia]*b.norm[ib]*ca*cb*\
-                     nuclear_attraction(a.exps[ia],a.shell,a.origin,
-                     b.exps[ib],b.shell,b.origin,C)
+            v += (
+                a.norm[ia]
+                * b.norm[ib]
+                * ca
+                * cb
+                * nuclear_attraction(
+                    a.exps[ia], a.shell, a.origin, b.exps[ib], b.shell, b.origin, C
+                )
+            )
     return v
 \end{lstlisting}
 
-**Important:** Note that this is the nuclear repulsion integral
-contribution from an atom centered at $\mathbf{C}$. To get the full
-nuclear attraction contribution, you must sum over all the nuclei, as
-well as scale each term by the appropriate nuclear charge!
+\vspace{5pt}
+
+ผู้อ่านจะต้องเข้าใจด้วยว่าอินทิกรัลที่เราคำนวณออกมาได้นั้นเป็นแค่ Nuclear Attraction เท่านั้น ซึ่งเรายังมี Nuclear Repulsion Integrals 
+ที่เป็น Contribution มาจากอะตอมที่มีจุดศูนย์กลางอยู่ที่ $\mathbf{C}$ อีกด้วย ถ้าหากว่าเราต้องการคำนวณ Nuclear Attraction Contribution 
+ทั้งหมดของทั้งโมเลกุล เราจะต้องทำการรวม Integral ทั้งหมดทุกเทอมของทุกอะตอมเข้าด้วยแล้วก็ทำตามปรับสเกลของแต่ละ Integral ตามประจุย่อย 
+(Nuclear Charge) ของอะตอมนั้น ๆ
 
 %----------------------------------------
 \subsection{อินทิกรัลแรงผลักระหว่างอิเล็กตรอน (Two-Electron Repulsion Integrals)}
@@ -4029,78 +4077,94 @@ well as scale each term by the appropriate nuclear charge!
 \idxen{Two-Electron Repulsion Integrals}
 %----------------------------------------
 
-We are done with the necessary one-body integrals (for a basic
-Hartree-Fock energy code, at least) and are ready to move on to the
-two-body terms: the electron-electron repulsion integrals. Thankfully,
-much of the work has been done for us on account of the nuclear
-attraction one-body integrals.
+เราได้ดูรายละเอียดของ One-Body Integrals ไปครับแล้ว ซึ่งเป็นอินทิกรัลพื้นฐานที่ผู้อ่านควรจะต้องทราบหากต้องการเขียนโปรแกรมสำหรับคำนวณ%
+พลังงานของโมเลกุลด้วยวิธี Hartree-Fock ในหัวข้อเราจะมาดูรายละเอียดของอินทิกรัลอันสุดท้ายซึ่งเป็นอินทิกรัลที่สำคัญมากและมีความซับซ้อนมากเช่นกัน 
+นั่นคือ Electron-Electron Repulsion Integrals หรืออินทิกรัลของแรงผลักระหว่างอิเล็กตรอน ซึ่งเป็นอินทิกรัลแบบ Two-Body 
 
-In terms of Hermite integrals, to evaluate the two electron repulsion
-terms, we must evaluate the summation
+ในการคำนวณหาอินทิกรัลอันนี้นั้น เราจะยังคงมีการใช้ Hermite Integrals ซึ่งเราจะต้องทำการหาผลรวมดังต่อไปนี้
 
 \begin{equation}
-  g_{abcd}
-  =
-  \frac{2\pi^{5/2}}{pq\sqrt{p+q}}
-  \sum\limits_{t,u,v}^{\substack{i+j+1,\\k+l+1,\\m+n+1}} E_t^{ij} E_u^{kl} E_v^{mn}
-  \sum\limits_{\tau,\nu,\phi}^{\substack{i'+j'+1,\\k'+l'+1,\\m'+n'+1}} E_{\tau}^{i'j'} E_{\nu}^{k'l'} E_{\phi}^{m'n'} (-1)^{\tau+\nu+\phi} R^0_{t+\tau,u + \nu, v+\phi}(p,q,\mathbf{P},\mathbf{Q})
+  \begin{aligned}
+    g_{abcd}
+    =
+     & \frac{2\pi^{5/2}}{pq\sqrt{p+q}}              \\
+     & \sum\limits_{t,u,v}^{\substack{i+j+1,        \\k+l+1,\\m+n+1}} E_t^{ij} E_u^{kl} E_v^{mn}
+    \sum\limits_{\tau,\nu,\phi}^{\substack{i'+j'+1, \\k'+l'+1,\\m'+n'+1}}
+    E_{\tau}^{i'j'} E_{\nu}^{k'l'} E_{\phi}^{m'n'} (-1)^{\tau+\nu+\phi}
+    R^0_{t+\tau,u + \nu, v+\phi}(p,q,\mathbf{P},\mathbf{Q})
+  \end{aligned}
 \end{equation}
 
+\noindent ซึ่งจะเห็นได้ว่าสมการด้านบนนี้น่ากลัวมาก มีความซับซ้อนมาก อย่างไรก็ตาม เนื่องจากว่าเราทราบว่า $p = \alpha + \beta$ 
+เราจะกำหนดให้ $q = \gamma + \delta$ เพื่อที่ว่าเราจะได้มี Gaussian Function Exponents ของ $a$, $b$, $c$ และ $d$ 
+ซึ่งเราสามารถเขียนสมการใหม่อีกสมการที่มีหน้าตาคล้าย ๆ กับ Nuclear Attraction Integrals ได้ดังนี้
 
-which looks terrible and it is. However, recalling that
-$p = \alpha + \beta$ letting $q = \gamma + \delta$ (that is, the
-Gaussian exponents on $a$ and $b$, and $c$ and $d$), we can write the
-equation in a similar form to the nuclear attraction integrals
+\vspace{5pt}
 
 \begin{lstlisting}[style=MyPython]
-def electron_repulsion(a,lmn1,A,b,lmn2,B,c,lmn3,C,d,lmn4,D):
-    """ 
+def electron_repulsion(a, lmn1, A, b, lmn2, B, c, lmn3, C, d, lmn4, D):
+    """
     Evaluates kinetic energy integral between two Gaussians
 
     Returns a float.
-    a,b,c,d:   orbital exponent on Gaussian 'a','b','c','d'
+    a,b,c,d: orbital exponent on Gaussian 'a','b','c','d'
     lmn1,lmn2
     lmn3,lmn4: int tuple containing orbital angular momentum
-                for Gaussian 'a','b','c','d', respectively
-    A,B,C,D:   list containing origin of Gaussian 'a','b','c','d'
+               for Gaussian 'a','b','c','d', respectively
+    A,B,C,D: list containing origin of Gaussian 'a','b','c','d'
     """
-    l1,m1,n1 = lmn1
-    l2,m2,n2 = lmn2
-    l3,m3,n3 = lmn3
-    l4,m4,n4 = lmn4
-    p = a+b # composite exponent for P (from Gaussians 'a' and 'b')
-    q = c+d # composite exponent for Q (from Gaussians 'c' and 'd')
-    alpha = p*q/(p+q)
-    P = gaussian_product_center(a,A,b,B) # A and B composite center
-    Q = gaussian_product_center(c,C,d,D) # C and D composite center
-    RPQ = np.linalg.norm(P-Q)
+    l1, m1, n1 = lmn1
+    l2, m2, n2 = lmn2
+    l3, m3, n3 = lmn3
+    l4, m4, n4 = lmn4
+    p = a + b  # composite exponent for P (from Gaussians 'a' and 'b')
+    q = c + d  # composite exponent for Q (from Gaussians 'c' and 'd')
+    alpha = p * q / (p + q)
+    P = gaussian_product_center(a, A, b, B)  # A and B composite center
+    Q = gaussian_product_center(c, C, d, D)  # C and D composite center
+    RPQ = np.linalg.norm(P - Q)
 
     val = 0.0
-    for t in range(l1+l2+1):
-        for u in range(m1+m2+1):
-            for v in range(n1+n2+1):
-                for tau in range(l3+l4+1):
-                    for nu in range(m3+m4+1):
-                        for phi in range(n3+n4+1):
-                            val += E(l1,l2,t,A[0]-B[0],a,b) * \
-                                   E(m1,m2,u,A[1]-B[1],a,b) * \
-                                   E(n1,n2,v,A[2]-B[2],a,b) * \
-                                   E(l3,l4,tau,C[0]-D[0],c,d) * \
-                                   E(m3,m4,nu ,C[1]-D[1],c,d) * \
-                                   E(n3,n4,phi,C[2]-D[2],c,d) * \
-                                   np.power(-1,tau+nu+phi) * \
-                                   R(t+tau,u+nu,v+phi,0,\
-                                       alpha,P[0]-Q[0],P[1]-Q[1],P[2]-Q[2],RPQ)
+    for t in range(l1 + l2 + 1):
+        for u in range(m1 + m2 + 1):
+            for v in range(n1 + n2 + 1):
+                for tau in range(l3 + l4 + 1):
+                    for nu in range(m3 + m4 + 1):
+                        for phi in range(n3 + n4 + 1):
+                            val += (
+                                E(l1, l2, t, A[0] - B[0], a, b)
+                                * E(m1, m2, u, A[1] - B[1], a, b)
+                                * E(n1, n2, v, A[2] - B[2], a, b)
+                                * E(l3, l4, tau, C[0] - D[0], c, d)
+                                * E(m3, m4, nu, C[1] - D[1], c, d)
+                                * E(n3, n4, phi, C[2] - D[2], c, d)
+                                * np.power(-1, tau + nu + phi)
+                                * R(
+                                    t + tau,
+                                    u + nu,
+                                    v + phi,
+                                    0,
+                                    alpha,
+                                    P[0] - Q[0],
+                                    P[1] - Q[1],
+                                    P[2] - Q[2],
+                                    RPQ,
+                                )
+                            )
 
-    val *= 2*np.power(np.pi,2.5)/(p*q*np.sqrt(p+q))
+    val *= 2 * np.power(np.pi, 2.5) / (p * q * np.sqrt(p + q))
     return val
 \end{lstlisting}
 
-And, for completeness' sake, we wrap the above to handle contracted
-Gaussians
+\vspace{5pt}
+
+\noindent และเพื่อให้มีความสมบูรณ์มากกว่านี้ เราจะสามารถเขียนฟังก์ชันเพื่อคำนวณหา Electron-Electron Respulsion Integral 
+สำหรับ Contracted Gaussians ได้ดังนี้ 
+
+\vspace{5pt}
 
 \begin{lstlisting}[style=MyPython]
-def ERI(a,b,c,d):
+def ERI(a, b, c, d):
     """
     Evaluates overlap between two contracted Gaussians
 
@@ -4116,20 +4180,41 @@ def ERI(a,b,c,d):
         for jb, cb in enumerate(b.coefs):
             for jc, cc in enumerate(c.coefs):
                 for jd, cd in enumerate(d.coefs):
-                    eri += a.norm[ja]*b.norm[jb]*c.norm[jc]*d.norm[jd]*\
-                             ca*cb*cc*cd*\
-                             electron_repulsion(a.exps[ja],a.shell,a.origin,\
-                                                b.exps[jb],b.shell,b.origin,\
-                                                c.exps[jc],c.shell,c.origin,\
-                                                d.exps[jd],d.shell,d.origin)
+                    eri += (
+                        a.norm[ja]
+                        * b.norm[jb]
+                        * c.norm[jc]
+                        * d.norm[jd]
+                        * ca
+                        * cb
+                        * cc
+                        * cd
+                        * electron_repulsion(
+                            a.exps[ja],
+                            a.shell,
+                            a.origin,
+                            b.exps[jb],
+                            b.shell,
+                            b.origin,
+                            c.exps[jc],
+                            c.shell,
+                            c.origin,
+                            d.exps[jd],
+                            d.shell,
+                            d.origin,
+                        )
+                    )
     return eri
 \end{lstlisting}
 
-And there you have it! All the integrals necessary for a Hartree-Fock
-SCF code.
+\vspace{5pt}
 
-Computational efficiency considerations
-=======================================
+ทั้งหมดที่เราเพิ่งดูรายละเอียดกันไปนั้นคือสมการและการเขียนโค้ดของอินทิกรัลทั้งหมดที่จำเป็นต้องใช้ในการเขียนโปรแกรมเคมีควอนตัมด้วยวิธี
+Hartree-Fock นั่นเองครับ
+
+%----------------------------------------
+\subsection{การพิจารณาประสิทธิภาพเชิงการคำนวณ (Computational Efficiency)}
+%----------------------------------------
 
 Our goal here has been to eliminate some of the confusion when it comes
 to connecting mathematics to actual computer code. So the code that we
