@@ -3879,11 +3879,11 @@ def T(a, b):
 
 ในหัวข้อนี้เราจะมาดูรายละเอียดของอินทิกรัลอีกอันหนึ่งซึ่งเป็น One-Body Integral นั่นคืออินทิกรัลแรงดึงดูดเชิงนิวเคลียร์ (Nuclear Attraction
 Integrals) โดยอินทิกรัลอันนี้จะแตกต่างจาก Overlap Integral และ Kinetic Integral ตรงที่เรามีการใช้โอเปอร์เรเตอร์ $1/r_C$
-ซึ่งก็คือคูลอมป์ นั่นหมายความว่าเราไม่สามารถทำการแยกตัวประกอบ (Factorization) อินทิกรัลของเราให้อยู่ในรูปของพิกัดคาร์ทีเซียน (Cartesian
-Components) หรือ $x,y,z$ ได้นั่นเอง ดังนั้นในการคำนวณหา Nuclear Attraction Integral นั้น เราจำเป็นต้องใช้ตัวช่วยนั่นก็คือ
-Hermite Coulomb Integral $(R^n_{tuv}(p,\mathbf{P},\mathbf{C}))$ ซึ่งเป็นตัวแทนของอันตรกิริยาแบบคูลอมป์ (Coulomb Interaction)
-ที่เกิดขึ้นระหว่างการกระจายตัวของประจุแบบ Gaussian ในโมเลกุลซึ่งมีจุดศูนย์กลางคือ $\mathbf{P}$ ส่วนนิวเคลียสนั้นมีจุดศูนย์กลางอยู่ที่ $\mathbf{C}$
-โดย Hermite Coulomb Integral นั้นมีองค์ประกอบสำคัญคือ $E_t^{ij}$ ซึ่งสามารถหาได้ด้วยวิธีการวนซ้ำตามชุดสมการดังต่อไปนี้
+ซึ่งก็คือคูลอมป์ นั่นหมายความว่าเราไม่สามารถทำการแยกตัวประกอบ (Factorization) อินทิกรัลของเราให้อยู่ในรูปของพิกัดคาร์ทีเซียน 
+(Cartesian Components) หรือ $x,y,z$ ได้นั่นเอง ดังนั้นในการคำนวณ Nuclear Attraction Integral เราจำเป็นต้องใช้ตัวช่วยนั่นก็คือ
+Hermite Coulomb Integral $(R^n_{tuv}(p,\mathbf{P},\mathbf{C}))$ ซึ่งเป็นตัวแทนของอันตรกิริยาแบบคูลอมป์ (Coulomb Interaction) 
+ที่เกิดขึ้นระหว่างการกระจายตัวของประจุแบบ Gaussian ในโมเลกุลซึ่งมีจุดศูนย์กลางคือ $\mathbf{P}$ ส่วนนิวเคลียสนั้นมีจุดศูนย์กลางอยู่ที่ 
+$\mathbf{C}$ โดย Hermite Coulomb Integral นั้นมีองค์ประกอบคือ $E_t^{ij}$ ซึ่งสามารถหาได้ด้วยวิธีการวนซ้ำตามชุดสมการดังต่อไปนี้
 
 \begin{align}
   R^{n}_{t+1,u,v} & = t R^{n+1}_{t-1,u,v} + X_{PC}R^{n+1}_{t,u,v} \\
@@ -3921,12 +3921,12 @@ def R(t, u, v, n, p, PCx, PCy, PCz, RPC):
 
     Returns a float.
     Arguments:
-    t,u,v:   order of Coulomb Hermite derivative in x,y,z
-              (see defs in Helgaker and Taylor)
-    n:       order of Boys function
+    t,u,v: order of Coulomb Hermite derivative in x,y,z
+           (see defs in Helgaker and Taylor)
+    n: order of Boys function
     PCx,y,z: Cartesian vector distance between Gaussian
-              composite center P and nuclear center C
-    RPC:     Distance between P and C
+             composite center P and nuclear center C
+    RPC: Distance between P and C
     """
     T = p * RPC * RPC
     val = 0.0
@@ -4087,11 +4087,17 @@ def V(a, b, C):
   \begin{aligned}
     g_{abcd}
     =
-     & \frac{2\pi^{5/2}}{pq\sqrt{p+q}}              \\
-     & \sum\limits_{t,u,v}^{\substack{i+j+1,        \\k+l+1,\\m+n+1}} E_t^{ij} E_u^{kl} E_v^{mn}
-    \sum\limits_{\tau,\nu,\phi}^{\substack{i'+j'+1, \\k'+l'+1,\\m'+n'+1}}
-    E_{\tau}^{i'j'} E_{\nu}^{k'l'} E_{\phi}^{m'n'} (-1)^{\tau+\nu+\phi}
-    R^0_{t+\tau,u + \nu, v+\phi}(p,q,\mathbf{P},\mathbf{Q})
+     & \frac{2\pi^{5/2}}{pq\sqrt{p+q}} \\
+     & \sum\limits_{t,u,v}^{\substack{i+j+1, \\k+l+1, \\m+n+1}} 
+     E_t^{ij} 
+     E_u^{kl} 
+     E_v^{mn}
+    \sum\limits_{\tau,\nu,\phi}^{\substack{i'+j'+1, \\k'+l'+1, \\m'+n'+1}}
+    E_{\tau}^{i'j'} 
+    E_{\nu}^{k'l'} 
+    E_{\phi}^{m'n'} 
+    (-1)^{\tau+\nu+\phi}
+    R^0_{t+\tau, u + \nu, v+\phi}(p,q,\mathbf{P},\mathbf{Q})
   \end{aligned}
 \end{equation}
 
@@ -4216,42 +4222,30 @@ Hartree-Fock นั่นเองครับ
 \subsection{การพิจารณาประสิทธิภาพเชิงการคำนวณ (Computational Efficiency)}
 %----------------------------------------
 
-Our goal here has been to eliminate some of the confusion when it comes
-to connecting mathematics to actual computer code. So the code that we
-have shown is hopefully clear and looks nearly identical to the
-mathematical equations they are supposed to represent. This is one
-reason we chose Python as the code of choice to implement the
-integrals. It emphasizes readability.
+จากที่เราได้ศึกษา Integrals แบบต่าง ๆ มาแล้วทั้งสมการคณิตศาสตร์และการเขียนโปรแกรม ผู้อ่านจะพบว่าโค้ดที่ผมเอามาให้ดูเป็นตัวอย่างนั้น%
+สามารถทำงานได้ปกติ ได้ผลการคำนวณที่ถูกต้อง แต่ประเด็นสำคัญอีกอย่างหนึ่งก็คือเรื่องของประสิทธิภาพของโปรแกรมหรือโค้ด แน่นอนว่าโค้ดของเรา%
+รันได้ แต่ว่าจะโค้ดจะทำงานได้ช้าหรือเร็วนั้นก็ขึ้นอยู่กับว่าเราเขียนโค้ดอย่างไร นอกจากนี้ยังขึ้นกับภาษาคอมพิวเตอร์ที่เราใช้ในการเขียนด้วย 
+โดยภาษาที่ผมเลือกมาใช้ในการเขียนโค้ดในหนังสือเล่มนี้นั้นส่วนใหญ่เป็นภาษา Python เพราะว่าเขียนได้ง่าย ผู้อ่านสามารถศึกษาตามได้ไม่ยาก%
+เมื่อเทียบกับภาษาอื่น ๆ 
 
-If you use the code as is, you'll find that you can only really handle
-small systems. To that end, I'll give a few ideas on how to improve the
-integral code to actually be usable.
+ถ้าหากว่าเราเขียนโค้ดออกมาแล้วนำไปใช้เลยโดยที่ไม่มีพิจารณาประสิทธิภาพเชิงการคำนวณก่อนนั้น โค้ดของเราก็อาจจะไม่สามารถทำงานได้เต็มที่%
+บนคอมพิวเตอร์ที่มีประสิทธิภาพสูง เช่น Supercomputer ดังนั้นเราจะมาดูกันว่าเราจะสามารถปรับปรุงโค้ดของเราได้อย่างไรบ้างเพื่อที่ว่าจะสามารถนำ%
+ไปใช้ได้จริง
 
-First, I would recommend not using pure Python. The problem is that we
-have some pretty deep loops in the code, and nested `for` loops will
-kill your speed if you insist on sticking with Python. Now, you can
-code in another language, but I would suggest rewriting some of the
-lower level routines with Cython (<http://www.cython.org>). Cython
-statically compiles your code to eliminate many of the Python calls
-that slow your loops down. In my experience, you will get several orders
-of magnitude speed up. This brings me to my second point. One of the
-problems with Python is that you have the global interpreter lock
-(GIL) which basically means you cannot run things in parallel. Many of
-the integral evaluation routines would do well if you could split the
-work up over multiple CPUs. If you rewrite some of the low level
-routines such that they do not make Python calls anymore, you can turn
-off the GIL and wrap the code in OpenMP directives, or even use Cython's `cython.parallel` module. This will take some thought, but
-can definitely be done. Furthermore, removing the explicit recursion in the
-`E` and `R` functions and making them iterative would go a long way to speed
-up the code.
+ปัจจัยแรกเลยคือภาษาคอมพิวเตอร์ที่เรานำมาใช้ในการเขียนโค้ด จริง ๆ แล้วถ้าหากว่าเราอยากจะเขียนโค้ดแบบจริงจังเพื่อให้ทำงานได้อย่างมีประสิทธิภาพ 
+เราไม่ควรเขียนโปรแกรมโดยการใช้เพียงแค่ภาษา Python เพราะว่าภาษา Python นั้นจะทำงานได้ช้ากว่าภาษาคอมพิวเตอร์อื่นที่เป็นแบบ Low-Level 
+เหตุผลที่โค้ดของเราด้านบนที่ถูกด้วยเขียน Python ทำงานได้ช้านั้นก็เพราะว่าเรามีการวนลูปโดยการใช้ \pyinline{for} แบบหลาย ๆ ชั้น (Nested 
+Loop) ซึ่งเป็นตัวการที่ทำให้โค้ดของเราช้า ดังนั้นจึงจะเป็นการดีกว่าถ้าหากว่าเราเขียนบางส่วนของโค้ด Python ของเราด้วยเทคนิคต่าง ๆ 
+โดยหนึ่งในนั้นก็คือการเขียนโค้ดใหม่ด้วย Cython (\url{http://www.cython.org}) ซึ่งจะช่วยให้โค้ดของเราทำงานได้เร็วขึ้นหลายสิบเท่าเลย
+ปัญหาอีกอย่างหนึ่งของ Python ก็คือมีการใช้ Global Interpreter Lock (GIL) ซึ่งทำให้เราไม่สามารถรันโค้ดของเราแบบขนาน (Parallel) ได้ 
+ซึ่งถ้าหากว่าเราสามารถทำการแบ่ง Routine ในโค้ดการคำนวณ Integral ของเราออกเป็นหลาย ๆ อันและทำการรัน Routines เหล่านั้นด้วย 
+CPUs หลาย ๆ อันได้ก็จะทำให้โค้ดเราทำงานได้เร็วขึ้นเยอะมาก โดยหนึ่งในวิธีการเขียนโค้ดแบบ Parallel นั้นก็คือการใช้วิธี OpenMP 
+หรือใช้โมดูลของ Cython นั่นคือ \pyinline{cython.parallel} โดยผู้อ่านสามารถนำเทคนิคเหล่านี้ไปใช้ในการทำให้โค้ดการคำนวณ Integrals  
+ของเราได้ เช่น หลีกเลี่ยงการคำนวณแบบวนซ้ำหลาย ๆ รอบ (Explicit Recursion) ในฟังก์ชัน \pyinline{E} และ \pyinline{R} 
 
-A couple other thoughts: be sure to exploit the permutational symmetry
-of the integrals. The two electron repulsion integrals, for example, can
-be done in $1/8$ of the time just by exploiting these symmetries, which
-are unrelated to point group. Also, you can exploit many of the integral
-screening routines, since many of the two electron integrals are
-effectively zero. There are a lot of tricks out there in the literature,
-go check them out!
+นอกจากนี้ผู้อ่านยังสามารถใช้เทคนิคอื่น ๆ ได้อีก เช่น ใช้ Permutational Symmetry ของอินทิกรัล เช่น เราสามารถทำการคำนวณ Two-Electron 
+Repulsion Integral ได้เร็วขึ้นประมาณ 8 เท่าเพียงแค่นำคุณสมบัติของความสมมาตรของอินทิกรัลมาใช้ แล้วเราก็สามารถหลักเลี่ยงการคำนวณ
+Integrals หลาย ๆ อันที่มีค่าเท่ากับศูนย์ได้เพื่อเป็นการประหยัดเวลาในการคำนวณ
 
 %----------------------------------------
 \section{เขียนโปรแกรม DIIS สำหรับกระบวนการ SCF (ภาษา C++)}
