@@ -1917,7 +1917,7 @@ Trial Vecotrs $\{ P^{i}\}$ ระหว่างรอบ (Iteration)
   \sum_{i=1}^{m} c_i \mathbf{p}^i
 \end{equation}
 
-\noindent โดยที่สัมประสิทธฺ์นั้นสามารถหาได้จากการลดค่าความคลาดเคลื่อนซึ่งได้จาก
+\noindent โดยที่เราสามารถคำนวณสัมประสิทธ์ $c$ ได้จากการลดค่าความคลาดเคลื่อนซึ่งได้จาก
 
 \begin{equation}
   \mathbf{e}
@@ -1927,13 +1927,13 @@ Trial Vecotrs $\{ P^{i}\}$ ระหว่างรอบ (Iteration)
 
 \noindent ซึ่งถ้าหากว่าเราสังเกตดี ๆ แล้วเราจะว่าเราสามารถทำการลดค่าความคลาดเคลื่อน (Error minimization) ได้จาก
 
-\begin{equation}
+\begin{align}
   \mathbf{p}
-  =
-  \sum_{i=1}^{m} c_i \left( \mathbf{p}^f + \mathbf{e}^i\right)
-  =
+  &=
+  \sum_{i=1}^{m} c_i \left( \mathbf{p}^f + \mathbf{e}^i\right) \\
+  &=
   \mathbf{p}^f \sum_{i=1}^{m} c_i  + \sum_{i=1}^{m} c_i \mathbf{e}^i
-\end{equation}
+\end{align}
 
 \noindent แล้วก็ในกรณีที่ $\mathbf{p} = \mathbf{p}^f$ เราจะได้ว่า
 
@@ -1956,13 +1956,13 @@ $(\langle \mathbf{e} | \mathbf{e} \rangle = \sum_{i,j = 1}^{m} c_i^* c_j \langle
 
 \noindent โดยที่ $\mathbf{B}_{ij} = \mathbf{e}_i \cdot \mathbf{e}_j$
 
-\begin{equation}
+\begin{align}
   \frac{\partial\mathcal{L}}{\partial c_k}
-  =
-  0
-  =
+  &=
+  0 \\
+  &=
   2 \sum_{i=1}^m c_i B_{ki} -\lambda
-\end{equation}
+\end{align}
 
 \noindent แล้วเราก็ทำการแก้ชุดสมการเชิงเส้นดังต่อไปนี้เพื่อหาสัมประสิทธิ์สำหรับ DIIS Extrapolation
 
