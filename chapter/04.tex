@@ -4555,8 +4555,42 @@ Geometry Optimization มีดังนี้ครับ
 \section{กรณีศึกษา: โปรแกรม CP2K}
 %----------------------------------------
 
-พลังงานรวมของโมเลกุลที่คำนวณด้วยวิธี Density Functional Theory (DFT) โดยการใช้ Gaussian Plane Wave ในโปรแกรม 
-CP2K นั้นมีสมการดังต่อไปนี้
+โปรแกรม CP2K เป็นโปรแกรมเคมีควอนตัมที่มีวัตถุประสงค์ในการจำลองระบบโมเลกุลแบบ Periordic (โดยการใช้ Periodic Boundary Condition) 
+โดยระบบโมเลกุลที่เหมาะกับการจำลองประเภทนี้นั้นก็จะเป็นโมเลกุลจำพวก 2D และ 3D เช่น Solid State, Liquid, Material, Crystal 
+รวมถึงระบบโมเลกุลที่มีขนาดใหญ่ หัวใจสำคัญของ CP2K ก็คือการใช้วิธี Gaussian and Plane Wave (GPW) ซึ่งเป็นการใช้ Representation 2 
+แบบที่แตกต่างกันในการอธิบายความหนาแน่นของอิเล็กตรอน (Electron Density หรือ $n(\boldsymbol{r})$) ซึ่งเป็นอินพุตสำคัญของวิธี 
+Density Functional Theory (DFT) 
+
+Representation อันแรกที่ใช้นั้นผู้อ่านทุกคนน่าจะทราบกันเป็นว่าอย่าง นั่นก็คือการใช้ Gaussian Functions โดนเราจะทำการกระจายหรือ Expand 
+Gaussian Functions อันนี้ไปยังอะตอมทุก ๆ อะตอมในโมเลกุลแล้วก็ทำการรวม (Sum) ทุกเทอมเข้าด้วยกัน ซึ่งเขียนเป็นสมการได้ดังนี้ 
+
+\begin{equation}
+  n(\boldsymbol{r})
+  =
+  \sum_{\mu v} P^{\mu v} \varphi_\mu(\boldsymbol{r}) \varphi_v(\boldsymbol{r})
+\end{equation}
+
+\noindent โดยที่ $P^{\mu v}$ คือสมาชิกของ Density Matrix และ $\varphi_\mu(\boldsymbol{r}) = \sum_i d_{i \mu} 
+g_i(\boldsymbol{r})$ โดยที่มี Primitive Gaussian Functions คือ $g_i(\boldsymbol{r})$ และมี Contraction Coefficients 
+คือ $d_{i \mu}$ 
+
+ส่วน Representation อันที่สองนั้นเป็นการใช้ประโยชน์ของ Auxiliary Basis ของ Plane Waves ดังนี้
+
+\begin{equation}
+  \tilde{n}(\boldsymbol{r})
+  =
+  \frac{1}{\Omega} \sum_{\boldsymbol{G}} \tilde{n}(\boldsymbol{G}) 
+  \exp (\mathrm{i} \boldsymbol{G} \cdot \boldsymbol{r})
+\end{equation}
+
+\noindent โดยที่ $\Omega$ คือปริมาตรของ Unit Cell (ขนาดของระบบที่เรากำหนด) และ $\boldsymbol{G}$ คือ Reciprocal Lattice 
+Vectors ส่วน Expansion Coefficients $\tilde{n}(\boldsymbol{G})$ นั้นมีหน้าที่คือทำให้ $\tilde{n}(\boldsymbol{r})$ 
+นั้นมีค่าเท่ากันกับ $n(\boldsymbol{r})$ บน Regular Grid ใน Unit Cell นอกจากนี้แล้วยังมีเทคนิคที่เราสามารถทำการแปลงสลับไปมาระหว่าง 
+$n(\boldsymbol{r})$, $\tilde{n}(\boldsymbol{r})$ และ $\tilde{n}(\boldsymbol{G})$ โดยการใช้เทคนิคการ Mapping และ
+Fast Fourier Transforms (FFT)
+
+พลังงานรวมของโมเลกุลที่คำนวณด้วยวิธี Kohn-Sham Density Functional Theory (DFT) โดยการใช้ Gaussian Plane Wave (GPW) 
+ในโปรแกรม CP2K นั้นมีสมการดังต่อไปนี้
 
 \begin{equation} 
   \label{eq:e_total_cp2k}
