@@ -11,6 +11,76 @@
 \section{Hamiltonian และ Energy Functional}
 %----------------------------------------
 
+โปรแกรม CP2K เป็นโปรแกรมเคมีควอนตัมที่มีวัตถุประสงค์ในการจำลองระบบโมเลกุลแบบ Periordic (โดยการใช้ Periodic Boundary Condition) 
+โดยระบบโมเลกุลที่เหมาะกับการจำลองประเภทนี้นั้นก็จะเป็นโมเลกุลจำพวก 2D และ 3D เช่น Solid State, Liquid, Material, Crystal 
+รวมถึงระบบโมเลกุลที่มีขนาดใหญ่ หัวใจสำคัญของ CP2K ก็คือการใช้วิธี Gaussian and Plane Wave (GPW) ซึ่งเป็นการใช้ Representation 2 
+แบบที่แตกต่างกันในการอธิบายความหนาแน่นของอิเล็กตรอน (Electron Density หรือ $n(\boldsymbol{r})$) ซึ่งเป็นอินพุตสำคัญของวิธี 
+Density Functional Theory (DFT) 
+
+Representation อันแรกที่ใช้นั้นผู้อ่านทุกคนน่าจะทราบกันเป็นว่าอย่าง นั่นก็คือการใช้ Gaussian Functions โดนเราจะทำการกระจายหรือ Expand 
+Gaussian Functions อันนี้ไปยังอะตอมทุก ๆ อะตอมในโมเลกุลแล้วก็ทำการรวม (Sum) ทุกเทอมเข้าด้วยกัน ซึ่งเขียนเป็นสมการได้ดังนี้ 
+
+\begin{equation}
+    n(\boldsymbol{r})
+    =
+    \sum_{\mu v} P^{\mu v} \varphi_\mu(\boldsymbol{r}) \varphi_v(\boldsymbol{r})
+\end{equation}
+
+\noindent โดยที่ $P^{\mu v}$ คือสมาชิกของ Density Matrix และ $\varphi_\mu(\boldsymbol{r}) = \sum_i d_{i \mu} 
+g_i(\boldsymbol{r})$ โดยที่มี Primitive Gaussian Functions คือ $g_i(\boldsymbol{r})$ และมี Contraction Coefficients 
+คือ $d_{i \mu}$ 
+
+ส่วน Representation อันที่สองนั้นเป็นการใช้ประโยชน์ของ Auxiliary Basis ของ Plane Waves ดังนี้
+
+\begin{equation}
+    \tilde{n}(\boldsymbol{r})
+    =
+    \frac{1}{\Omega} \sum_{\boldsymbol{G}} \tilde{n}(\boldsymbol{G}) 
+    \exp (\mathrm{i} \boldsymbol{G} \cdot \boldsymbol{r})
+\end{equation}
+
+\noindent โดยที่ $\Omega$ คือปริมาตรของ Unit Cell (ขนาดของระบบที่เรากำหนด) และ $\boldsymbol{G}$ คือ Reciprocal Lattice 
+Vectors ส่วน Expansion Coefficients $\tilde{n}(\boldsymbol{G})$ นั้นมีหน้าที่คือทำให้ $\tilde{n}(\boldsymbol{r})$ 
+นั้นมีค่าเท่ากันกับ $n(\boldsymbol{r})$ บน Regular Grid ใน Unit Cell นอกจากนี้แล้วยังมีเทคนิคที่เราสามารถทำการแปลงสลับไปมาระหว่าง 
+$n(\boldsymbol{r})$, $\tilde{n}(\boldsymbol{r})$ และ $\tilde{n}(\boldsymbol{G})$ โดยการใช้เทคนิคการ Mapping และ
+Fast Fourier Transforms (FFT)
+
+พลังงานรวมของโมเลกุลที่คำนวณด้วยวิธี Kohn-Sham Density Functional Theory (DFT) โดยการใช้ Gaussian Plane Wave (GPW) 
+ในโปรแกรม CP2K นั้นมีสมการดังต่อไปนี้
+
+\begin{equation} 
+    \label{eq:e_total_cp2k}
+    E[n] 
+    = 
+    E^{\mathrm{T}}[n]
+    + E^{\mathrm{V}}[n] 
+    + E^{\mathrm{H}}[n]
+    + E^{\mathrm{XC}}[n]
+    + E^{\mathrm{II}}
+\end{equation}
+
+\noindent โดยที่สมการ \eqref{eq:e_total_cp2k} นั้นเป็นสูตรของพลังงานรวมที่เกิดจากการนำพลังงานต่าง ๆ มารวมกัน 
+อาจจะเปรียบเทียบสูตรพลังงานกับสูตรการทำอาหารก็ได้ ซึ่งพลังงานแต่ละเทอมนั้นก็คือส่วนผสมที่โปรแกรม CP2K นั้นเลือกใช้ (ตามทฤษฎี) 
+ในทำนองเดียวกัน โปรแกรมเคมีควอนตัมอื่น ๆ นั้นต่างก็มีสูตรที่ใช้ในการคำนวณพลังงานรวมของโมเลกุลเป็นของตัวเอง ขึ้นกับว่าใช้ทฤษฎีไหน 
+สำหรับพลังงานแต่ละเทอมในสมการที่ \eqref{eq:e_total_cp2k} นั้นมี Expression ดังนี้
+
+\begin{align}
+    \label{eq:e_total_cp2k_full}
+    E[n] 
+    =&
+    \sum_{\mu \nu} P^{\mu \nu}\left\langle\varphi_\mu(\boldsymbol{r})\right| \nonumber
+    - \frac{1}{2} \nabla^2\left|\varphi_\nu(\boldsymbol{r})\right\rangle \nonumber \\
+    &+ \sum_{\mu \nu} P^{\mu \nu}\left\langle\varphi_\mu(\boldsymbol{r})
+    \left|V_{\mathrm{loc}}^{\mathrm{PP}}(r)\right| 
+    \varphi_\nu(\boldsymbol{r})\right\rangle \nonumber \\
+    &+ \sum_{\mu \nu} P^{\mu \nu}\left\langle\varphi_\mu(\boldsymbol{r})
+    \left|V_{\mathrm{nl}}^{\mathrm{PP}}\left(\boldsymbol{r}, \boldsymbol{r}^{\prime}\right)\right| 
+    \varphi_\nu\left(\boldsymbol{r}^{\prime}\right)\right\rangle \nonumber \\ 
+    &+ 2 \pi \Omega \sum_G \frac{\widetilde{n}^*(\boldsymbol{G}) \tilde{n}(\boldsymbol{G})}{\boldsymbol{G}^2} \\ 
+    &+ \int e^{\mathrm{xc}}(\boldsymbol{r}) \mathrm{d} \boldsymbol{r} \nonumber \\ 
+    &+ \frac{1}{2} \sum_{I \neq J} \frac{Z_I Z_J}{\left|\boldsymbol{R}_I-\boldsymbol{R}_J\right|}
+\end{align}
+
 %----------------------------------------
 \section{ทำความเข้าใจและวิเคราะห์โปรแกรม CP2K}
 %----------------------------------------
