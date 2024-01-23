@@ -11,6 +11,60 @@
 \section{ทำไมต้อง \textit{Ab initio} Molecular Dynamics}
 %----------------------------------------
 
+เทคนิคการจำลองแบบ Molecular Dynamics (MD) แบบดั้งเดิมหรือ Classical MD นั้นจะใช้ Potential ที่ได้มาจากการใช้ข้อมูลเชิงการทดลอง 
+(Empirical Data) หรือจากการคำนวณ Electronic Structure และหัวใจสำคัญของ MD นั้นก็คือสมการที่ใช้ในการอธิบายอันตรกิริยาระหว่างอะตอม 
+(Interatomic Interactions) โดยอันตรกิริยาที่เกิดขึ้นทั้งหมดนั้นเราสามารถแบ่งออกได้เป็นหลาย ๆ ส่วน คือ
+
+\begin{itemize}[topsep=0pt,noitemsep]
+    \setlength\itemsep{1em}
+    \item Two-Body Contribution
+    
+    \item Three-Body Contribution
+    
+    \item Many-Body Contribution
+    
+    \item Long-Range Interaction
+    
+    \item Short-Range Interaction
+    
+    \item เทอมอื่น ๆ
+\end{itemize}
+
+จุดเริ่มต้นของเทคนิคการจำลองทางเคมีคอมพิวเตอร์แบบใหม่ที่เกิดขึ้นมาจากการนำวิธี MD และ Electronic Structure มารวมกันนั้นเรียกว่า 
+\textit{ab initio} Molecular Dynamics (AIMD) ซึ่งอาจจะมีชื่อเรียกอื่น ๆ ที่เราอาจจะคุ้นเคยกันมาบ้าง เช่น 
+
+\begin{itemize}[topsep=0pt,noitemsep]
+    \setlength\itemsep{1em}
+    \item Car-Parrinello Molecular Dynamics
+    
+    \item Hellmann-Feynman Molecular Dynamics
+    
+    \item First Principles Molecular Dynamics
+    
+    \item Quantum Chemical Molecular Dynamics
+    
+    \item On-The-Fly Molecular Dynamics
+    
+    \item Direct Molecular Dynamics
+    
+    \item Potential-Free Molecular Dynamics
+    
+    \item Quantum Molecular Dynamics
+\end{itemize}
+
+แต่ไอเดียพื้นฐานที่เป็นหัวใจสำคัญของวิธีการคำนวณแบบ AIMD ทุกวิธีนั้นก็คือการคำนวณแรง (Force) ที่กระทำระหว่างอะตอมโดยการใช้วิธี 
+Electronic Structure ในแต่ละ Step ของการคำนวณ MD 
+
+การประยุกต์ใช้วิธี AIMD นั้นกว้างขวางมาก ๆ โดยเฉพาะในด้านวัสดุศาสตร์และเคมี จะเห็นได้จากจำนวนงานบทความงานวิจัยเกี่ยวกับ AIMD 
+ที่ได้รับการตีพิมพ์เพิ่มมากขึ้นเรื่อย ๆ ทุกปี ซึ่งจุดเริ่มต้นนั้นก็มาจากเปเปอร์ของ Car และ Parrinello ที่ตีพิมพ์ในปี 1985 นั่นคือ 
+\enquote{Uniﬁed Approach for Molecular Dynamics and Density–Functional Theory} ที่ทำให้งานวิจัยทางด้านนี้นั้นได้รับความสนใจ 
+
+อย่างไรก็ตาม ถึงแม้ว่าวิธี AIMD นั้นจะทำให้การคำนวณ MD นั้นมีความแม่นยำเพิ่มมากขึ้น แต่ว่าราคาที่นักคำนวณจะต้องจ่ายก็คือความสิ้นเปลืองในการคำนวณ 
+(Computational Cost) ในการนำ MD ไปผสมรวมกับวิธี \textit{ab initio} นั่นก็คือความสัมพันธ์ระหว่าง Length และ Relaxation Time 
+ที่เราสามารถรันการคำนวณด้วยแบบจำลอง AIMD นั้นสั้นมาก ๆ เมื่อเทียบกับวิธี MD ทั่วไป (สำหรับระบบโมเลกุลเดียวกัน) ถึงแม้ว่าข้อเสียของวิธี AIMD 
+นั้นคือใช้เวลาในการคำนวณที่นานกว่า MD เยอะมาก ๆ แต่ว่าเราก็อย่าลืมไปว่าวิธี AIMD นั้นมีข้อดีอีกหลายข้อเลยที่เราจะไม่พูดถึงก็ไม่ได้ 
+ข้อดีอย่างแรกก็คือวิธี AIMD สามารถให้ผลการคำนวณที่สอดคล้องกับ Physical Picture จริง ๆ ของระบบที่เราจำลอง ข้อดีอีกอย่างก็คือวิธี AIMD 
+นั้นสามารถช่วยให้เราสามารถจำลองปรากฏการณ์ของระบบโมเลกุลที่ไม่สามารถเกิดขึ้นได้ในการจำลองด้วยวิธี MD
 
 %----------------------------------------
 \section{ประเภทของ \textit{Ab initio} Molecular Dynamics}
