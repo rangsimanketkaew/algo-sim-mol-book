@@ -11,105 +11,292 @@
 \section{ทำไมต้อง \textit{Ab initio} Molecular Dynamics}
 %----------------------------------------
 
-เทคนิคการจำลองแบบ Molecular Dynamics (MD) แบบดั้งเดิมหรือ Classical MD นั้นจะใช้ Potential ที่ได้มาจากการใช้ข้อมูลเชิงการทดลอง 
-(Empirical Data) หรือจากการคำนวณ Electronic Structure และหัวใจสำคัญของ MD นั้นก็คือสมการที่ใช้ในการอธิบายอันตรกิริยาระหว่างอะตอม 
+เทคนิคการจำลองแบบ Molecular Dynamics (MD) แบบดั้งเดิมหรือ Classical MD นั้นจะใช้ Potential ที่ได้มาจากการใช้ข้อมูลเชิงการทดลอง
+(Empirical Data) หรือจากการคำนวณ Electronic Structure และหัวใจสำคัญของ MD นั้นก็คือสมการที่ใช้ในการอธิบายอันตรกิริยาระหว่างอะตอม
 (Interatomic Interactions) โดยอันตรกิริยาที่เกิดขึ้นทั้งหมดนั้นเราสามารถแบ่งออกได้เป็นหลาย ๆ ส่วน คือ
 
 \begin{itemize}[topsep=0pt,noitemsep]
-    \setlength\itemsep{1em}
-    \item Two-Body Contribution
-    
-    \item Three-Body Contribution
-    
-    \item Many-Body Contribution
-    
-    \item Long-Range Interaction
-    
-    \item Short-Range Interaction
-    
-    \item เทอมอื่น ๆ
+  \setlength\itemsep{1em}
+  \item Two-Body Contribution
+
+  \item Three-Body Contribution
+
+  \item Many-Body Contribution
+
+  \item Long-Range Interaction
+
+  \item Short-Range Interaction
+
+  \item เทอมอื่น ๆ
 \end{itemize}
 
-จุดเริ่มต้นของเทคนิคการจำลองทางเคมีคอมพิวเตอร์แบบใหม่ที่เกิดขึ้นมาจากการนำวิธี MD และ Electronic Structure มารวมกันนั้นเรียกว่า 
-\textit{ab initio} Molecular Dynamics (AIMD) ซึ่งอาจจะมีชื่อเรียกอื่น ๆ ที่เราอาจจะคุ้นเคยกันมาบ้าง เช่น 
+จุดเริ่มต้นของเทคนิคการจำลองทางเคมีคอมพิวเตอร์แบบใหม่ที่เกิดขึ้นมาจากการนำวิธี MD และ Electronic Structure มารวมกันนั้นเรียกว่า
+\textit{ab initio} Molecular Dynamics (AIMD) ซึ่งอาจจะมีชื่อเรียกอื่น ๆ ที่เราอาจจะคุ้นเคยกันมาบ้าง เช่น
 
 \begin{itemize}[topsep=0pt,noitemsep]
-    \setlength\itemsep{1em}
-    \item Car-Parrinello Molecular Dynamics
-    
-    \item Hellmann-Feynman Molecular Dynamics
-    
-    \item First Principles Molecular Dynamics
-    
-    \item Quantum Chemical Molecular Dynamics
-    
-    \item On-The-Fly Molecular Dynamics
-    
-    \item Direct Molecular Dynamics
-    
-    \item Potential-Free Molecular Dynamics
-    
-    \item Quantum Molecular Dynamics
+  \setlength\itemsep{1em}
+  \item Car-Parrinello Molecular Dynamics
+
+  \item Hellmann-Feynman Molecular Dynamics
+
+  \item First Principles Molecular Dynamics
+
+  \item Quantum Chemical Molecular Dynamics
+
+  \item On-The-Fly Molecular Dynamics
+
+  \item Direct Molecular Dynamics
+
+  \item Potential-Free Molecular Dynamics
+
+  \item Quantum Molecular Dynamics
 \end{itemize}
 
-แต่ไอเดียพื้นฐานที่เป็นหัวใจสำคัญของวิธีการคำนวณแบบ AIMD ทุกวิธีนั้นก็คือการคำนวณแรง (Force) ที่กระทำระหว่างอะตอมโดยการใช้วิธี 
-Electronic Structure ในแต่ละ Step ของการคำนวณ MD 
+แต่ไอเดียพื้นฐานที่เป็นหัวใจสำคัญของวิธีการคำนวณแบบ AIMD ทุกวิธีนั้นก็คือการคำนวณแรง (Force) ที่กระทำระหว่างอะตอมโดยการใช้วิธี
+Electronic Structure ในแต่ละ Step ของการคำนวณ MD
 
-การประยุกต์ใช้วิธี AIMD นั้นกว้างขวางมาก ๆ โดยเฉพาะในด้านวัสดุศาสตร์และเคมี จะเห็นได้จากจำนวนงานบทความงานวิจัยเกี่ยวกับ AIMD 
-ที่ได้รับการตีพิมพ์เพิ่มมากขึ้นเรื่อย ๆ ทุกปี ซึ่งจุดเริ่มต้นนั้นก็มาจากเปเปอร์ของ Car และ Parrinello ที่ตีพิมพ์ในปี 1985 นั่นคือ 
-\enquote{Uniﬁed Approach for Molecular Dynamics and Density–Functional Theory} ที่ทำให้งานวิจัยทางด้านนี้นั้นได้รับความสนใจ 
+การประยุกต์ใช้วิธี AIMD นั้นกว้างขวางมาก ๆ โดยเฉพาะในด้านวัสดุศาสตร์และเคมี จะเห็นได้จากจำนวนงานบทความงานวิจัยเกี่ยวกับ AIMD
+ที่ได้รับการตีพิมพ์เพิ่มมากขึ้นเรื่อย ๆ ทุกปี ซึ่งจุดเริ่มต้นนั้นก็มาจากเปเปอร์ของ Car และ Parrinello ที่ตีพิมพ์ในปี 1985 นั่นคือ
+\enquote{Uniﬁed Approach for Molecular Dynamics and Density–Functional Theory} ที่ทำให้งานวิจัยทางด้านนี้นั้นได้รับความสนใจ
 
-อย่างไรก็ตาม ถึงแม้ว่าวิธี AIMD นั้นจะทำให้การคำนวณ MD นั้นมีความแม่นยำเพิ่มมากขึ้น แต่ว่าราคาที่นักคำนวณจะต้องจ่ายก็คือความสิ้นเปลืองในการคำนวณ 
-(Computational Cost) ในการนำ MD ไปผสมรวมกับวิธี \textit{ab initio} นั่นก็คือความสัมพันธ์ระหว่าง Length และ Relaxation Time 
-ที่เราสามารถรันการคำนวณด้วยแบบจำลอง AIMD นั้นสั้นมาก ๆ เมื่อเทียบกับวิธี MD ทั่วไป (สำหรับระบบโมเลกุลเดียวกัน) ถึงแม้ว่าข้อเสียของวิธี AIMD 
-นั้นคือใช้เวลาในการคำนวณที่นานกว่า MD เยอะมาก ๆ แต่ว่าเราก็อย่าลืมไปว่าวิธี AIMD นั้นมีข้อดีอีกหลายข้อเลยที่เราจะไม่พูดถึงก็ไม่ได้ 
-ข้อดีอย่างแรกก็คือวิธี AIMD สามารถให้ผลการคำนวณที่สอดคล้องกับ Physical Picture จริง ๆ ของระบบที่เราจำลอง ข้อดีอีกอย่างก็คือวิธี AIMD 
+อย่างไรก็ตาม ถึงแม้ว่าวิธี AIMD นั้นจะทำให้การคำนวณ MD นั้นมีความแม่นยำเพิ่มมากขึ้น แต่ว่าราคาที่นักคำนวณจะต้องจ่ายก็คือความสิ้นเปลืองในการคำนวณ
+(Computational Cost) ในการนำ MD ไปผสมรวมกับวิธี \textit{ab initio} นั่นก็คือความสัมพันธ์ระหว่าง Length และ Relaxation Time
+ที่เราสามารถรันการคำนวณด้วยแบบจำลอง AIMD นั้นสั้นมาก ๆ เมื่อเทียบกับวิธี MD ทั่วไป (สำหรับระบบโมเลกุลเดียวกัน) ถึงแม้ว่าข้อเสียของวิธี AIMD
+นั้นคือใช้เวลาในการคำนวณที่นานกว่า MD เยอะมาก ๆ แต่ว่าเราก็อย่าลืมไปว่าวิธี AIMD นั้นมีข้อดีอีกหลายข้อเลยที่เราจะไม่พูดถึงก็ไม่ได้
+ข้อดีอย่างแรกก็คือวิธี AIMD สามารถให้ผลการคำนวณที่สอดคล้องกับ Physical Picture จริง ๆ ของระบบที่เราจำลอง ข้อดีอีกอย่างก็คือวิธี AIMD
 นั้นสามารถช่วยให้เราสามารถจำลองปรากฏการณ์ของระบบโมเลกุลที่ไม่สามารถเกิดขึ้นได้ในการจำลองด้วยวิธี MD
 
-จริง ๆ แล้วก่อนที่จะมีการพัฒนาวิธี AIMD ขึ้นมานั้น ในอดีตก็มีวิธีที่คล้าย ๆ กันเรียกว่า \enquote{Classical Trajectory Calculation} 
-ซึ่งมีจุดเริ่มต้นคือคำนวณระบบ Gas Phase ด้วยวิธี MD เพื่อศึกษา \enquote{Global} Potential Energy Surface (PES) 
-หรือพื้นผิวพลังงานศักย์ แล้วก็ตามด้วยการคำนวณ Dynamical Evolution ของระบบโดยการใช้ Classical Mechanics หรือ Quantum Mechanics 
+จริง ๆ แล้วก่อนที่จะมีการพัฒนาวิธี AIMD ขึ้นมานั้น ในอดีตก็มีวิธีที่คล้าย ๆ กันเรียกว่า \enquote{Classical Trajectory Calculation}
+ซึ่งมีจุดเริ่มต้นคือคำนวณระบบ Gas Phase ด้วยวิธี MD เพื่อศึกษา \enquote{Global} Potential Energy Surface (PES)
+หรือพื้นผิวพลังงานศักย์ แล้วก็ตามด้วยการคำนวณ Dynamical Evolution ของระบบโดยการใช้ Classical Mechanics หรือ Quantum Mechanics
 หรือ Semi/Quasiclassical Approximations ซึ่งในกรณีที่ใช้วิธี Classical Mechanics ในการอธิบาย Dynamics ของระบบโมเลกุลนั้น%
-มีอุปสรรคก็คือขนาดของระบบ กล่าวคือ ยิ่งระบบมีขนาดใหญ่ การใช้วิธี Classical Mechanics นั้นก็จะยิ่งทำได้ยาก (สิ้นเปลืองการคำนวณ) 
-นั่นก็เพราะว่าระบบที่มี $N$ อะตอมนั้นก็จะมีจำนวนดีกรีของความอิสระ (Degree of Freedom) เท่ากับ $3N - 6$ ที่จะเป็นตัวกำหนดขนาดของ PES 
-แล้วถ้าหากว่าเราใช้จำนวน Discretization Points เช่น 10 Points ต่อ Coordinate นั่นคือเรามีจำนวนการคำนวณ Electronic Structure 
-ที่จะต้องคำนวณเท่ากับ $10^{3N - 6}$ เพื่อที่ทำการ Mapping เพื่อให้ได้ Global PES ของระบบโมเลกุลของเราออกมา 
+มีอุปสรรคก็คือขนาดของระบบ กล่าวคือ ยิ่งระบบมีขนาดใหญ่ การใช้วิธี Classical Mechanics นั้นก็จะยิ่งทำได้ยาก (สิ้นเปลืองการคำนวณ)
+นั่นก็เพราะว่าระบบที่มี $N$ อะตอมนั้นก็จะมีจำนวนดีกรีของความอิสระ (Degree of Freedom) เท่ากับ $3N - 6$ ที่จะเป็นตัวกำหนดขนาดของ PES
+แล้วถ้าหากว่าเราใช้จำนวน Discretization Points เช่น 10 Points ต่อ Coordinate นั่นคือเรามีจำนวนการคำนวณ Electronic Structure
+ที่จะต้องคำนวณเท่ากับ $10^{3N - 6}$ เพื่อที่ทำการ Mapping เพื่อให้ได้ Global PES ของระบบโมเลกุลของเราออกมา
 ดังนั้นความสิ้นเปลืองของวิธีแรกนั้นเท่ากับ $10^{N}$ ซึ่งเพิ่มตามขนาดของระบบ ซึ่งเราเรียกปัญหานี้ว่า \enquote{Dimensionality Bottleneck}
 
-คำถามคือ \enquote{ถ้าหากอยากจะรู้ว่า AIMD สิ้นเปลืองแค่ไหน เราจะต้องคำนึงถึงอะไรบ้าง?} ในการตอบคำถามนี้ผมขอเริ่มด้วยการยกตัวอย่างต่อไปนี้ 
-สมมติว่าเรามี Trajectory ของการคำนวณ MD ที่มีจำนวนทั้งหมด $10^{M}$ Steps (ก็คือมีทั้งหมด $10^{M}$ Configurations) 
-นั่นคือจะต้องมีการคำนวณ Electronic Structure ทั้งหมด $10^{M}$ ครั้ง ถ้าหากว่ามีจำนวน Independent Trajectory ทั้งหมด $10^{n}$ 
-Trajectories ที่จำเป็นที่จะต้องคำนวณเพื่อทำการเฉลี่ย Initial Conditions ดังนั้นจึงมีการคำนวณ AIMD ทั้งหมด $10^{M + n}$ 
-การคำนวณที่จะต้องทำการรัน ลำดับสุดท้าย ถ้าหากว่าเราจะต้องทำการคำนวณ Single-Point Electronic Structure เพื่อคำนวณ Global PES 
-และแต่ละการคำนวณของ AIMD นั้นใช้เวลา CPU Time เท่ากัน จากข้อมูลทั้งหมดที่เราอ้างขึ้นมาตามสถานการณ์ความเป็นจริงนั้น เราจะสรุปได้ว่าการใช้ 
-AIMD ในการคำนวณ Global PES นั้นจะมีความสิ้นเปลืองอยู่ที่ประมาณ $10^{3N-6-M-n}$ ประเด็นสำคัญก็คือว่า สำหรับระบบที่มี $M$ และ $n$ 
-คงที่และไม่ขึ้นกับ $N$ นั้น การคำนวณ AIMD จะมี Advantage เป็นแบบ \enquote{On-The-Fly} ซึ่งจะมีความสิ้นเปลืองของวิธีคือ $10^{N}$ 
+คำถามคือ \enquote{ถ้าหากอยากจะรู้ว่า AIMD สิ้นเปลืองแค่ไหน เราจะต้องคำนึงถึงอะไรบ้าง?} ในการตอบคำถามนี้ผมขอเริ่มด้วยการยกตัวอย่างต่อไปนี้
+สมมติว่าเรามี Trajectory ของการคำนวณ MD ที่มีจำนวนทั้งหมด $10^{M}$ Steps (ก็คือมีทั้งหมด $10^{M}$ Configurations)
+นั่นคือจะต้องมีการคำนวณ Electronic Structure ทั้งหมด $10^{M}$ ครั้ง ถ้าหากว่ามีจำนวน Independent Trajectory ทั้งหมด $10^{n}$
+Trajectories ที่จำเป็นที่จะต้องคำนวณเพื่อทำการเฉลี่ย Initial Conditions ดังนั้นจึงมีการคำนวณ AIMD ทั้งหมด $10^{M + n}$
+การคำนวณที่จะต้องทำการรัน ลำดับสุดท้าย ถ้าหากว่าเราจะต้องทำการคำนวณ Single-Point Electronic Structure เพื่อคำนวณ Global PES
+และแต่ละการคำนวณของ AIMD นั้นใช้เวลา CPU Time เท่ากัน จากข้อมูลทั้งหมดที่เราอ้างขึ้นมาตามสถานการณ์ความเป็นจริงนั้น เราจะสรุปได้ว่าการใช้
+AIMD ในการคำนวณ Global PES นั้นจะมีความสิ้นเปลืองอยู่ที่ประมาณ $10^{3N-6-M-n}$ ประเด็นสำคัญก็คือว่า สำหรับระบบที่มี $M$ และ $n$
+คงที่และไม่ขึ้นกับ $N$ นั้น การคำนวณ AIMD จะมี Advantage เป็นแบบ \enquote{On-The-Fly} ซึ่งจะมีความสิ้นเปลืองของวิธีคือ $10^{N}$
 เพิ่มขึ้นตามขนาดของระบบ
 
-อย่างไรก็ตาม ความสิ้นเปลืองของวิธี AIMD ที่ประมาณ $10^{N}$ นั้นก็ยังเยอะอยู่ดี ดังนั้นจึงได้มีการพัฒนาเทคนิคต่าง ๆ ขึ้นมาเพื่อใช้ในการลดจำนวน 
-Degrees of Freedom แต่ว่าเทคนิคเหล่านั้นก็เป็นการใช้ Approximations (การประมาณ) เสียส่วนใหญ่ นั่นจึงทำให้ความถูกต้องของ AIMD นั้นลดลงด้วย 
+อย่างไรก็ตาม ความสิ้นเปลืองของวิธี AIMD ที่ประมาณ $10^{N}$ นั้นก็ยังเยอะอยู่ดี ดังนั้นจึงได้มีการพัฒนาเทคนิคต่าง ๆ ขึ้นมาเพื่อใช้ในการลดจำนวน
+Degrees of Freedom แต่ว่าเทคนิคเหล่านั้นก็เป็นการใช้ Approximations (การประมาณ) เสียส่วนใหญ่ นั่นจึงทำให้ความถูกต้องของ AIMD นั้นลดลงด้วย
 
-ในบทนี้ผมจะพาผู้อ่านทุกท่านไปทำความรู้จักกับวิธี AIMD ซึ่งเป็นภาพรวมกว้าง ๆ โดยเราจะเริ่มต้นกันด้วยสมการ Schr\"{o}dinger แล้วก็จะมีการพูดถึง 
-Classical MD, Ehrenfest MD, Born-Oppenheimer, และ Car-Parrinello MD ซึ่งเป็นวิธีที่ได้มาจากวิธี Time-Dependent Mean-Field 
+ในบทนี้ผมจะพาผู้อ่านทุกท่านไปทำความรู้จักกับวิธี AIMD ซึ่งเป็นภาพรวมกว้าง ๆ โดยเราจะเริ่มต้นกันด้วยสมการ Schr\"{o}dinger แล้วก็จะมีการพูดถึง
+Classical MD, Ehrenfest MD, Born-Oppenheimer, และ Car-Parrinello MD ซึ่งเป็นวิธีที่ได้มาจากวิธี Time-Dependent Mean-Field
 Approach ซึ่งได้หลังจากการที่เราทำการแยก Degrees of Freedom ของนิวเคลียสกับอิเล็กตรอนออกจากกัน นอกจากนี้ยังมีอีกหนึ่งเรื่องสำคัญที่ผู้อ่าน%
 จะได้ศึกษานั่นคือการคำนวณแรง (Force) ของวิธีต่าง ๆ ด้วย ซึ่งหนึ่งในวิธีที่ถูกนำมาใช้ในการคำนวณ Force ที่ได้รับความนิยมเป็นอย่างมากนั่นคือ
-Density Functional Theory (DFT) ดังนั้นเราจึงสามารถเรียกวิธีที่ใช้ในการจำลอง AIMD ที่มีความถูกต้องของการคำนวณ Electronic Structure 
+Density Functional Theory (DFT) ดังนั้นเราจึงสามารถเรียกวิธีที่ใช้ในการจำลอง AIMD ที่มีความถูกต้องของการคำนวณ Electronic Structure
 ในแต่ละ Step ของ MD ได้ว่า Density Functional Theory-based Molecular Dynamics หรือ DFT-MD
- 
+
 %----------------------------------------
-\section{จาก Molecular Dynamics สู่ \textit{Ab initio} Molecular Dynamics}
+\section{จาก MD สู่ \textit{Ab initio} MD}
 %----------------------------------------
 
-เราสามารถแบ่งประเภทของ AIMD ได้โดยแบ่งตามวิธีการที่เราใช้ในการรวมการคำนวณโครงสร้างเชิงอิเล็กทรอนิกส์กับการจำลองพลวัตโมเลกุลเข้าด้วยกัน 
+เรามาเริ่มกันที่สมการ Time-Dependent Schr\"{o}dinger Equation
+
+\begin{equation}
+  \label{eq:AIMD_TDSE}
+  i \hbar \frac{\partial}{\partial t} \Phi\left(\mathbf{r}_i,\mathbf{R}_I ; t\right)
+  =
+  H \Phi\left(\mathbf{r}_i,\mathbf{R}_I ; t\right)
+\end{equation}
+
+\noindent ซึ่งมี Position Representation ที่เชื่อมโยงกับ Standard Hamiltonian ซึ่งมีนิยามดังต่อไปนี้ (มี5 เทอมรวมเข้าด้วยกัน)
+
+\begin{equation}
+  \label{eq:AIMD_Hamiltonian}
+  \begin{aligned}
+    H
+     & = -\sum_I \frac{\hbar^2}{2 M_I} \nabla_I^2
+    -\sum_i \frac{\hbar^2}{2 m_{\mathrm{e}}} \nabla_i^2
+    +\sum_{i<j} \frac{\mathrm{e}^2}{\left|\mathbf{r}_i-\mathbf{r}_j\right|}
+    -\sum_{I, i} \frac{\mathrm{e}^2 Z_I}{\left|\mathbf{R}_I-\mathbf{r}_i\right|}
+    +\sum_{I<J} \frac{\mathrm{e}^2 Z_I Z_J}{\left|\mathbf{R}_I-\mathbf{R}_J\right|} \\
+     & = -\sum_I \frac{\hbar^2}{2 M_I} \nabla_I^2
+    -\sum_i \frac{\hbar^2}{2 m_{\mathrm{e}}} \nabla_i^2
+    +V_{\mathrm{n}-\mathrm{e}}\left(\mathbf{r}_i,\mathbf{R}_I\right)                \\
+     & = -\sum_I \frac{\hbar^2}{2 M_I} \nabla_I^2
+    +H_{\mathrm{e}}\left(\mathbf{r}_i,\mathbf{R}_I\right)
+  \end{aligned}
+\end{equation}
+
+\noindent สำหรับระดับของความอิสระ (Degrees of Freedom) ของอิเล็กทรอนิกส์ $\mathbf{r}_i$ กับของนิวเคลียร์ $\mathbf{R}_I$
+แล้วเราก็จะใช้ Atomic Units (a.u.) เพื่อช่วยให้สมการต่าง ๆ ของเรานั้นดูง่ายและชัดเจนมากขึ้น ดังนั้นเราจะสนใจเทอมที่เป็นอันตรกิริยาระหว่าง
+อิเล็กตรอน-อิเล็กตรอน (Electron-Electron), อิเล็กตรอน-นิวเคลียร์ (Electron-Nuclear), และนิวเคลียร์-นิวเคลียร์แบบคูลอมป์
+(Nuclear-Nuclear Coulomb) เป็นพิเศษ
+
+เป้าหมายของหัวข้อนี้ก็คือการพิสูจน์ที่มาของ Classical Molecular Dynamics โดยเริ่มจากสมการคลื่นของ Schr\"{O}dinger ซึ่งถึงตรงนี้แล้ว
+เราจะทำการแยกฟังก์ชันคลื่นรวมของระบบโมเลกุลของเราออกเป็น 2 พาร์ท $\Phi\left(\mathbf{r}_i,\mathbf{R}_I ; t\right)$
+นั่นก็คือพาร์ทที่ขึ้นกับ Nuclear Coordinates และพาร์ทที่ขึ้นกับ Electronic Coordinates ซึ่งจะสามารถเขียนให้อยู่ในรูปที่ง่ายที่สุดได้โดยใช้
+ผลคูณระหว่าง Ansatz ดังนี้
+
+\begin{equation}
+  \label{eq:simplest_product_ansatz}
+  \Phi\left(\mathbf{r}_i,\mathbf{R}_I ; t\right)
+  \approx
+  \Psi\left(\mathbf{r}_i ; t\right) \chi\left(\mathbf{R}_I ; t\right) \exp \left[\frac{i}{\hbar} \int_{t_0}^t d t^{\prime} \tilde{E}_{\mathrm{e}}\left(t^{\prime}\right)\right]
+\end{equation}
+
+\noindent โดยที่ Nuclear Wavefunction และ Electronic Wavefunction นั้นถูกแยกออกจากกันอย่างสิ้นเชิงและถูก Normalized ในแต่ละ
+Time Step ด้วย ดังนี้ $\langle\chi ; t \mid \chi ; t\rangle=1$ และ $\langle\Psi ; t \mid \Psi ; t\rangle=1$ ตามลำดับ
+นอกจากนี้แล้วเรายังมีการกำหนดพารามิเตอร์อีกตัวหนึ่งขึ้นมานั่นคือ Phase Factor ดังนี้
+
+\begin{equation}
+  \tilde{E}_{\mathrm{e}}
+  =
+  \int d \mathbf{r} d \mathbf{R} \Psi^{\star}\left(\mathbf{r}_i ; t\right) \chi^{\star}\left(\mathbf{R}_I ; t\right) H_{\mathrm{e}} \Psi\left(\mathbf{r}_i ; t\right) \chi\left(\mathbf{R}_I ; t\right)
+\end{equation}
+
+\noindent เพื่อที่จะทำให้สมการสุดท้ายที่เราได้ออกมานั้นมีหน้าตาที่ดูสั้นและกระชับ ดังนี้ $\int d \mathbf{r} d \mathbf{R}$ ซึ่งเป็นการคำนวณ
+Integration ทั่วทั้งหมดโมเลกุล $i=1, \ldots$ และ $I=1, \ldots$ สำหรับตัวแปร $\mathbf{r}_i$ และ $\mathbf{R}_I$ ตามลำดับ
+
+นอกจากนี้แล้วเราต้องทราบกันไว้ด้วยว่า Product Ansatz (ที่ไม่รวม Phase Factor) ตามด้านบนนั้นมีความแตกต่างจาก Ansatz ของ Born-Oppenheimer
+ซึ่งเป็นการแยกพาร์ทที่คำนวณได้เร็วกว่าและพาร์มที่คำนวณได้ช้ากว่าออกจากกัน ดังนี้
+
+\begin{equation}
+  \Phi_{\mathrm{BO}}\left(\mathbf{r}_i,\mathbf{R}_I ; t\right)=\sum_{k=0}^{\infty} \tilde{\Psi}_k\left(\mathbf{r}_i,\mathbf{R}_I\right) \tilde{\chi}_k\left(\mathbf{R}_I ; t\right)
+\end{equation}
+
+ถ้าหากว่าเรานำสมการ Separation Ansatz ที่ \eqref{eq:simplest_product_ansatz} แทนเข้าไปในสมการที่ \eqref{eq:AIMD_TDSE}
+และสมการที่ \eqref{eq:AIMD_Hamiltonian} (หลังจากที่เราทำการคูณทางด้านซ้ายของสมการด้วย  $\langle\Psi|$ และ $\langle\chi|$
+และทำให้สอดคล้องตามเงื่อนไขของกฎอนุรักษ์พลังงาน $d\langle H\rangle / d t \equiv 0$ แล้ว) เราจะได้ความสัมพันธ์ต่อไปนี้
+
+\begin{align}
+  \label{eq:AIMD_coupled_TDSCF_1}
+  i \hbar \frac{\partial \Psi}{\partial t}
+   & =
+  - \sum_i \frac{\hbar^2}{2 m_{\mathrm{e}}} \nabla_i^2 \Psi
+  + \left\{\int d \mathbf{R} \chi^{\star}\left(\mathbf{R}_I ; t\right) V_{\mathrm{n}-\mathrm{e}}\left(\mathbf{r}_i,\mathbf{R}_I\right) \chi\left(\mathbf{R}_I ; t\right)\right\} \Psi \\
+  \label{eq:AIMD_coupled_TDSCF_2}
+  i \hbar \frac{\partial \chi}{\partial t}
+   & =
+  - \sum_I \frac{\hbar^2}{2 M_I} \nabla_I^2 \chi
+  + \left\{\int d \mathbf{r} \Psi^{\star}\left(\mathbf{r}_i ; t\right) H_{\mathrm{e}}\left(\mathbf{r}_i,\mathbf{R}_I\right) \Psi\left(\mathbf{r}_i ; t\right)\right\} \chi
+\end{align}
+
+\noindent ซึ่งเซตของสมการที่พัวพันกัน (Coupled Equations) ตามด้านบนนี้เป็นตัวกำหนด Time-Dependent Self-Consistent Field
+(TDSCF) ที่ได้มีการเสนอไว้เมื่อนานมาแล้วโดย Paul Dirac ในช่วงปี ค.ศ. 1930
+
+%----------------------------------------
+\section{มาเจาะลึก Classical Molecular Dynamics}
+%----------------------------------------
+
+ขึ้นตอนต่อไปในการพิสูจน์ Classical Molecular Dynamics ก็คือการประมาณและกำหนดให้นิวเคลียอของอะตอมนั้นเป็นอนุภาคจุด (Point
+Particle) ซึ่งเราสามารถทำได้โดยการใช้พิสูจน์ Classical Mechanics ออกมาจาก Quantum Mechanics โดยเราจะเริ่มด้วยการเขียนฟังก์ชันคลื่น
+(Wavefunction) ใหม่ ดังนี้
+
+\begin{equation}
+  \label{eq:AIMD_corresponding_wfn}
+  \chi\left(\mathbf{R}_I ; t\right)
+  =
+  A\left(\mathbf{R}_I ; t\right) \exp \left[i S\left(\mathbf{R}_I ; t\right) / \hbar\right]
+\end{equation}
+
+\noindent โดยเราเขียนในเทอมของ Amplitude Factor $A$ และ Phase $S$ ซึ่งแฟคเตอร์ทั้งสองแฟคเตอร์นี้จะถูกพิจารณาเฉพาะค่าจริง (Real)
+เท่านั้น $(A>0)$ และหลังจากที่เราทำการแปลง Nuclear Wavefunction (สมการที่ \eqref{eq:AIMD_coupled_TDSCF_2}) และทำการแยก
+Real Part กับ Imaginary Part ออกจากกัน เราจะได้ TDSCF สำหรับนิวเคลียสดังต่อไปนี้
+
+\begin{align}
+  \label{eq:AIMD_phase_S}
+   & \frac{\partial S}{\partial t}
+  + \sum_I \frac{1}{2 M_I}\left(\nabla_I S\right)^2
+  + \int d \mathbf{r} \Psi^{\star} H_{\mathrm{e}} \Psi
+  =
+  \hbar^2 \sum_I \frac{1}{2 M_I} \frac{\nabla_I^2 A}{A} \\
+  \label{eq:AIMD_factor_A}
+   & \frac{\partial A}{\partial t}
+  + \sum_I \frac{1}{M_I}\left(\nabla_I A\right)\left(\nabla_I S\right)
+  + \sum_I \frac{1}{2 M_I} A\left(\nabla_I^2 S\right)
+  =
+  0
+\end{align}
+
+\noindent ซึ่งเป็นการเขียนสมการเดิมโดยการใช้ตัวแปรใหม่สองอันก็คือ $A$ และ $S$ และเราเรียกสมการที่ \eqref{eq:AIMD_phase_S} และ
+\eqref{eq:AIMD_factor_A} นี้ว่า \enquote{Quantum Fluid Dynamical Representation} ซึ่งเราสามารถสมการทั้งสองอันนี้ไปใช้ในการแก้
+Time-Dependent Schr\"{o}dinger Equation นอกจากนี้เรายังสามารถเขียน $A$ ใหม่ได้ให้อยู่ในรูปของ Continuity Equation
+ได้โดยการใช้คุณสมบัติ Identification ของ Nuclear Density $|\chi|^2 \equiv A^2$ ซึ่งสามารถคำนวณมาได้จากสมการที่
+\eqref{eq:AIMD_corresponding_wfn} โดยสมการ Continuity Equation นี้จะไม่ขึ้นกับ $\hbar$ และยังทำให้มีการอนุรักษ์ Particle
+Probability $|\chi|^2$ อีกด้วย
+
+เมื่อเรามีการใช้ Transformation ของโมเมนตัมดังต่อไปนี้มาช่วย
+
+\begin{equation}
+  \mathbf{P}_I \equiv \nabla_I S
+\end{equation}
+
+\noindent เราจะสามารถเขียนสมการการเคลื่อนที่ของนิวตัน $\dot{\mathbf{P}}_I = -\nabla_I V\left(\mathbf{R}_I\right)$
+ได้ดังต่อไปนี้
+
+\begin{align}
+  \label{eq:AIMD_Newtonian_1}
+  \frac{d \mathbf{P}_I}{d t} & =-\nabla_I \int d \mathbf{r} \Psi^{\star} H_{\mathrm{e}} \Psi      \\
+  \label{eq:AIMD_Newtonian_2}
+  M_I \ddot{\mathbf{R}}_I(t) & =-\nabla_I \int d \mathbf{r} \Psi^{\star} H_{\mathrm{e}} \Psi      \\
+  \label{eq:AIMD_Newtonian_3}
+                             & =-\nabla_I V_{\mathrm{e}}^{\mathrm{E}}\left(\mathbf{R}_I(t)\right)
+\end{align}
+
+ดังนั้น นิวเคลียสนั้นจะเคลื่อนที่ไปตามหลักการของ Classical Mechanics ท่ามกลาง Effect Potentail $V_{\mathrm{e}}^{\mathrm{E}}$
+ซึ่งมาจากอิเล็กตรอน โดย Potential ดังกล่าวนี้เป็นฟังก์ชันของ Nuclear Positions ณ เวลา $t$ ซึ่งได้มาจากการเฉลี่ย
+$H_{\mathrm{e}}$ จาก Degrees of Freedom ทั้งหมด เช่น คำนวณค่า Quantum Expectation Value
+$\left\langle\Psi\left|H_{\mathrm{e}}\right| \Psi\right\rangle$ ในขณะที่เราบังคับให้ตำแหน่งของนิวเคลียสนั้นถูก
+Fixed อยู่กับที่นั่นคือ $\mathbf{R}_I(t)$
+
+อย่างไรก็ตาม เรายังคงมีฟังก์ชันคลื่นของนิวเคลียส (Nuclear Wavefunction) เหลืออยู่ในสมการ TDSCF สำหรับ Degrees of Freedom ของอิเล็กตรอน
+และเทอมนี้ควรจะต้องถูกแทนที่ด้วยตำแหน่งของนิวเคลียสเพื่อที่ว่าสมการ TDSCF นั้นจะขึ้นอยู่กับนิวเคลียสเพียงอย่างเดียว ในกรณีนี้เราจะทำการแทนที่
+Nuclear Density $\left|\chi\left(\mathbf{R}_I ; t\right)\right|^2$ ในสมการก่อนหน้านี้โดยมีเงื่อนไขของลิมิตว่า
+$\hbar \rightarrow 0$ โดยแทนที่ด้วยผลคูณของฟังก์ชันเดลต้า (Delta Functions)
+$\prod_I \delta\left(\mathbf{R}_I-\mathbf{R}_I(t)\right)$ ที่มีตำแหน่งจุดกึ่งกลางของฟังก์ชันอยู่ที่ตำแหน่งของนิวเคลียส ณ
+ขณะใดขณะหนึ่ง (Instantaneous Positions) $\mathbf{R}_I(t)$ ตามสมการที่ \eqref{eq:AIMD_Newtonian_2}
+ซึ่งเราจะได้สมการดังต่อไปนี้ (สำหรับ Position Operator)
+
+\begin{equation}
+  \int d \mathbf{R}^{\star}\left(\mathbf{R}_I ; t\right) \mathbf{R}_I \chi\left(\mathbf{R}_I ; t\right)
+  \stackrel{\hbar \rightarrow 0}{\longrightarrow}
+  \mathbf{R}_I(t)
+\end{equation}
+
+โดย Classical Limit อันนี้จะนำไปสู่สมการ Time-Dependent Wave Equation สำหรับอธิบายอิเล็กตรอนดังต่อไปนี้
+
+\begin{align}
+    \label{eq:AIMD_TD_wave_electron_1}
+    i \hbar \frac{\partial \Psi}{\partial t}
+    & = -\sum_i \frac{\hbar^2}{2 m_{\mathrm{e}}} \nabla_i^2 \Psi
+    + V_{\mathrm{n}-\mathrm{e}}\left(\mathbf{r}_i,\mathbf{R}_I(t)\right) \Psi \\
+    \label{eq:AIMD_TD_wave_electron_2}
+    & = H_{\mathrm{e}}\left(\mathbf{r}_i,\mathbf{R}_I(t)\right)
+    \Psi\left(\mathbf{r}_i,\mathbf{R}_I ; t\right)
+\end{align}
+
+\noindent ซึ่งสมการด้านบนนี้มีความซับซ้อนเพราะว่าเป็นสมการที่มันขึ้นอยู่กับตัวของมันเอง (Self-Consistently) นอกจากนี้แล้ว
+$H_{\mathrm{e}}$ และ $\Psi$ นั้นจะขึ้นต่อกันแบบเชิงพารามิเตอร์ (Parametrically) ตามตำแหน่งของนิวเคลียส $\mathbf{R}_I(t)$ 
+ที่เวลา $t$ โดยผ่าน $V_{\mathrm{n}-\mathrm{e}}\left(\mathbf{r}_i,\mathbf{R}_I(t)\right)$ นั่นหมายความว่าทั้ง Classical 
+และ Quantum Degress of Freedom นั้นได้ถูกรวมเข้าด้วยกันแล้ว
+
+สำหรับวิธีที่เกี่ยวข้องกับการแก้สมการที่ \eqref{eq:AIMD_Newtonian_2} และ \eqref{eq:AIMD_TD_wave_electron_2} นั้นมีชื่อเรียกว่า 
+\enquote{Ehrenfest Molecular Dynamics} เพื่อเป็นเกียรติให้กับ Ehrenfest ผู้ที่เป็นคนแรกที่สามารถหาวิธีแก้ปัญหาสำหรับคำถามที่ว่า 
+\enquote{เราจะสามารถพิสูจน์ Newtonian Classical Dynamics จากสมการคลื่นของ Schr\"{o}dinger ได้อย่างไร?} โดยในปัจจุบันได้มี%
+กรณีที่มีการพัฒนานำไปสู่วิธีการแบบ Hybrid หรือแบบผสมนั่นก็คือมีเพียงแค่นิวเคลียสเท่านั้นที่ถูกบังคับให้มีพฤติกรรมที่ทำตัวคล้ายกับอนุภาค 
+Classical Particles ในขณะที่อิเล็กตรอนนั้นยังถูกอธิบายด้วยวิธีทางควอนตัม
+
+เราสามารถแบ่งประเภทของ AIMD ได้โดยแบ่งตามวิธีการที่เราใช้ในการรวมการคำนวณโครงสร้างเชิงอิเล็กทรอนิกส์กับการจำลองพลวัตโมเลกุลเข้าด้วยกัน
 โดยเราสามารถแบ่งออกได้เป็น 3 วิธี ดังนี้
 
 \begin{enumerate}[topsep=0pt,noitemsep]
-    \setlength\itemsep{1em}
-    \item Ehrenfest Molecular Dynamics
-    
-    \item Born-Oppenheimer Molecular Dynamics
-    
-    \item Car-Parrinello Molecular Dynamics
+  \setlength\itemsep{1em}
+  \item Ehrenfest Molecular Dynamics
+
+  \item Born-Oppenheimer Molecular Dynamics
+
+  \item Car-Parrinello Molecular Dynamics
 \end{enumerate}
 
 %----------------------------------------
