@@ -126,15 +126,15 @@ MPI และ OpenMP เพื่อมาทำ Parallelization แบบพร
 %
 \begin{enumerate}[topsep=0pt,noitemsep]
   \setlength\itemsep{0.5em}
-  \item Declare and allocate host and device memory
+  \item สามารถระบุ (Declare) และจัดสรร (Allocate) หน่วยความจำของ Host และ Device ได้
 
-  \item Initialize host data.
+  \item สามารถเริ่มต้น (Initialize) การสร้างข้อมูลของ Host ได้
 
-  \item Transfer data from the host to the device.
+  \item ถ่ายโอนข้อมูลจาก Host ไปยัง Device
 
-  \item Execute one or more kernels.
+  \item สามารถสั่งให้ Kernels หลาย ๆ ตัวทำงานได้ 
 
-  \item Transfer results from the device to the host.Intel ecosystem
+  \item ถ่ายโอนผลการคำนวณจาก Device กลับไปยัง Host
 \end{enumerate}
 
 %----------------------------------------
