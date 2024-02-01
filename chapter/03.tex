@@ -728,14 +728,14 @@ Method ได้อย่างแน่นอน) เราพบว่าแ�
 Gaussian Function ดังนี้
 
 \begin{equation}
-  V_{\text {bias }}(\vec{\boldsymbol{\xi}},t)
+  V_{\text{bias }}(\vec{\boldsymbol{\xi}},t)
   =
   \sum_{ k \tau < t} W(k \tau)
   \exp\left( -\sum_{i=1}^{d} \frac{(\boldsymbol{\xi}_i - \boldsymbol{\xi}_i^{(0)}(k \tau))^2}{2\sigma_i^2} \right)
 \end{equation}
 
-\noindent โดยที่ $\boldsymbol{\xi} = \{\boldsymbol{\xi}_{1}, \boldsymbol{\xi}_{2}, \dots\}$ คือ Collective Variables 
-(CV) ซึ่งเป็นพารามิเตอร์ที่ผู้ใช้งาน Metadynamics นั้นจะต้องกำหนดเอง โดย $\boldsymbol{\xi}$ นั้นจะเป็นตัวกำหนด Sampling Direction 
+\noindent โดยที่ $\boldsymbol{\xi} = \{\boldsymbol{\xi}_{1}, \boldsymbol{\xi}_{2}, \dots\}$ คือ Collective Variables
+(CV) ซึ่งเป็นพารามิเตอร์ที่ผู้ใช้งาน Metadynamics นั้นจะต้องกำหนดเอง โดย $\boldsymbol{\xi}$ นั้นจะเป็นตัวกำหนด Sampling Direction
 และ Reaction Coordinates ที่ Bias Potential นั้นจะถูกใส่เข้าไป
 
 เมื่อเราทำการจำลอง MD พร้อมกับการ Sampling ด้วยวิธี Metadynamics เราจะได้สมการ Equation of Motion ที่มีการรวมแรงจาก MD
@@ -744,17 +744,19 @@ Gaussian Function ดังนี้
 \begin{align}
   m_i \frac{d^2 \mathbf{r}_i}{d t^2}
    & =
-  \mathbf{F}_{\text {MD }, i}\left(\mathbf{r}_i\right)-\mathbf{F}_{\text {bias }, i}\left(\mathbf{r}_i\right) \\
+  \mathbf{F}_{\text{MD }, i}\left(\mathbf{r}_i\right)-\mathbf{F}_{\text{bias }, i}\left(\mathbf{r}_i\right) \\
    & =
   -\frac{\partial V(\mathbf{R})}{\partial \mathbf{r}_i}
-  -\frac{\partial V_{\text {bias }}(\boldsymbol{\xi})}{\partial \boldsymbol{\xi}} 
-    \frac{\partial \boldsymbol{\xi}}{\partial \mathbf{r}_i} \ldots
+  -\frac{\partial V_{\text{bias }}(\boldsymbol{\xi})}{\partial \boldsymbol{\xi}}
+  \frac{\partial \boldsymbol{\xi}}{\partial \mathbf{r}_i} \ldots
 \end{align}
 
-\noindent โดยที่ $m_i$ คือมวลของอะตอม $\mathrm{i}$, $\mathbf{r}_i$ คือตำแหน่งของอะตอม และ $t$ คือเวลา
+\noindent โดยที่ $m_i$ คือมวลของอะตอม $i$, $\mathbf{r}_i$ คือตำแหน่งของอะตอม และ $t$ คือเวลา
 
 สำหรับโปรแกรมคำนวณ Metadynamics นั้นผู้อ่านสามารถศึกษาได้จากโค้ดด้านล่าง (ภาษา Python) โดยเป็นโค้ดของ Metadynamics อย่างง่าย
 (กรณี 1 มิติ)
+
+\vspace{5pt}
 
 \begin{lstlisting}[style=MyPython]
 import numpy as np
@@ -804,6 +806,8 @@ def distances(r):
     D = rmt - 2 * np.einsum("ihk,ilk->ijl", r, r) + rmtt + np.cast(1e-28, np.float64)
     return np.sqrt(D)
 \end{lstlisting}
+
+\vspace{5pt}
 
 %----------------------------------------
 \section{แบบฝึกหัด}
