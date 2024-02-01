@@ -753,6 +753,53 @@ Gaussian Function ดังนี้
 
 \noindent โดยที่ $m_i$ คือมวลของอะตอม $i$, $\mathbf{r}_i$ คือตำแหน่งของอะตอม และ $t$ คือเวลา
 
+การกำหนด CV สำหรับการรันการคำนวณ Metadynamics นั้นสำคัญมาก ๆ โดย CV ที่เรากำหนดนั้นจะต้องสอดคล้องกับปรากฏการณ์ทางเคมีที่เราสนใจ
+และ CV นั้นจะต้องเป็นฟังก์ชันที่สามารถแยกสถานะเริ่มต้นและสถานะสิ้นสุดของโมเลกุลได้อย่างชัดเจน หรือที่เรียกว่า Metastable State ตัวอย่างเช่น
+ถ้าหากว่าเราอยากจะจำลอง MD ของปฏิกิริยาการสร้างพันธะระหว่างโมเลกุล 2 โมเลกุล สถานะตั้งต้น (Reactant State) กับสถานะผลิตภัณฑ์
+(Product State) ก็คือ Metastable State ที่เราสนใจ ซึ่งพารามิเตอร์หรือฟังก์ชันที่เหมาะสมที่จะถูกนำมาใช้เป็น CV ในกรณีนี้ก็คือความยาวพันธะ
+(Bond Distance) ระหว่างอะตอมของทั้ง 2 โมเลกุลนั่นเอง
+
+ตัวเลือกของ CV นั้นมีหลากหลายฟังก์ชัน โดยพารามิเตอร์ที่เราจะสามารถใช้ได้นั้นจะต้องเป็นฟังก์ชันที่ขึ้นกับตำแหน่งของอะตอมด้วย
+
+\noindent \textbf{ความยาวพันธะ (Bond Distance)}:
+\begin{equation}
+  \boldsymbol{\xi}_{dist} = |\mathbf{r}_{G_{1}} - {r}_{G_{2}}|
+\end{equation}
+
+\noindent \textbf{มุมพันธะ (Bond Angle)}:
+\begin{align*}
+  \mathbf{r}_{a} &= \mathbf{r}_{G_{1}} - \mathbf{r}_{G_{2}} \\
+  \mathbf{r}_{b} &= \mathbf{r}_{G_{1}} - \mathbf{r}_{G_{3}} \\
+  \mathbf{r}_{c} &= \mathbf{r}_{G_{2}} - \mathbf{r}_{G_{3}} \\
+  \boldsymbol{\xi}_{angle} 
+  &= 
+  \text{cos}^{-1} \left( \frac{\mathbf{r}^2_{a} 
+    + \mathbf{r}^2_{c} 
+    - \mathbf{r}^2_{b}}{2|\mathbf{r}_{a}||\mathbf{r}_{c}|} \right)
+\end{align*}
+
+\noindent \textbf{มุมบิด (Torsion Angle)}:
+\begin{align*}
+  \mathbf{r}_{a} &= \mathbf{r}_{G_{4}} - \mathbf{r}_{G_{3}} \\
+  \mathbf{r}_{b} &= \mathbf{r}_{G_{3}} - \mathbf{r}_{G_{3}} \\
+  \mathbf{r}_{c} &= \mathbf{r}_{G_{2}} - \mathbf{r}_{G_{2}} \\
+  \mathbf{r}_{d} &= \mathbf{r}_{G_{1}} - \mathbf{r}_{G_{2}} \\
+  \boldsymbol{\xi}_{torsion} 
+  &= 
+  \text{cos}^{-1} \left( 
+    \frac{(\mathbf{r}_{a} \times \mathbf{r}_{b}) 
+      \cdot (\mathbf{r}_{c} \times \mathbf{r}_{d}) }{ 
+        |\mathbf{r}_{a} \times \mathbf{r}_{b}) 
+          || (\mathbf{r}_{c} \times \mathbf{r}_{d}| } \right)
+\end{align*}
+
+\noindent \textbf{Adjacency matrix (Smooth Function)}:
+
+\begin{equation}
+  \boldsymbol{\xi}_{A} = \frac{ 1-\left(\frac{|\mathbf{r}_{i} - \mathbf{r}_{j}|}{r_{0}}\right)^n }
+  { 1-\left(\frac{|\mathbf{r}_{i} - \mathbf{r}_{j}|}{r_{0}}\right)^m }
+\end{equation}
+
 สำหรับโปรแกรมคำนวณ Metadynamics นั้นผู้อ่านสามารถศึกษาได้จากโค้ดด้านล่าง (ภาษา Python) โดยเป็นโค้ดของ Metadynamics อย่างง่าย
 (กรณี 1 มิติ)
 
