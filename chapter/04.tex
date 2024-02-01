@@ -2746,7 +2746,7 @@ Two-Index หรือ Four-Index เท่านั้น คำถามคื
   \item ในกรณีของ CC แบบที่ไม่เป็นเส้นตรง (Nonlinear) เช่น CCD หรือ CCSD นั้นเราจะใช้ไม่สามารถใช้ $\left(f_{p q}\right)$
         กับ $\langle p q \| r s\rangle$ ได้ตรง ๆ แต่เราจะใช้สิ่งที่เรียกว่า Two-Particle Intermediates แทน ซึ่งมันก็คือการนำ
         $\left(f_{p q}\right)$ มา $\langle p q \| r s\rangle$ มาดัดแปลง โดย Two-Particle Intermediates ที่ได้จากการ%
-        การดัดแปลงนั้นคือ $\mathscr{F}_{p q}$ และ $\mathscr{W}_{p q r s}$ ตามลำดับ
+        การดัดแปลงนั้นคือ $F_{p q}$ และ $W_{p q r s}$ ตามลำดับ
 \end{itemize}
 
 \noindent โดยเรากำหนดให้ $i, j, k, \ldots$ แทน Occupied Orbitals, $a, b$, $c, \ldots$ แทน Unoccupied Orbitals,
@@ -2761,8 +2761,8 @@ Two-Index หรือ Four-Index เท่านั้น คำถามคื
   \begin{aligned}
     t_i^a D_i^a
     =
-     & f_{i a} + \sum_e t_i^e \mathscr{F}_{a e} - \sum_m t_m^a \mathscr{F}_{m i}
-    + \sum_{m e} t_{i m}^{a e} \mathscr{F}_{m e}                                                                     \\
+     & f_{i a} + \sum_e t_i^e F_{a e} - \sum_m t_m^a F_{m i}
+    + \sum_{m e} t_{i m}^{a e} F_{m e}                                                                               \\
      & - \sum_{n f} t_n^f\langle n a \| i f\rangle - \frac{1}{2} \sum_{m e f} t_{i m}^{e f}\langle m a \| e f\rangle \\
      & - \frac{1}{2} \sum_{m c n} t_{m n}^{a e}\langle n m \| e i\rangle
   \end{aligned}
@@ -2775,24 +2775,24 @@ Two-Index หรือ Four-Index เท่านั้น คำถามคื
   \begin{aligned}
     t_{i j}^{a b} D_{i j}^{a b}
     =
-     & \langle i j \| a b\rangle+P_{-}(a b) \sum_e t_{i j}^{a e}\left(\mathscr{F}_{b e}
-    - \frac{1}{2} \sum_m t_m^b \mathscr{F}_{m e}\right)                                                             \\
-     & - P_{-}(i j) \sum_m t_{i m}^{a b}\left(\mathscr{F}_{m j} + \frac{1}{2} \sum_e t_j^e \mathscr{F}_{m e}\right) \\
-     & + \frac{1}{2} \sum_{m n} \tau_{m n}^{a b} \mathscr{W}_{m n i j}
-    + \frac{1}{2} \sum_{e f} \tau_{i j}^{e f} \mathscr{W}_{a b e f}                                                 \\
-     & + P_{-}(i j) P_{-}(a b) \sum_{m e}\left(t_{i m}^{a c} \mathscr{F}_{m b e j}
-    - t_i^e t_m^a\langle m b \| e j\rangle\right)                                                                   \\
+     & \langle i j \| a b\rangle+P_{-}(a b) \sum_e t_{i j}^{a e}\left(F_{b e}
+    - \frac{1}{2} \sum_m t_m^b F_{m e}\right)                                                              \\
+     & - P_{-}(i j) \sum_m t_{i m}^{a b}\left(F_{m j} + \frac{1}{2} \sum_e t_j^e F_{m e}\right)            \\
+     & + \frac{1}{2} \sum_{m n} \tau_{m n}^{a b} W_{m n i j}
+    + \frac{1}{2} \sum_{e f} \tau_{i j}^{e f} W_{a b e f}                                                  \\
+     & + P_{-}(i j) P_{-}(a b) \sum_{m e}\left(t_{i m}^{a c} F_{m b e j}
+    - t_i^e t_m^a\langle m b \| e j\rangle\right)                                                          \\
      & + P_{-}(i j) \sum_c t_i^e\langle a b \| e j\rangle-P_{-}(a b) \sum_m t_m^a\langle m b \| i j\rangle
   \end{aligned}
 \end{equation}
 
-\noindent โดยจะเห็นว่าทั้ง $T_{1}$ และ $T_{2}$ นั้นต่างก็มี Two-Particle Intermediates ($\mathscr{F}$ และ $\mathscr{W}$)
+\noindent โดยจะเห็นว่าทั้ง $T_{1}$ และ $T_{2}$ นั้นต่างก็มี Two-Particle Intermediates ($F$ และ $W$)
 เป็นส่วนหนึ่งของสมการ ซึ่งเรามีนิยามของ Intermediates ทั้ง 2 ตัวสำหรับ Contribution จาก Occupied และ Unoccupied Orbitals
 ที่แตกต่างกันดังนี้
 
 \begin{equation}
   \label{eq:F_ae}
-  \mathscr{F}_{a e}
+  F_{a e}
   = \left(1-\delta_{a e}\right) f_{a e}-\frac{1}{2} \sum_m f_{m e} t_m^a
   + \sum_{m f} t_m^f\langle m a \| f e\rangle
   - \frac{1}{2} \sum_{m n f} \tilde{\tau}_{m n}^{a f}\langle m n \| e f\rangle
@@ -2800,7 +2800,7 @@ Two-Index หรือ Four-Index เท่านั้น คำถามคื
 
 \begin{equation}
   \label{eq:F_mi}
-  \mathscr{F}_{m i}
+  F_{m i}
   = \left(1-\delta_{m i}\right) f_{m i}+\frac{1}{2} \sum_e t_i^e f_{m e}
   + \sum_{e n} t_n^e\langle m n \| i e\rangle
   + \frac{1}{2} \sum_{n e f} \tilde{\tau}_{i n}^{e f}\langle m n \| e f\rangle
@@ -2808,27 +2808,27 @@ Two-Index หรือ Four-Index เท่านั้น คำถามคื
 
 \begin{equation}
   \label{eq:F_me}
-  \mathscr{F}_{m e}
+  F_{m e}
   =
   f_{m e}+\sum_{n f} t_n^f\langle m n \| e f\rangle
 \end{equation}
 
 \begin{equation}
   \label{eq:W_mnij}
-  \mathscr{W}_{m n i j}
+  W_{m n i j}
   = \langle m n \| i j\rangle+P_{-}(i j) \sum_e t_j^e\langle m n \| i e\rangle
   + \frac{1}{4} \sum_{e f} \tau_{i j}^{e f}\langle m n \| e f\rangle
 \end{equation}
 
 \begin{equation}
   \label{eq:W_abef}
-  \mathscr{W}_{a b e f}=\langle a b \| e f\rangle-P-(a b) \sum_m t_m^b\langle a m \| e f\rangle
+  W_{a b e f}=\langle a b \| e f\rangle-P-(a b) \sum_m t_m^b\langle a m \| e f\rangle
 \end{equation}
 
 \begin{equation}
   \label{eq:W_mbej}
   \begin{aligned}
-    \mathscr{W}_{m b e j}
+    W_{m b e j}
     =
      & \langle m b \| e j\rangle+\sum_f t_j^f\langle m b \| e f\rangle
     + \frac{1}{4} \sum_{m n} \tau_{m n}^{a b}\langle m n \| e f\rangle \\
@@ -3063,8 +3063,8 @@ def tau(a, b, i, j):
     return tau
 \end{lstlisting}
 
-\noindent เรามาต่อด้วยการเขียนฟังก์ชันสำหรับคำนวณ Two-Particle Intermediates ซึ่งเป็นการ Implement $\mathscr{F}_{p q}$
-กับ $\mathscr{W}_{p q r s}$ สมการที่ \eqref{eq:F_ae}, \eqref{eq:F_mi}, \eqref{eq:F_me}, \eqref{eq:W_mnij},
+\noindent เรามาต่อด้วยการเขียนฟังก์ชันสำหรับคำนวณ Two-Particle Intermediates ซึ่งเป็นการ Implement $F_{p q}$
+กับ $W_{p q r s}$ สมการที่ \eqref{eq:F_ae}, \eqref{eq:F_mi}, \eqref{eq:F_me}, \eqref{eq:W_mnij},
 \eqref{eq:W_abef}, และ \eqref{eq:W_mbej} ตามลำดับ
 
 \vspace{5pt}
@@ -4518,7 +4518,7 @@ Construction (ADC) หรือ CC2, CC3 ซึ่งเป็น Approximation 
   \item เปลี่ยน Initial Orbital Guess เริ่มต้นที่เราเอามาใช้ในการสร้างฟังก์ชันคลื่น
 
   \item เปลี่ยน Basis Set ซึ่งให้ลองใช้ Basis Set ที่มีขนาดเล็กลงมาแล้วก็ค่อยเอาไปใช้เป็น Orbital Guess สำหรับการคำนวณที่ใช้
-        Basis Set ใหญ่กว่าได้
+        Basis Set ใ��ญ่กว่าได้
 
   \item ใช้ Trick อื่น ๆ เช่น ปรับ Level Shift ซึ่งเป็นการปรับพลังงานของ Virtual Orbitals ซึ่งมีประโยชน์มากสำหรับระบบโมเลกุล%
         บางอันที่ซับซ้อน เช่น Biradical หรือ Triplet State
