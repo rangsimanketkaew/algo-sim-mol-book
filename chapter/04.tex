@@ -1900,9 +1900,9 @@ Coeffients
 \subsection{ไอเดียเริ่มต้นของ DIIS}
 %----------------------------------------
 
-Direct Inversion of the Iterative Subspace (DIIS) เป็นวิธีที่พัฒนาโดย Peter Pulay เพื่อเพิ่มความเร็วของการลู่เข้า (Convergence)
-ของการคำนวณ SCF\autocite{pulay1980} โดยมีไอเดียเริ่มต้นก็คือการใช้ Residual (หรือเรียกว่า Error ก็ได้) ซึ่งเป็นผลต่างระหว่าง
-Trial Vecotrs $\{ P^{i}\}$ ระหว่างรอบ (Iteration)
+Direct Inversion of the Iterative Subspace (DIIS) เป็นวิธีที่พัฒนาโดยศาสตราจารย์ Peter Pulay เพื่อเพิ่มความเร็วของการลู่เข้า 
+(Convergence) ของการคำนวณ SCF\autocite{pulay1980} โดยมีไอเดียเริ่มต้นก็คือการใช้ Residual (หรือเรียกว่า Error ก็ได้) 
+ซึ่งเป็นผลต่างระหว่าง Trial Vecotrs $\{ P^{i}\}$ ระหว่างรอบ (Iteration)
 
 \begin{equation}
   \mathbf{e}^i
@@ -1927,7 +1927,7 @@ Trial Vecotrs $\{ P^{i}\}$ ระหว่างรอบ (Iteration)
   \sum_{i=1}^{m} c_i \mathbf{e}^i
 \end{equation}
 
-\noindent ซึ่งถ้าหากว่าเราสังเกตดี ๆ แล้วเราจะว่าเราสามารถทำการลดค่าความคลาดเคลื่อน (Error minimization) ได้จาก
+\noindent ซึ่งถ้าหากว่าเราสังเกตดี ๆ แล้วจะพบว่าเราสามารถทำการลดค่าความคลาดเคลื่อน (Error minimization) ได้จาก
 
 \begin{align}
   \mathbf{p}
@@ -1947,7 +1947,7 @@ Trial Vecotrs $\{ P^{i}\}$ ระหว่างรอบ (Iteration)
   \sum_{i=1}^{m} c_i \mathbf{e}^i = 0
 \end{equation}
 
-\noindent ทีนี้ เราก็มีการกำหนด Lagrangian ขึ้นมาเพื่อใช้ในการลดค่า Norm ของเวกเตอร์ความคลาดเคลื่อน (Error Vector) ด้วย
+\noindent ทีนี้เราก็มีการกำหนด Lagrangian ขึ้นมาเพื่อใช้ในการลดค่า Norm ของเวกเตอร์ความคลาดเคลื่อน (Error Vector) ด้วย
 $(\langle \mathbf{e} | \mathbf{e} \rangle = \sum_{i,j = 1}^{m} c_i^* c_j \langle e_i | e_j \rangle)$ ดังนี้
 
 \begin{equation}
@@ -2014,9 +2014,9 @@ Commutativity นั่นก็คือ Fock Matrix $\mathbf{F'}$ นั้น
   \mathbf{F'}_i \mathbf{P'}_i - \mathbf{P'}_i \mathbf{F'}_i
 \end{equation}
 
-\noindent ทีนี้เราก็มาพิจารณาสมการ Roothan, $\mathbf{F}\mathbf{C} = \mathbf{S}\mathbf{C}\varepsilon$, ซึ่งเราสามารถทำ
-Transformation หรือการเปลี่ยนรูปเพื่อให้เป็น Eivalue Problem (สมการไอเกน) ที่อยู่ในรูปของ MO Basis ได้โดยการใช้เงื่อนไข Orthonormality
-นั่นคือ $\mathbf{C^\dagger}\mathbf{S}\mathbf{C} = \mathbf{1}$ ดังนี้
+\noindent ทีนี้เราก็มาพิจารณาสมการ Roothaan, $\mathbf{F}\mathbf{C} = \mathbf{S}\mathbf{C}\varepsilon$, ซึ่งเราสามารถทำ
+Transformation หรือการเปลี่ยนรูปเพื่อให้เป็น Eigenvalue Problem (สมการไอเกน) ที่อยู่ในรูปของ MO Basis ได้โดยการใช้เงื่อนไข 
+Orthonormality นั่นคือ $\mathbf{C^\dagger}\mathbf{S}\mathbf{C} = \mathbf{1}$ ดังนี้
 
 \begin{equation}
   \mathbf{F'}\mathbf{C'}
