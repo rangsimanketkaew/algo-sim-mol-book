@@ -1096,7 +1096,7 @@ Wavefunction ให้อยู่ในรูปที่มี Basis Function 
 Roothaan-Hall ทั้งหมด $m$ สมการ โดยที่ $m$ คือจำนวนของ Basis Function (เรามีสมการ HF 1 สมการต่อ 1 MO และการที่เรามี
 $m$ Basis Function นั้นก็จะสร้างทั้งหมด $m$ MOs ด้วย), $F$ คือ Fock Matrix ซึ่งก็จะได้จาก Density Matrix แล้ว
 Density Matrix ก็คือ Matrix ที่มีสมาชิกเป็นผลคูณระหว่าง Coefficients ของ MO ซึ่งก็จะได้มาจากการประมาณค่าด้วยวิธีเริ่มต้น
-(Initial Guess) แบบต่าง ๆ เช่นใช้ Huckel Method, ส่วน $S$ นั้นก็คือ Overlap Matrix ซึ่งก็จะเป็น Matrix ที่บอกว่า
+(Initial Guess) แบบต่าง ๆ เช่นใช้ H\"{u}ckel Method, ส่วน $S$ นั้นก็คือ Overlap Matrix ซึ่งก็จะเป็น Matrix ที่บอกว่า
 Orbitals นั้นสัมพันธ์กันมากน้อยแค่ไหน, และ $\epsilon$ ของแต่ละสมการนั้นก็คือค่าพลังงานของแต่ละ MO นั้นเองซึ่งเป็นสิ่งที่เรา%
 ต้องการแก้สมการหามันออกมา ทีนี้เราสามารถยุบรวมสมการ HF สำหรับแต่ละ Basis Function เข้าด้วยกันได้ ซึ่งจะได้ออกมาเป็นตามสมการที่%
 สั้นและกระชับขึ้นนั่นก็คือสมการ Roothaan-Hall นั่นเอง ดังนี้ (เขียนในรูปของเมทริกซ์)
@@ -1900,8 +1900,8 @@ Coeffients
 \subsection{ไอเดียเริ่มต้นของ DIIS}
 %----------------------------------------
 
-Direct Inversion of the Iterative Subspace (DIIS) เป็นวิธีที่พัฒนาโดยศาสตราจารย์ Peter Pulay เพื่อเพิ่มความเร็วของการลู่เข้า 
-(Convergence) ของการคำนวณ SCF\autocite{pulay1980} โดยมีไอเดียเริ่มต้นก็คือการใช้ Residual (หรือเรียกว่า Error ก็ได้) 
+Direct Inversion of the Iterative Subspace (DIIS) เป็นวิธีที่พัฒนาโดยศาสตราจารย์ Peter Pulay เพื่อเพิ่มความเร็วของการลู่เข้า
+(Convergence) ของการคำนวณ SCF\autocite{pulay1980} โดยมีไอเดียเริ่มต้นก็คือการใช้ Residual (หรือเรียกว่า Error ก็ได้)
 ซึ่งเป็นผลต่างระหว่าง Trial Vecotrs $\{ P^{i}\}$ ระหว่างรอบ (Iteration)
 
 \begin{equation}
@@ -2015,7 +2015,7 @@ Commutativity นั่นก็คือ Fock Matrix $\mathbf{F'}$ นั้น
 \end{equation}
 
 \noindent ทีนี้เราก็มาพิจารณาสมการ Roothaan, $\mathbf{F}\mathbf{C} = \mathbf{S}\mathbf{C}\varepsilon$, ซึ่งเราสามารถทำ
-Transformation หรือการเปลี่ยนรูปเพื่อให้เป็น Eigenvalue Problem (สมการไอเกน) ที่อยู่ในรูปของ MO Basis ได้โดยการใช้เงื่อนไข 
+Transformation หรือการเปลี่ยนรูปเพื่อให้เป็น Eigenvalue Problem (สมการไอเกน) ที่อยู่ในรูปของ MO Basis ได้โดยการใช้เงื่อนไข
 Orthonormality นั่นคือ $\mathbf{C^\dagger}\mathbf{S}\mathbf{C} = \mathbf{1}$ ดังนี้
 
 \begin{equation}
@@ -4292,7 +4292,7 @@ for p in range(0,dim):
 \noindent จะเห็นได้ว่าถ้าเรารันโค้ดด้านบนนี้จะใช้เวลานานมาก ๆ เพราะว่าเรามีการวนซ้ำ \pyinline{for} ถึง 8 ชั้นด้วยกัน โดยการสเกลนั้น%
 จะแปรผันตรงตามจำนวนของ Basis Functions ที่เราใช้ยกกำลังด้วย 8 ซึ่งเยอะมาก ๆ
 
-ถ้าหากว่าเราสังเกตสมการด้านบนนี้ดี ๆ จะพบว่า Coefficients แต่ละตัวนั้นไม่ขึ้นต่อกัน เช่น $C^{p}_\mu$ ก็ไม่ขึ้นกับ $C^{q}_\nu$
+ถ้าหากว่าเราสังเกตสมการด้านบนนี้ดี ๆ จะพบว่า Coefficients แต่ละตัวนั้นไม่ขึ้���ต่อกัน เช่น $C^{p}_\mu$ ก็ไม่ขึ้นกับ $C^{q}_\nu$
 ดังนั้นเราจึงสามารถเขียนสมการใหม่ได้เป็น
 
 \begin{equation}
