@@ -2,9 +2,11 @@
 
 หนังสือ **อัลกอริทึมสำหรับการจำลองทางคอมพิวเตอร์ของระบบโมเลกุล (Algorithms for Computer Simulation of Molecular Systems)**
 
-- เว็บไซต์หลักของหนังสือ https://rangsimanketkaew.github.io/algo-sim-mol-book.pdf
+- เว็บไซต์หลักของหนังสือ https://rangsimanketkaew.github.io/algo-sim-mol-book
 
-- ดาวน์โหลดไฟล์หนังสือได้ที่ https://github.com/rangsimanketkaew/algo-sim-mol-book
+- ดาวน์โหลดไฟล์หนังสือได้ที่ https://rangsimanketkaew.github.io/algo-sim-mol-book.pdf
+
+- ดาวน์โหลดซอร์สโค้ดของหนังสือได้ที่ https://github.com/rangsimanketkaew/algo-sim-mol-book
 
 - ดาวน์โหลดโค้ดในหนังสือได้ที่ https://github.com/rangsimanketkaew/algo-sim-mol-book-code
 
