@@ -8,7 +8,7 @@
 \label{ch:high_perf_comp}
 
 %----------------------------------------
-\section{ทำไมต้อง High-Performance Computing ?}
+\section{ทำไมต้อง High-Performance Computing?}
 %----------------------------------------
 
 High-Performance Computing (HPC)คือเทคโนโลยีที่ใช้คลัสเตอร์คอมพิวเตอร์ (เครือข่ายของคอมพิวเตอร์หลาย ๆ เครื่องที่เชื่อมต่อและทำงานร่วมกัน) ในการประมวลผลหรือคำนวณข้อมูลขนาดใหญ่และแก้ปัญหาทางคณิตศาสตร์ที่ซับซ้อนมาก ๆ ให้เสร็จในระยะเวลาที่เร็วที่สุด โดยทั่วไปแล้ว HPC ทำงานหรือประมวลผลได้เร็วกว่าคอมพิวเตอร์ธรรมดาทั่วไปที่เราใช้ทำงานกันปกติหลายล้านเท่า\footnote{อ่านเพิ่มเติมเกี่ยวกับ HPC ได้ที่ \url{https://www.ibm.com/topics/hpc}}
@@ -25,8 +25,7 @@ High-Performance Computing (HPC)คือเทคโนโลยีที่ใ
 
 \paragraph{MPI}
 %
-เป็นวิธีที่ตรงข้ามกับ OpenMP นั่นคือเหมาะสำหรับการคำนวณกับหน่วยประมวลผลที่มีความเชื่อมโยงกันแบบหลวม (Loosely Coupled Multiprocessing) เช่น คลัสเตอร์หรือซุปเปอร์คอมพิวเตอร์ที่ประกอบไปด้วยคอมพิวเตอร์หลาย ๆ เครื่องที่เชื่อมต่อกันผ่านเครือข่ายภายใน (Local Network) วิธี MPI มักถูกนำมาใช้สำหรับการทำ Coarse-Grain Parallelism (Domain Decomposition) การเขียนโค้ดเพื่อให้รันได้แบบขนานโดยการใช้ MPI
-นั้นค่อนข้างมีความซับซ้อนมากกว่าการใช้วิธี OpenMP ขึ้นอยู่กับความเร็วของโค้ดที่เราต้องการให้เพิ่มขึ้น รวมไปถึงการออกแบบอัลกอริทึมสำหรับการแบ่ง Workload ไปยัง Compute Node ต่าง ๆ และการ Communication ระหว่าง Node ด้วย
+เป็นวิธีที่ตรงข้ามกับ OpenMP นั่นคือเหมาะสำหรับการคำนวณกับหน่วยประมวลผลที่มีความเชื่อมโยงกันแบบหลวม (Loosely Coupled Multiprocessing) เช่น คลัสเตอร์หรือซุปเปอร์คอมพิวเตอร์ที่ประกอบไปด้วยคอมพิวเตอร์หลาย ๆ เครื่องที่เชื่อมต่อกันผ่านเครือข่ายภายใน (Local Network) วิธี MPI มักถูกนำมาใช้สำหรับการทำ Coarse-Grain Parallelism (Domain Decomposition) การเขียนโค้ดเพื่อให้รันได้แบบขนานโดยการใช้ MPI นั้นค่อนข้างมีความซับซ้อนมากกว่าการใช้วิธี OpenMP ขึ้นอยู่กับความเร็วของโค้ดที่เราต้องการให้เพิ่มขึ้น รวมไปถึงการออกแบบอัลกอริทึมสำหรับการแบ่ง Workload ไปยัง Compute Node ต่าง ๆ และการ Communication ระหว่าง Node ด้วย
 
 %----------------------------------------
 \subsection{การเลือกใช้อัลกอริทึม Parallelism}
@@ -99,9 +98,9 @@ High-Performance Computing (HPC)คือเทคโนโลยีที่ใ
 %
 \begin{itemize}[topsep=0pt,noitemsep]
   \setlength\itemsep{0.5em}
-  \item OpenMP Compiler: \inlinehighlight{icc}, \inlinehighlight{ifort}
+  \item OpenMP Compiler: \ih{icc}, \ih{ifort}
 
-  \item MPI Compiler: \inlinehighlight{mpicc}, \inlinehighlight{mpiicc} (สำหรับ Intel C Compiler), \inlinehighlight{mpicxx} (สำหรับ \cpp), \inlinehighlight{mpiifort} (สำหรับ Fortran)
+  \item MPI Compiler: \ih{mpicc}, \ih{mpiicc} (สำหรับ Intel C Compiler), \ih{mpicxx} (สำหรับ \cpp), \ih{mpiifort} (สำหรับ Fortran)
 \end{itemize}
 
 \noindent \textbf{ทักษะสำหรับการเขียนโค้ดสำหรับ GPU}
@@ -126,9 +125,7 @@ High-Performance Computing (HPC)คือเทคโนโลยีที่ใ
 \idxboth{การทำให้เกิดเมทริกซ์รูปทแยง}{Matrix Diagonalization}
 %----------------------------------------
 
-ในหัวข้อนี้ผู้อ่านจะได้ศึกษาการทำให้เกิดเมทริกซ์รูปทแยงหรือ Matrix Diagonalization (ผมขอเรียกสั้น ๆ ว่า MatDiag เพื่อความสะดวก) ในการคำนวณแบบขนาน (Parallel Computing) สำหรับการคำนวณทางเคมีควอนตัม โดย MatDiag คือการดำเนินการ (Operation) ทางพีชคณิตเชิงเส้นแบบหนึ่งซึ่งถูกใช้อย่างแพร่หลายโดยเฉพาะในงานวิจัยด้านการคำนวณทางวิทยาศาสตร์ แน่นอนว่าโปรแกรมทางเคมีควอนตัมนั้นก็ใช้ MatDiag เยอะมาก ๆ ซึ่งมีความซับซ้อนเชิงการคำนวณอยู่ที่ $O(n^3)$ ทำให้เกิดปัญหาคอขวดและทำให้การคำนวณของระบบที่มีขนาดใหญ่นั้นช้ามาก ๆ เพื่อแก้ปัญหาดังกล่าวจึงได้มีการพัฒนาเทคนิคและไลบรารี่ที่จะเข้ามาช่วยเราในการทำ MatDiag ได้แบบขนาดหรือ Parallel ซึ่งช่วยให้การทำ MatDiag เร็วขึ้นถึง 50\% เลยทีเดียว เริ่มต้นเรามีเมทริกซ์ที่มีขนาดใหญ่และสมาชิกส่วนใหญ่ของเมทริกซ์นั้นมีค่าไม่เท่ากับ 0 (Nonzero Elements)
-ซึ่งเราจะเรียกเมทริกซ์ประเภทนี้ว่าเมทริกซ์แบบเต็ม (Full Matrix) หรือเมทริกซ์แบบแน่น (Dense Matrix) ก็ได้ โดยเราสามารถแทน Dense Matrix ได้โดยใช้รูปแบบที่เรียกว่า Block Cyclic ในการทำการคำนวณแบบขนานด้วยวิธี Message-Passing Interface (MPI) ซึ่งเป็นการกำหนดการกระจาย Dense Matrix ไปยังหน่วยประมวลผล (Processor) แต่ละตัวของเครื่องคำนวณ (Compute Node)
-ในคลัสเตอร์คอมพิวเตอร์
+ในหัวข้อนี้ผู้อ่านจะได้ศึกษาการทำให้เกิดเมทริกซ์รูปทแยงหรือ Matrix Diagonalization (ผมขอเรียกสั้น ๆ ว่า MatDiag เพื่อความสะดวก) ในการคำนวณแบบขนาน (Parallel Computing) สำหรับการคำนวณทางเคมีควอนตัม โดย MatDiag คือการดำเนินการ (Operation) ทางพีชคณิตเชิงเส้นแบบหนึ่งซึ่งถูกใช้อย่างแพร่หลายโดยเฉพาะในงานวิจัยด้านการคำนวณทางวิทยาศาสตร์ แน่นอนว่าโปรแกรมทางเคมีควอนตัมนั้นก็ใช้ MatDiag เยอะมาก ๆ ซึ่งมีความซับซ้อนเชิงการคำนวณอยู่ที่ $O(n^3)$ ทำให้เกิดปัญหาคอขวดและทำให้การคำนวณของระบบที่มีขนาดใหญ่นั้นช้ามาก ๆ เพื่อแก้ปัญหาดังกล่าวจึงได้มีการพัฒนาเทคนิคและไลบรารี่ที่จะเข้ามาช่วยเราในการทำ MatDiag ได้แบบขนาดหรือ Parallel ซึ่งช่วยให้การทำ MatDiag เร็วขึ้นถึง 50\% เลยทีเดียว เริ่มต้นเรามีเมทริกซ์ที่มีขนาดใหญ่และสมาชิกส่วนใหญ่ของเมทริกซ์นั้นมีค่าไม่เท่ากับ 0 (Nonzero Elements) ซึ่งเราจะเรียกเมทริกซ์ประเภทนี้ว่าเมทริกซ์แบบเต็ม (Full Matrix) หรือเมทริกซ์แบบแน่น (Dense Matrix) ก็ได้ โดยเราสามารถแทน Dense Matrix ได้โดยใช้รูปแบบที่เรียกว่า Block Cyclic ในการทำการคำนวณแบบขนานด้วยวิธี Message-Passing Interface (MPI) ซึ่งเป็นการกำหนดการกระจาย Dense Matrix ไปยังหน่วยประมวลผล (Processor) แต่ละตัวของเครื่องคำนวณ (Compute Node) ในคลัสเตอร์คอมพิวเตอร์
 
 \begin{figure}[H]
   \centering
@@ -137,19 +134,18 @@ High-Performance Computing (HPC)คือเทคโนโลยีที่ใ
   \label{fig:block_cyclic}
 \end{figure}
 
-ให้ดูที่ภาพ \ref{fig:block_cyclic} ก่อนซึ่งเป็นการเปรียบเทียบการกระจายแบบ \enquote{Cyclic} และแบบ \enquote{Block} สำหรับเวกเตอร์ 1 มิติและเมทริกซ์ 2 มิติ (ภาพด้านล่างผมคัดลอกมาจาก Tutorial \enquote{Introduction to Parallel} ของ Blaise Barney แห่งสถาบัน LLNL) โดยสีแต่ละสีของแต่ละช่องนั้นจะเป็นการบ่งบอกถึง Processor ที่ต่างกัน และแต่ละ Segment นั้นจะบ่งบอกถึงสัดส่วน
-(Portion) ของ Dense Matrix ที่ถูกกำหนดและแบ่งเข้าไปใน Local Memory ของแต่ละ Processor สำหรับการแยกออกเป็นส่วน ๆ แบบหมุนวน (Cyclic Decomposition) ของเมทริกซ์นั้นสามารถทำได้คือเราจะทำการ Distribute แต่ละแถวหรือแต่ละคอลัมน์ไปยัง Processor ที่แตกต่างกัน (เราอาจจะแบ่งเป็นทีละคู่ก็ได้ เช่น แบ่งทุก ๆ 2 แถว) ในทางตรงข้ามนั้น วิธีการแบ่งแบบ Block Representation นั้นจะเป็นการแยกเมทริกซ์ออกเป็นเมทริกซ์ย่อย ๆ จำนวน $N$ เมทริกซ์ (เรียกว่า Submatrices ก็ได้) โดยไม่สนใจว่าขนาดของแต่ละ Block นั้นจะต้องมีขนาดที่เท่ากัน ซึ่งแต่ละ Submatrix นั้นจะถูกส่งต่อไปยัง Processor แต่ละตัว สรุปคือการแบ่งแบบ Cyclic นั้นเป็นการนำการแบ่งแบบ Block มาทำซ้ำ ๆ กันไปแบบละเอียดกว่า ซึ่งจะทำให้เราได้ Block ที่มากกว่า
+ให้ดูที่ภาพ \ref{fig:block_cyclic} ก่อนซึ่งเป็นการเปรียบเทียบการกระจายแบบ \enquote{Cyclic} และแบบ \enquote{Block} สำหรับเวกเตอร์ 1 มิติและเมทริกซ์ 2 มิติ (ภาพด้านล่างผมคัดลอกมาจาก Tutorial \enquote{Introduction to Parallel} ของ Blaise Barney แห่งสถาบัน LLNL) โดยสีแต่ละสีของแต่ละช่องนั้นจะเป็นการบ่งบอกถึง Processor ที่ต่างกัน และแต่ละ Segment นั้นจะบ่งบอกถึงสัดส่วน (Portion) ของ Dense Matrix ที่ถูกกำหนดและแบ่งเข้าไปใน Local Memory ของแต่ละ Processor สำหรับการแยกออกเป็นส่วน ๆ แบบหมุนวน (Cyclic Decomposition) ของเมทริกซ์นั้นสามารถทำได้คือเราจะทำการ Distribute แต่ละแถวหรือแต่ละคอลัมน์ไปยัง Processor ที่แตกต่างกัน (เราอาจจะแบ่งเป็นทีละคู่ก็ได้ เช่น แบ่งทุก ๆ 2 แถว) ในทางตรงข้ามนั้น วิธีการแบ่งแบบ Block Representation นั้นจะเป็นการแยกเมทริกซ์ออกเป็นเมทริกซ์ย่อย ๆ จำนวน $N$ เมทริกซ์ (เรียกว่า Submatrices ก็ได้) โดยไม่สนใจว่าขนาดของแต่ละ Block นั้นจะต้องมีขนาดที่เท่ากัน ซึ่งแต่ละ Submatrix นั้นจะถูกส่งต่อไปยัง Processor แต่ละตัว สรุปคือการแบ่งแบบ Cyclic นั้นเป็นการนำการแบ่งแบบ Block มาทำซ้ำ ๆ กันไปแบบละเอียดกว่า ซึ่งจะทำให้เราได้ Block ที่มากกว่า
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\linewidth]{fig/block_cyclic_matrix_global.png}
+  \includegraphics[width=0.8\linewidth]{fig/block_cyclic_matrix_global.png}
   \caption{Block Cyclic แบบ 2 มิติ: Global View}
   \label{fig:block_cyclic_matrix_global}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\linewidth]{fig/block_cyclic_matrix_local.png}
+  \includegraphics[width=0.8\linewidth]{fig/block_cyclic_matrix_local.png}
   \caption{Block Cyclic แบบ 2 มิติ: Local View}
   \label{fig:block_cyclic_matrix_local}
 \end{figure}
@@ -158,14 +154,12 @@ High-Performance Computing (HPC)คือเทคโนโลยีที่ใ
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\linewidth]{fig/square_virtual_matrix.png}
+  \includegraphics[width=0.9\linewidth]{fig/square_virtual_matrix.png}
   \caption{Square Virtual Matrix กับ Block Cyclic Distribution ด้านซ้ายคือ Global View ของการแบ่ง Array ตาม Block ด้านขวาคือ Local View ที่ข้อมูลนั้นถูกเก็บอยู่ในแต่ละหน่วยประมวลผลใน P-Array ส่วนตำแหน่งของ Process (Block Coordinates ในวงเล็บ) นั้นสอดคล้องกับ Linear Rank (Watermark)}
   \label{fig:square_virtual_matrix}
 \end{figure}
 
-เพื่อรวมข้อดีของทั้งสองวิธีไว้จึงได้มีการแบ่งแบบ Block Cyclic Distribution ซึ่งก็คือเป็นการแยกเมทริกซ์ออกเป็น Block เล็ก ๆ แล้วก็ทำการกระจาย Blocks เหล่านี้แบบหมุนวน (Cyclically) ไปยัง Processors ทุกตัว โดยให้ดูตัวอย่างของ Block Cyclic Distribution ตามภาพที่ \ref{fig:block_cyclic_matrix_global} และ \ref{fig:block_cyclic_matrix_local}
-สำหรับวิธีการแบ่งที่มีประสิทธิภาพที่สุดนั้นก็คือจำนวนของ Block ที่ถูกแบ่งออกมานั้นนั้นจะต้องเท่ากับจำนวนของ Processors (หมายความว่ามีมิติเท่ากัน $N_{\text{row}} \times N_{\text{col}}$) โดย $N$ คือจำนวน Processors ซึ่งตามทั้งสองภาพนั้นเราจะเห็นได้ว่า Block ที่มีสีเหมือนกันนั้นคือถูกคำนวณบน Processor เดียวกัน (ดู Local View) และขนาดของแต่ละ Block ควรจะต้องเท่ากันด้วย ส่วนภาพที่
-\ref{fig:square_virtual_matrix} นั้นแถมให้ครับ ซึ่งก็เป็นอีกตัวอย่างของการแยกเมทริกซ์ออกเป็นส่วน ๆ (Decomposition) แบบ Block
+เพื่อรวมข้อดีของทั้งสองวิธีไว้จึงได้มีการแบ่งแบบ Block Cyclic Distribution ซึ่งก็คือเป็นการแยกเมทริกซ์ออกเป็น Block เล็ก ๆ แล้วก็ทำการกระจาย Blocks เหล่านี้แบบหมุนวน (Cyclically) ไปยัง Processors ทุกตัว โดยให้ดูตัวอย่างของ Block Cyclic Distribution ตามภาพที่ \ref{fig:block_cyclic_matrix_global} และ \ref{fig:block_cyclic_matrix_local} สำหรับวิธีการแบ่งที่มีประสิทธิภาพที่สุดนั้นก็คือจำนวนของ Block ที่ถูกแบ่งออกมานั้นนั้นจะต้องเท่ากับจำนวนของ Processors (หมายความว่ามีมิติเท่ากัน $N_{\text{row}} \times N_{\text{col}}$) โดย $N$ คือจำนวน Processors ซึ่งตามทั้งสองภาพนั้นเราจะเห็นได้ว่า Block ที่มีสีเหมือนกันนั้นคือถูกคำนวณบน Processor เดียวกัน (ดู Local View) และขนาดของแต่ละ Block ควรจะต้องเท่ากันด้วย ส่วนภาพที่ \ref{fig:square_virtual_matrix} นั้นแถมให้ครับ ซึ่งก็เป็นอีกตัวอย่างของการแยกเมทริกซ์ออกเป็นส่วน ๆ (Decomposition) แบบ Block
 Cyclic Distribution
 
 %----------------------------------------
@@ -182,11 +176,9 @@ Cyclic Distribution
 %
 โดยที่ $X$ คือเมทริกซ์ที่บรรจุ Eigenvector ของ $A$ ไว้ ส่วน $L$ นั้นคือเมทริกซ์ที่บรรจุค่า Eigenvalue ซึ่งเมทริกซ์ $L$ นี้เองที่เราจะต้องมาทำการหาเพราะมันเป็น Diagonal เมทริกซ์จริง ๆ ของ $A$
 
-ในไลบรารี่ ScaLAPACK นั้นมีอัลกอริทึม 3 ตัวที่เราสามารถนำมาใช้ในการทำ Diagonalize Matrix ที่เป็น Real Symmetry Matrix (เมทริกซ์ที่มีความสมมาตรและมีเพียงแค่ค่าจริงเป็นสมาชิกเท่านั้น) นั่นคือ \inlinehighlight{p?syevd}, \inlinehighlight{p?syevx}, และ \inlinehighlight{p?syevr} โดยที่ \inlinehighlight{?} นั้นแทนด้วยค่าที่บ่งบอกถึงประเภทของข้อมูลในเมทริกซ์ เช่น ถ้าแทน
-\inlinehighlight{?} ด้วย \inlinehighlight{d} จะหมายถึงเมทริกซ์นั้นเก็บข้อมูลประเภท Double Precision หรือความเที่ยงแบบสองเท่าซึ่งเป็นประเภทของข้อมูลแบบหนึ่งของ Floating Point หรือจำนวนจุดลอยตัว (ผมแนะนำว่าให้เรียกโดยการใช้คำศัพท์ภาษาอังกฤษไปเลย เพราะว่าคำแปลภาษาไทยนั้นอาจจะเข้าใจได้ยากกว่า) โดยทั้งสามอัลกอริทึมนี้ก็จะใช้วิธีที่แตกต่างกันไป เช่น syevd จะใช้วิธีแบ่งแยกและเอาชนะ
-(Divide and Conquer) ซึ่งผลการทดสอบที่แสดงด้านล่างนั้นได้มาจากการใช้ \inlinehighlight{p?syevd} นั่นเองครับ โดยสรุปสั้น ๆ คือวิธี Divide and Conquer นั้นจะเริ่มด้วยการทำการลดรูปเมทริกซ์ (Reduction) $A$ ให้เป็น Tridiagonal Matrix ก่อนโดยใช้การแปลง Householder หลังจากนั้นก็ทำการหา Tridiagonal Eigenvalue ด้วยอัลกอริทึม Divide and Conquer แล้วก็ทำการแปลงย้อนกลับไปให้ได้เป็น Eigenvector ออกมา
+ในไลบรารี่ ScaLAPACK นั้นมีอัลกอริทึม 3 ตัวที่เราสามารถนำมาใช้ในการทำ Diagonalize Matrix ที่เป็น Real Symmetry Matrix (เมทริกซ์ที่มีความสมมาตรและมีเพียงแค่ค่าจริงเป็นสมาชิกเท่านั้น) นั่นคือ \ih{p?syevd}, \ih{p?syevx}, และ \ih{p?syevr} โดยที่ \ih{?} นั้นแทนด้วยค่าที่บ่งบอกถึงประเภทของข้อมูลในเมทริกซ์ เช่น ถ้าแทน \ih{?} ด้วย \ih{d} จะหมายถึงเมทริกซ์นั้นเก็บข้อมูลประเภท Double Precision หรือความเที่ยงแบบสองเท่าซึ่งเป็นประเภทของข้อมูลแบบหนึ่งของ Floating Point หรือจำนวนจุดลอยตัว (ผมแนะนำว่าให้เรียกโดยการใช้คำศัพท์ภาษาอังกฤษไปเลย เพราะว่าคำแปลภาษาไทยนั้นอาจจะเข้าใจได้ยากกว่า) โดยทั้งสามอัลกอริทึมนี้ก็จะใช้วิธีที่แตกต่างกันไป เช่น syevd จะใช้วิธีแบ่งแยกและเอาชนะ (Divide and Conquer) ซึ่งผลการทดสอบที่แสดงด้านล่างนั้นได้มาจากการใช้ \ih{p?syevd} นั่นเองครับ โดยสรุปสั้น ๆ คือวิธี Divide and Conquer นั้นจะเริ่มด้วยการทำการลดรูปเมทริกซ์ (Reduction) $A$ ให้เป็น Tridiagonal Matrix ก่อนโดยใช้การแปลง Householder หลังจากนั้นก็ทำการหา Tridiagonal Eigenvalue ด้วยอัลกอริทึม Divide and Conquer แล้วก็ทำการแปลงย้อนกลับไปให้ได้เป็น Eigenvector ออกมา
 
-ตามที่ผมได้อธิบาย \inlinehighlight{p?syevd} ของไลบรารี่ ScaLAPACK ไปแล้วนั้น ลำดับต่อไปคือไลบรารี่ยอดฮิตอีกตัวที่ได้รับความนิยมในการนำมาใช้ในโปรแกรมทางเคมีควอนตัมหลายตัวด้วยกัน เช่น NWChem และ CP2K นั่นก็คือไลบรารี่ ELPA จริง ๆ แล้ว ELPA นั้นเอาอัลกอริทึมใน ScaLAPACK มาปรับปรุงอีกทีนึงเพื่อให้มีประสิทธิภาพมากขึ้น โดยจะใช้เทคนิค Direction Transformation ของ Tridiagonal Form ซึ่งก็มีความซับซ้อนพอสมควร เอาเป็นว่าทั้ง ScaLAPACK กับ ELPA ก็สามารถนำมาใช้ได้ทั้งคู่ แล้วก็ Interface นั้นมีความคล้ายคลึงกันมาก สิ่งที่แตกต่างอีกอย่างหนึ่งก็คือ ELPA นั้นมีความ General มากกว่าตรงที่สามารถใช้กับ Fortran Kernel ได้บนหลากหลายสถาปัตยกรรมมากกว่า เช่น ถ้า Kernel ของ CPU เป็นแบบใหม่ ๆ เช่น AVX, AVX2, หรือ AVX-512 นั้น ELPA ก็จะรองรับ คราวนี้เรามาดูการทำ Benchmark หรือการวัดประสิทธิภาพของไลบรารี่ทั้งคู่นี้กัน ปกติแล้วการทำ MatDiag นั้นจะขึ้นอยู่กับปัจจัยหลายตัว โดยหลัก ๆ แล้วมีดังนี้
+ตามที่ผมได้อธิบาย \ih{p?syevd} ของไลบรารี่ ScaLAPACK ไปแล้วนั้น ลำดับต่อไปคือไลบรารี่ยอดฮิตอีกตัวที่ได้รับความนิยมในการนำมาใช้ในโปรแกรมทางเคมีควอนตัมหลายตัวด้วยกัน เช่น NWChem และ CP2K นั่นก็คือไลบรารี่ ELPA จริง ๆ แล้ว ELPA นั้นเอาอัลกอริทึมใน ScaLAPACK มาปรับปรุงอีกทีนึงเพื่อให้มีประสิทธิภาพมากขึ้น โดยจะใช้เทคนิค Direction Transformation ของ Tridiagonal Form ซึ่งก็มีความซับซ้อนพอสมควร เอาเป็นว่าทั้ง ScaLAPACK กับ ELPA ก็สามารถนำมาใช้ได้ทั้งคู่ แล้วก็ Interface นั้นมีความคล้ายคลึงกันมาก สิ่งที่แตกต่างอีกอย่างหนึ่งก็คือ ELPA นั้นมีความ General มากกว่าตรงที่สามารถใช้กับ Fortran Kernel ได้บนหลากหลายสถาปัตยกรรมมากกว่า เช่น ถ้า Kernel ของ CPU เป็นแบบใหม่ ๆ เช่น AVX, AVX2, หรือ AVX-512 นั้น ELPA ก็จะรองรับ คราวนี้เรามาดูการทำ Benchmark หรือการวัดประสิทธิภาพของไลบรารี่ทั้งคู่นี้กัน ปกติแล้วการทำ MatDiag นั้นจะขึ้นอยู่กับปัจจัยหลายตัว โดยหลัก ๆ แล้วมีดังนี้
 %
 \begin{enumerate}[topsep=0pt,noitemsep]
   \setlength\itemsep{0.5em}
@@ -216,8 +208,7 @@ Cyclic Distribution
 \section{การประยุกต์ใช้ Matrix Diagonalization}
 %----------------------------------------
 
-หนึ่งในการประยุกต์ใช้ Matrix Diagonalization ในโปรแกรมเคมีเชิงคำนวณก็คือการคำนวณพลังงานของออร์บิทัล (Orbital Energies) ซึ่งเป็นเทอมที่สำคัญมาก ๆ ในทางเคมีเพราะว่าเป็นตัวที่เราจะนำมาใช้ในการศึกษาโมเลกุล โดยหลาย ๆ คนที่เคยวิชาเคมีอินทรีย์เชิงฟิสิกส์มานั้นก็น่าจะเคยผ่านการใช้ H\"{u}ckel Model Theory ในการคำนวณหาพลังงานของออร์บิทัลของโมเลกุลเคมีอินทรีย์ (สารประกอบไฮโดรคาร์บอน) แบบง่าย ๆ
-กันมาแล้ว เช่น โมเลกุลเบนซีน ซึ่งวิธีที่เราจะใช้ในการคำนวณหา Orbital Energy นั้นเราจะต้องทำการกำหนดฟังก์ชันคลื่นที่ใช้อธิบาย MO สำหรับ $\pi$ Electron ขึ้นมาก่อน ซึ่งเราสามารถใช้ผลรวมเชิงเส้นของ Atomic Orbitals ได้ เช่น สำหรับโมเลกุลเบนซีน เขียนได้ดังนี้
+หนึ่งในการประยุกต์ใช้ Matrix Diagonalization ในโปรแกรมเคมีเชิงคำนวณก็คือการคำนวณพลังงานของออร์บิทัล (Orbital Energies) ซึ่งเป็นเทอมที่สำคัญมาก ๆ ในทางเคมีเพราะว่าเป็นตัวที่เราจะนำมาใช้ในการศึกษาโมเลกุล โดยหลาย ๆ คนที่เคยวิชาเคมีอินทรีย์เชิงฟิสิกส์มานั้นก็น่าจะเคยผ่านการใช้ H\"{u}ckel Model Theory ในการคำนวณหาพลังงานของออร์บิทัลของโมเลกุลเคมีอินทรีย์ (สารประกอบไฮโดรคาร์บอน) แบบง่าย ๆ กันมาแล้ว เช่น โมเลกุลเบนซีน (Benzene) ซึ่งวิธีที่เราจะใช้ในการคำนวณหา Orbital Energy นั้นเราจะต้องทำการกำหนดฟังก์ชันคลื่นที่ใช้อธิบาย MO สำหรับ $\pi$ Electron ขึ้นมาก่อน ซึ่งเราสามารถใช้ผลรวมเชิงเส้นของ Atomic Orbitals ได้ เช่น สำหรับโมเลกุลเบนซีน เขียนได้ดังนี้
 %
 \begin{equation}
   \phi_{n} 
@@ -233,13 +224,58 @@ Cyclic Distribution
   \epsilon C
 \end{equation}
 %
-ในการหา $\epsilon$ ซึ่งเป็นพลังงานของแต่ละออร์บิทัลได้ โดยที่ H คืออินทิกรัลของ Basis Function โดยหน้าตา H, C และ $\epsilon$ นั้นจริง ๆ แล้วก็คือ Square Matrix นั่นเอง โดยสามารถดูตัวอย่างของทั้งสามเมทริกซ์นี้สำหรับกรณีโมเลกุลเบนซีนได้ตามภาพที่ 1 โดย $\alpha$ กับ $\beta$ นั้นก็คือ Coefficient ของแต่ AO แต่ละอันนั่นเอง เช่น อะตอมคาร์บอนตัวที่ 1 นั้นก็จะมี Interaction กับคาร์บอนที่ 2 กับ 6 ซึ่งการแก้สมการ Secular Equation นี้เราสามารถทำ Diagonalization ได้ โดยจัดรูปสมการเป็น\footnote{ต้องทำความเข้าใจกันก่อนว่าทฤษฎี H\"{u}ckel Model นั้นจะ Treat หรือสนใจเฉพาะ MO ของ $\pi$ Electron สำหรับโมเลกุลที่เป็นแบบ $\pi$-conjugated เท่านั้น}
-
+ในการหา $\epsilon$ ซึ่งเป็นพลังงานของแต่ละออร์บิทัลได้ โดยที่ H คืออินทิกรัลของ Basis Function และ H, C และ $\epsilon$ นั้นจริง ๆ แล้วก็คือ Square Matrix นั่นเอง ตัวอย่างยอดฮิตที่นักเคมีมักใช้กันก็คือโมเกุลเบนซีน ซึ่งเป็นโมเลกุลแบบวง ประกอบไปด้วยคาร์บอน 6 อะตอม มีอิเล็กตรอนแบบ $\pi$ 6 ตัว\footnote{ต้องทำความเข้าใจกันก่อนว่าทฤษฎี H\"{u}ckel Model นั้นจะ Treat หรือสนใจเฉพาะ MO ของ $\pi$ Electron สำหรับโมเลกุลที่เป็นแบบ $\pi$-conjugated เท่านั้น} ซึ่งเราสามารถสร้าง Secular Determinant ขนาด $6 \times 6$ ได้ดังนี้ 
+%
 \begin{equation}
-  (H - \epsilon)C = 0
+    \label{eq:secular_det}
+    \begin{vmatrix}
+    \alpha - E & \beta & 0 & 0 & 0 & \beta \\
+    \beta & \alpha - E & \beta & 0 & 0 & 0 \\
+    0 & \beta & \alpha - E & \beta & 0 & 0 \\
+    0 & 0 & \beta & \alpha - E & \beta & 0 \\
+    0 & 0 & 0 & \beta & \alpha - E & \beta \\
+    \beta & 0 & 0 & 0 & \beta & \alpha - E
+    \end{vmatrix} = 0
 \end{equation}
+%
+$\alpha$ กับ $\beta$ นั้นก็คือ Coefficient ของแต่ AO แต่ละอันนั่นเอง เช่น คาร์บอนตัวที่ 1 นั้นก็จะมี Interaction กับคาร์บอนตัวที่ 2 กับ 6 นอกจากนี้เรายังสามารถทำให้ Determinant ที่ \ref{eq:secular_det} ให้อยู่ในรูปที่ง่ายขึ้นได้โดยการนำ $\beta$ ไปหารทุกเทอม ซึ่งจะได้
+%
+\begin{equation}
+    \begin{vmatrix}
+    x & 1 & 0 & 0 & 0 & 1 \\
+    1 & x & 1 & 0 & 0 & 0 \\
+    0 & 1 & x & 1 & 0 & 0 \\
+    0 & 0 & 1 & x & 1 & 0 \\
+    0 & 0 & 0 & 1 & x & 1 \\
+    1 & 0 & 0 & 0 & 1 & x
+    \end{vmatrix} = 0
+\end{equation}
+%
+โดยที่เรากำหนดตัวแปร $x = \frac{\alpha - E}{\beta}$
 
-หนึ่งในวิธีที่หลายคนมักจะนำมาใช้ในการทำ Diagonalization นั้นก็คือ Jacobi Method แต่ว่าวิธีนี้มีจุดอ่อนคือมันไม่ได้ทำการแยกตัวประกอบของ Secular Equation ออกเป็นเทอม ๆ จึงทำให้เราไม่มี Main-diagonal Block แล้ว Main-diagonal Block คืออะไร? ทำไมถึงสำคัญ? ประเด็นก็คือการที่เราทำ Diagonalization นั้นมันจะมีวิธีบางอย่างที่สามารถจัดการเมทริกซ์ให้อยู่ในรูปที่เกิดจากการประกอบกันระหว่าง Diagonal Matrix หลาย ๆ อันได้และสมาชิกของเมทริกซ์ที่อยู่นอก Main-diagonal Block นั้นจะต้องเป็น 0 ด้วย เช่นให้ดูตามภาพที่ 2 ถ้าใครยังไม่เข้าใจให้ดูภาพที่ 3 จะได้เห็นภาพของ Diagonal Block ชัดขึ้น ซึ่งกลับมาที่ Jacobi Method ที่ไม่ได้ทำการแยก Block Diagonal Matrix ออกมาให้เรา ซึ่งนี่เป็นสาเหตุที่ทำให้ Symmetry ของโมเลกุลนั้นหายไประหว่างการทำ Diagonalization และทำให้ออร์บิทัลที่เป็นแบบ Degenerate (ออร์บิทัลที่มีพลังงานเท่ากัน) นั้นหายไปด้วย ซึ่งในความเป็นจริงโมเลกุลเบนซีนจะต้องมีบางออร์บิทัลที่มีพลังงานเท่ากัน ตามภาพที่ 4 ดังนั้นสิ่งที่เราต้องการคือ Diagonalization Method ที่สามารถให้ Main-diagonal Block ที่มีให้ Degenerate MOs อย่างไรก็ตามในการคำนวณทางเคมีควอนตัมนั้นถ้าหากเราใช้ทฤษฎีอื่น ๆ นั้นก็จะมีการนิยามและคำนวณหาพลังงาน MO (Eigenvalues) ที่แตกต่างกันไปและซับซ้อนมากขึ้น
+การแก้ Secular Equation นั้นเราสามารถทำ Diagonalization ได้ โดยจัดรูปสมการเป็น
+%
+\begin{equation}
+  (H - \epsilon)C 
+  = 
+  0
+\end{equation}
+%
+หนึ่งในวิธีที่หลายคนมักจะนำมาใช้ในการทำ Diagonalization นั้นก็คือ Jacobi Method แต่ว่าวิธีนี้มีจุดอ่อนคือมันไม่ได้ทำการแยกตัวประกอบของ Secular Equation ออกเป็นเทอม ๆ จึงทำให้เราไม่มี Main-Diagonal Block 
+
+Main-Diagonal Block คืออะไร? ทำไมถึงสำคัญ? การที่เราทำ Diagonalization นั้นมันจะมีบางวิธีที่สามารถจัดการเมทริกซ์ให้อยู่ในรูปที่เกิดจากการประกอบกันระหว่าง Diagonal Matrix หลาย ๆ อันได้และสมาชิกของเมทริกซ์ที่อยู่นอก Main-Diagonal Block นั้นจะต้องเป็น 0 ด้วย ซึ่งถ้าเรากลับมาดูที่ Jacobi Method ที่ไม่ได้ทำการแยก Block Diagonal Matrix ออกมาให้เรา นี่จึงเป็นสาเหตุที่ทำให้สมมาตร (Symmetry) ของโมเลกุลนั้นหายไประหว่างการทำ Diagonalization และทำให้ออร์บิทัลที่เป็นแบบ Degenerate (ออร์บิทัลที่มีพลังงานเท่ากัน) นั้นหายไปด้วย ซึ่งในความเป็นจริงเมื่อเราแก้ Determinant ของโมเลกุลเบนซีนและได้ค่าพลังงานออกมาแล้วนั้น จะต้องมีบางออร์บิทัลที่มีพลังงานเท่ากัน ดังนี้
+%
+\begin{itemize}[topsep=0pt,noitemsep]
+    \setlength\itemsep{0.5em}
+    \item $E_1 = \alpha + 2\beta$
+    \item $E_2 = E_3 = \alpha + \beta$ (degenerate)
+    \item $E_4 = E_5 = \alpha - \beta$ (degenerate)
+    \item $E_6 = \alpha - 2\beta$
+\end{itemize}
+%
+เนื่องจากว่า $\alpha$ และ $\beta$ นั้นมีค่าเป็นลบ ค่าพลังงาน $E_1$ จึงมีค่าต่ำที่สุด ซึ่งเป็นค่าพลังงานที่เกิดจากออร์บิทัลที่เกิดพันธะมากที่สุด (Bonding) และค่าพลังาน $E_6$ ซึ่งมีค่าสูงสุดเนื่องจากออร์บิทัลที่เป็นแบบต้านพันธะ (Antibonding)
+
+สรุปก็คือสิ่งที่เราต้องการก็คือ Diagonalization Method ที่สามารถให้ Main-Diagonal Block ที่ยังมี Degenerate MOs อย่างไรก็ตามในการคำนวณทางเคมีควอนตัมนั้นถ้าหากเราใช้ทฤษฎีอื่น ๆ นั้นก็จะมีการนิยามและคำนวณหาพลังงาน MO (Eigenvalues) ที่แตกต่างกันไปและซับซ้อนมากขึ้น
 แต่หลัก ๆ แล้วก็จะต้องมีการทำ Diagonalization อยู่ดีครับ
 
 %----------------------------------------
@@ -248,14 +284,14 @@ Cyclic Distribution
 
 ในหัวข้อนี้เราจะมาดูรายละเอียดขั้นตอนการประเมินประสิทธิภาพ (ความเร็ว) ของโปรแกรม ab initio Molecular Dynamics (AIMD) กันครับ ในปัจจุบันนั้นมีโปรแกรมที่สามารถรันการคำนวณ AIMD หลายโปรแกรมมาก ๆ เช่น CPMD, CP2K, Quantum Espresso, VASP, NWChem โดยผมนั้นก็ได้มีโอกาสทำการวัดประสิทธิภาพ (Benchmarking) ความเร็วของโปรแกรมให้กับกลุ่มวิจัยที่ผมทำงานด้วย นั่นคือโปรแกรม CP2K โดยได้ทำการคำนวณ Speed-Up Scaling ของ CP2K บน Distributed System ของ Supercomputer
 
-แน่นอนว่าขั้นตอนเริ่มต้นนั้นก็คือการเตรียมโครงสร้างของระบบโมเลกุลที่ต้องการนำมาใช้ในการทดสอบ แล้วก็รัน Simulation โดยการเปลี่ยนจำนวนของ Compute Nodes โดยเริ่มจาก 1 Node และเพิ่มจำนวนเป็น 2, 4, 8, 16, 24, 32, 48, 64 Node เป็นต้น ซึ่งตามทฤษฎีแล้วนั้นความเร็วของ Software ที่ได้ควรจะต้องเร็วขึ้นตามจำนวนเท่าของการเพิ่มจำนวน Compute Node
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{fig/perf-scaling-cp2k.pdf}
   \caption{Speed-Up Scaling ของโปรแกรม CP2K ตามจำนวน Compute Nodes ของซุปเปอร์คอมพิวเตอร์ CSCS Piz Daint}
   \label{fig:perf_scaling_cp2k}
 \end{figure}
+
+แน่นอนว่าขั้นตอนเริ่มต้นนั้นก็คือการเตรียมโครงสร้างของระบบโมเลกุลที่ต้องการนำมาใช้ในการทดสอบ แล้วก็รัน Simulation โดยการเปลี่ยนจำนวนของ Compute Nodes โดยเริ่มจาก 1 Node และเพิ่มจำนวนเป็น 2, 4, 8, 16, 24, 32, 48, 64 Node เป็นต้น ซึ่งตามทฤษฎีแล้วนั้นความเร็วของ Software ที่ได้ควรจะต้องเร็วขึ้นตามจำนวนเท่าของการเพิ่มจำนวน Compute Node
 
 แต่ในความจริงนั้นโปรแกรมของเราไม่ได้ทำงานเร็วตามทฤษฎีและ Speed-Up Scaling ก็ไม่ได้เป็น Linear Scaling หรอกครับ มันมีปัญหาเยอะและมีหลายเหตุผลที่ทำให้เกิดคอขวด (Bottleneck) โดย Scaling ที่ได้ก็ตามกราฟในรูปที่ \ref{fig:perf_scaling_cp2k} จะเห็นว่าพอเราเพิ่มจำนวน Compute Node จาก 24 $\rightarrow$ 32 แล้ว Efficiency (คำนวณจาก Speedup หารด้วยจำนวน Node) เริ่มลดลง
 
@@ -401,8 +437,7 @@ END SUBROUTINE normalize_velocities
 ถ้าผมอยากจะทำซ้ำ (Reproduce) ผลการคำนวณของ Molecular Dynamics (MD) ให้ได้เหมือนเดิมแบบเป๊ะ ๆ สามารถทำได้แต่ว่าทำได้ยากมาก เหตุผลก็คือมีพารามิเตอร์ (Parameter) หรือปัจจัย (Factor) ต่าง ๆ มากมายที่เราจะต้องพิจารณาแล้วก็ควบคุมให้เหมือนกันและเท่ากันเสมอ ในหัวข้อนี้ผู้อ่านจะได้ศึกษาปัจจัยต่าง ๆ ที่ส่งผลต่อความคลาดเคลื่อนของการคำนวณ MD แบบคร่าว ๆ กันครับ
 
 Molecular Dynamics คือการจำลองทางคอมพิวเตอร์ของระบบโมเลกุลเพื่อศึกษาพฤติกรรมเชิงจลนศาสตร์ของโมเลกุล ถ้าหากว่าเรามี Trajectory ของการคำนวณระบบโมเลกุลน้ำด้วยวิธี \textit{ab initio} Molecular Dynamics\footnote{\url{https://www.youtube.com/watch?v=BeUCOsGC_eM}}
-แล้วเราต้องการที่จะ Reproduce หรือทำซ้ำผลการคำนวณเพื่อให้ได้ Trajectory ที่เหมือนกันแบบ 100 \% (Configuration ของโมเลกุลทุก ๆ Configuration เหมือนกันหมด ละแต่ละ Configuration มีพิกัดของอะตอมหรือ Coordinates ที่เหมือนกัน) ก็สามารถทำได้ แต่ทำได้ยากมาก เหตุผลก็เพราะว่าในการคำนวณ MD นั้น มันมี Error หรือ Noise (ความคลาดเคลื่อนหรือสิ่งรบกวน) ที่เกิดขึ้นนั้นมาจากทั้งฮาร์ดแวร์ (Hardware)
-ซึ่งก็คือเครื่องคอมพิวเตอร์ที่เราใช้ในการรัน MD และซอฟต์แวร์ (Software) หรือโปรแกรม MD ที่เราใช้ ดังนั้นถ้าหากว่าเราสามารถควบคุมพารามิเตอร์ต่าง ๆ เหล่านี้ได้ เราก็จะสามารถเขียนโปรแกรม MD ที่สามารถนำมาใช้ในการรันการคำนวณที่ให้ผลเหมือนกันได้ทุกครั้ง
+แล้วเราต้องการที่จะ Reproduce หรือทำซ้ำผลการคำนวณเพื่อให้ได้ Trajectory ที่เหมือนกันแบบ 100 \% (Configuration ของโมเลกุลทุก ๆ Configuration เหมือนกันหมด ละแต่ละ Configuration มีพิกัดของอะตอมหรือ Coordinates ที่เหมือนกัน) ก็สามารถทำได้ แต่ทำได้ยากมาก เหตุผลก็เพราะว่าในการคำนวณ MD นั้น มันมี Error หรือ Noise (ความคลาดเคลื่อนหรือสิ่งรบกวน) ที่เกิดขึ้นนั้นมาจากทั้งฮาร์ดแวร์ (Hardware) ซึ่งก็คือเครื่องคอมพิวเตอร์ที่เราใช้ในการรัน MD และซอฟต์แวร์ (Software) หรือโปรแกรม MD ที่เราใช้ ดังนั้นถ้าหากว่าเราสามารถควบคุมพารามิเตอร์ต่าง ๆ เหล่านี้ได้ เราก็จะสามารถเขียนโปรแกรม MD ที่สามารถนำมาใช้ในการรันการคำนวณที่ให้ผลเหมือนกันได้ทุกครั้ง
 
 สมมติว่าผมมีเพื่อนที่ทำงานวิจัยโดยใช้วิธี MD ในการคำนวณโมเลกุลอะไรก็ได้สักโมเลกุลนึง แล้วถ้าหากว่าผมอยากที่จะเขียนโปรแกรม MD แล้วก็รันเพื่อให้ได้ผลการคำนวณออกมาเหมือนกันเป๊ะ ๆ สิ่งที่ผมต้องจะต้องนึกถึงมีดังต่อไปนี้
 %
@@ -476,8 +511,7 @@ Molecular Dynamics คือการจำลองทางคอมพิว�
   \item Tian และทีมวิจัย ได้ทำการปรับปรุงการคำนวณ ERI บน GPU\autocite{tian2021}
 \end{itemize}
 
-ยิ่งไปกว่านั้น ในช่วงเดือนพฤษภาคมของปี ค.ศ. 2022 ทางสถาบันวิจัย Oak Ridge Leadership Computing Facility ในรัฐ Tennessee ประเทศสหรัฐอเมริกาก็ได้เปิดตัวซุปเปอร์คอมพิวเตอร์สมรรถนะสูงที่ชื่อ Frontier\footnote{มีชื่อเต็มคือ Hewlett Packard Enterprise Frontier หรือ OLCF-5} ซึ่งเป็นซุปเปอร์คอมพิวเตอร์ที่เร็วที่สุดในโลกและมีความเร็วในระดับ Exascale เครื่องแรกของโลก โดยมี Speed สูงสุดคือ 1.194
-exaFLOPS (Rmax) และ 1.67982 exaFLOPS (Rpeak) โดย Rmax คือความเร็วสูงสุดที่วัดได้และ Rpeak คือความเร็วสูงสุดที่เป็นไปได้ทางทฤษฎี\footnote{ข้อมูลจากเว็บไซต์ \url{https://www.top500.org/lists/top500/2023/06/}}
+ยิ่งไปกว่านั้น ในช่วงเดือนพฤษภาคมของปี ค.ศ. 2022 ทางสถาบันวิจัย Oak Ridge Leadership Computing Facility ในรัฐ Tennessee ประเทศสหรัฐอเมริกาก็ได้เปิดตัวซุปเปอร์คอมพิวเตอร์สมรรถนะสูงที่ชื่อ Frontier\footnote{มีชื่อเต็มคือ Hewlett Packard Enterprise Frontier หรือ OLCF-5} ซึ่งเป็นซุปเปอร์คอมพิวเตอร์ที่เร็วที่สุดในโลกและมีความเร็วในระดับ Exascale เครื่องแรกของโลก โดยมี Speed สูงสุดคือ 1.194 exaFLOPS (Rmax) และ 1.67982 exaFLOPS (Rpeak) โดย Rmax คือความเร็วสูงสุดที่วัดได้และ Rpeak คือความเร็วสูงสุดที่เป็นไปได้ทางทฤษฎี\footnote{ข้อมูลจากเว็บไซต์ \url{https://www.top500.org/lists/top500/2023/06/}}
 
 %----------------------------------------
 \subsection{อัลกอริทึมสำหรับการคำนวณ Self-Consisten Field แบบผสมบน CPU และ GPU}
@@ -561,7 +595,7 @@ exaFLOPS (Rmax) และ 1.67982 exaFLOPS (Rpeak) โดย Rmax คือค�
   \mathrm{~d} \boldsymbol{r}_2
 \end{equation}
 
-เนื่องจากว่าการคำนวณ Direct SCF นั้นจะเกี่ยวข้องกับการคำนวณระหว่าง Basis Functions หลายพัน Functions จึงทำให้การคำนวณ ERI นั้นเป็นส่วนที่กินเวลานานที่สุดของกระบวนนานทั้งหมด
+การคำนวณ Direct SCF นั้นเกี่ยวข้องกับการคำนวณระหว่าง Basis Functions หลายพัน Functions จึงทำให้การคำนวณ ERI นั้นเป็นส่วนที่กินเวลานานที่สุดของกระบวนการทั้งหมด
 
 เนื่องจากว่า ERI นั้นเป็นอินทิกรัล เราจึงสามารถใช้คุณสมบัติความสมมาตรเชิงการสลับที่ของอินทิกรัลเพื่อช่วยลดความสิ้นเปลืองในการคำนวณได้สำหรับการคำนวณแบบขนานบน CPU ดังนี้
 %
@@ -600,8 +634,7 @@ exaFLOPS (Rmax) และ 1.67982 exaFLOPS (Rpeak) โดย Rmax คือค�
   \item เราไม่สามารถเข้าถึง Global Memory เราในขณะที่เรากำลังเชียนหรืออ่านตัว Density Matrix กับ Fock Matrix ที่อยู่ใน Storage เดียวกัน
 \end{enumerate}
 
-สำหรับปัญหาอันแรกที่เกี่ยวกับ Memory Access นั้น ได้มีงานวิจัยของ Ufimtsev และ Martínez ที่เสนอให้คำนวณ Coulomb Matrix กับ Exchange Matrix แบบแยกกันบน GPU โดยการป้องกันปัญหา Memory Access ในการคำนวณ Coulomb Matrix นั้น เราสามารถใช้ Thread Block แต่ละอันเพื่อคำนวณ Single Element ของ Primitive Coulomb Matrix ได้ นอกจากนี้แล้วเราจะไม่ใช้ Integral Symmetry ที่เกิดระหว่าง bra กับ ket แต่ว่าเราจะใช้เฉพาะ Symmetry ภายใน bra หรือ ket แยกกันเท่านั้น ซึ่งทำให้เกิดการลดรูปจาก
-Eight-Fold Integral Symmetry เหลือเป็น Four-Fold Integral Symmetry ในการคำนวณ Coulomb Matrix ส่วนการคำนวณ Exchange Matrix นั้นก็ทำคล้าย ๆ กัน แต่ว่าเราจะใช้ Two-Fold Symmetry ระหว่าง bra กับ ket แทนเพื่อป้องกันปัญหาการสื่อสารระหว่าง Block (Inter-Block Communication)
+สำหรับปัญหาอันแรกที่เกี่ยวกับ Memory Access นั้น ได้มีงานวิจัยของ Ufimtsev และ Martínez ที่เสนอให้คำนวณ Coulomb Matrix กับ Exchange Matrix แบบแยกกันบน GPU โดยการป้องกันปัญหา Memory Access ในการคำนวณ Coulomb Matrix นั้น เราสามารถใช้ Thread Block แต่ละอันเพื่อคำนวณ Single Element ของ Primitive Coulomb Matrix ได้ นอกจากนี้แล้วเราจะไม่ใช้ Integral Symmetry ที่เกิดระหว่าง bra กับ ket แต่ว่าเราจะใช้เฉพาะ Symmetry ภายใน bra หรือ ket แยกกันเท่านั้น ซึ่งทำให้เกิดการลดรูปจาก Eight-Fold Integral Symmetry เหลือเป็น Four-Fold Integral Symmetry ในการคำนวณ Coulomb Matrix ส่วนการคำนวณ Exchange Matrix นั้นก็ทำคล้าย ๆ กัน แต่ว่าเราจะใช้ Two-Fold Symmetry ระหว่าง bra กับ ket แทนเพื่อป้องกันปัญหาการสื่อสารระหว่าง Block (Inter-Block Communication)
 
 ที่กล่าวมาด้านบนนั้นเป็น Algorithm ที่เราสามารถ Implement ลงไปบน CPU ได้โดยการแบ่ง Task ออกเป็น Batch ย่อย ๆ คราวนี้เราลองมาดู Algorithm สำหรับกรณีของ GPU ซึ่งจะแบ่ง Task ออกเป็นตามจำนวน Kernel แทน ตัวอย่างเช่น การคำนวณ Integrals $(sp \mid sd)$ บน CPU นั้นจะสอดคล้องกับการคำนวณ Coulomb Integral $(sp \mid sd)$ และ $(sd \mid sp)$ แล้วก็สอดคล้องกับการคำนวณ Exchange Integrals $(sp \mid sd)$, $(sp \mid ds)$, $(ps \mid sd)$ และ $(ps \mid ds)$ บน GPU
 
@@ -734,7 +767,7 @@ content skipped
 \section{ศึกษาเพิ่มเติมเกี่ยวกับการคำนวณแบบขนาน}
 %----------------------------------------
 
-เว็บไซต์และหนังสือที่ผมแนะนำให้ผู้ที่สนใจศึกษาเพิ่มเติม
+\textbf{เว็บไซต์และหนังสือที่ผมแนะนำให้ผู้ที่สนใจศึกษาเพิ่มเติม}
 %
 \begin{enumerate}[topsep=0pt,noitemsep]
   \setlength\itemsep{0.5em}
@@ -747,7 +780,7 @@ content skipped
   \item Parallel Computing: Theory and Practice. Umut A. Acar (2016)
 \end{enumerate}
 
-ไลบรารี่สำหรับการประมวลผลแบบขนาน
+\textbf{ไลบรารี่สำหรับการประมวลผลแบบขนาน}
 %
 \begin{enumerate}[topsep=0pt,noitemsep]
   \setlength\itemsep{0.5em}
@@ -807,7 +840,7 @@ content skipped
   \setlength\itemsep{0.5em}
   \item เขียนโปรแกรมคำนวณพลังงานของโมเลกุล 5 โมเลกุล (โมเลกุลอะไรก็ได้) ที่สามารถทำงานได้บน Cluster Computer (ประมวลผลแบบขนานหรือ Parallel Calculation)
 
-  \item เขียนโปรแกรม Hartree-Fock ที่สามารถทำงานได้แบบขนาน(Parallel) ด้วยวิธี OpenMP
+  \item เขียนโปรแกรม Hartree-Fock ที่สามารถทำงานได้แบบขนาน (Parallel) ด้วยวิธี OpenMP
 
-  \item (เสริม) เขียนโปรแกรม Hartree-Fock ที่สามารถทำงานได้แบบขนาน(Parallel) ด้วยวิธี MPI
+  \item (เสริม) เขียนโปรแกรม Hartree-Fock ที่สามารถทำงานได้แบบขนาน (Parallel) ด้วยวิธี MPI
 \end{enumerate}
