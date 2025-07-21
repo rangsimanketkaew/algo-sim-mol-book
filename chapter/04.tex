@@ -2843,8 +2843,7 @@ fs = np.diag(fs)
 
 \vspace{5pt}
 
-\noindent ขั้นตอนต่อจากนี้ไปเราจะมาเขียนฟังก์ชันสำหรับการคำนวณ Operator และ Integrals ต่าง ๆ ที่ได้อธิบายไปก่อนหน้านี้ตาม%
-สมการในเปเปอร์ของ Stanton โดยเราจะเริ่มด้วยการสร้าง Array เปล่า ๆ สำหรับเก็บข้อมูลของ Singles $T_{1}$ และ Doubles $T_{2}$ Operators ก่อน แล้วก็ตามด้วยการกำหนดค่าเริ่มต้นให้กับ Doubles Operator $T_{2}$ ซึ่งเราจะใช้ค่า Integrals และพลังงานจาก MP2 ที่เราได้เขียนโค้ดไปก่อนหน้านี้
+\noindent ขั้นตอนต่อจากนี้ไปเราจะมาเขียนฟังก์ชันสำหรับการคำนวณ Operator และ Integrals ต่าง ๆ ที่ได้อธิบายไปก่อนหน้านี้ตามสมการในเปเปอร์ของ Stanton โดยเราจะเริ่มด้วยการสร้าง Array เปล่า ๆ สำหรับเก็บข้อมูลของ Singles $T_{1}$ และ Doubles $T_{2}$ Operators ก่อน แล้วก็ตามด้วยการกำหนดค่าเริ่มต้นให้กับ Doubles Operator $T_{2}$ ซึ่งเราจะใช้ค่า Integrals และพลังงานจาก MP2 ที่เราได้เขียนโค้ดไปก่อนหน้านี้
 
 \noindent แล้วก็ตามด้วยการคำนวณ Denominator Arrays $(D^{a}_{i}$ กับ $D^{ab}_{ij})$ ตามสมการที่ \eqref{eq:D_ai} และ \eqref{eq:D_abij} ตามลำดับ แล้วก็ตามด้วยการคำนวณ Two-Particle Excitation Operators $(\tilde{\tau}_{i j}^{a b}$ กับ $\tau_{i j}^{a b})$ ตามสมการที่ \eqref{eq:tau_abij_tilde} และ \eqref{eq:tau_abij} ตามลำดับ
 
@@ -3728,8 +3727,7 @@ def overlap(a, lmn1, A, b, lmn2, B):
 
 \vspace{5pt}
 
-เราใช้ไลบรารี่ NumPy เพื่อที่ว่าเราสามารถใช้ค่าคงที่ของ $\pi$ และเลขกกำลังแบบเศษส่วน $(3/2)$ ได้นั่นเอง แล้วก็การเขียนฟังก์ชันด้านบน
-\pyinline{overlap} และ \pyinline{E} ทั้งสองอันนั้นก็เพียงพอแล้วต่อการคำนวณหา Overlap Integrals ระหว่าง Gaussian Function แบบที่เป็น Primitive แต่ประเด็นก็คือว่า Basis Functions ส่วนใหญ่ในการคำนวณทางควอนตัมนั้นเป็นแบบ Contracted Basis Functions นั่นก็คือเป็น Basis Function ที่เกิดจากการรวมเอา Gaussian Primitive Function หลาย ๆ อันมารวมกัน ซึ่งจริง ๆ ถ้าหากว่าเราจะต้องหา Overlap Integrals ระหว่าง Contracted Gaussian Function นั้นก็ทำได้ไม่ยาก โดยสามารถดูได้ในฟังก์ชัน \pyinline{S(a,b)} ดังนี้
+เราใช้ไลบรารี่ NumPy เพื่อที่ว่าเราสามารถใช้ค่าคงที่ของ $\pi$ และเลขกกำลังแบบเศษส่วน $(3/2)$ ได้นั่นเอง แล้วก็การเขียนฟังก์ชันด้านบน \pyinline{overlap} และ \pyinline{E} ทั้งสองอันนั้นก็เพียงพอแล้วต่อการคำนวณหา Overlap Integrals ระหว่าง Gaussian Function แบบที่เป็น Primitive แต่ประเด็นก็คือว่า Basis Functions ส่วนใหญ่ในการคำนวณทางควอนตัมนั้นเป็นแบบ Contracted Basis Functions นั่นก็คือเป็น Basis Function ที่เกิดจากการรวมเอา Gaussian Primitive Function หลาย ๆ อันมารวมกัน ซึ่งจริง ๆ ถ้าหากว่าเราจะต้องหา Overlap Integrals ระหว่าง Contracted Gaussian Function นั้นก็ทำได้ไม่ยาก โดยสามารถดูได้ในฟังก์ชัน \pyinline{S(a,b)} ดังนี้
 
 \vspace{5pt}
 
@@ -4535,8 +4533,7 @@ Time 2:  0.0035715103149414062
 
 \paragraph{4. การคำนวณที่ Excited State}
 %
-ถ้าอยากจะคำนวณ Electronic Structure ของโมเลกุลที่ Excited State ก็ให้เริ่มด้วย Time-Dependent DFT (TDDFT) ก็ได้ ถึงแม้ว่าวิธี TDDFT ไม่สามารถให้ผลการคำนวณที่ถูกต้องได้ในหลาย ๆ กรณีก็ตาม แต่ว่าก็ไม่ได้ให้ผลการคำนวณทั่ว ๆ ไปของ Excited State ที่แย่มากนัก นอกจากนี้วิธี TDDFT นั้นจริง ๆ แล้วก็ไม่ได้สิ้นเปลืองมากนัก เพราะว่าตัว Formalism นั้นแบบเดียวกันกับวิธี DFT เลยคือการสร้าง Density Matrix แล้วก็ทำ Diagonalization สำหรับการใช้วิธี TDDFT นั้นเราก็ควรจะใช้ Functional พิเศษที่ถูกดีไซน์มาเพื่อ Excited State ด้วย เพราะว่า Functional พวกนี้มันจะสามารถอธิบายเหตุการณ์บางอย่างได้ เช่น Rydberg Effect หรือการกระตุ้นของ Charge/Electron Transfer ซึ่งจำเป็นมาก ๆ โดยเฉพาะการคำนวณพวก Spectra ต่าง ๆ สำหรับวิธี Wavefunction-Based Method นั้นก็ให้เริ่มด้วยวิธี Configuration Interaction ที่ใส่ Single Excitation เข้าไป เรียกว่า CIS ซึ่งเป็นวิธีที่ทำการรวม Slater Determinant ของ Singly Excited นั่นเองซึ่งได้มาจากการคำนวณที่มีการกระตุ้นอิเล็กตรอนหนึ่งตัวขึ้นไปใน Virtual Orbital\footnote{Virtual Orbital ก็คือ Unoccupied Orbital หรือออร์บิทัลที่ไม่มีอิเล็กตรอนอยู่ในสถานะพื้น} ถึงแม้ว่า CIS จะไม่แม่นยำแต่ก็ไม่สิ้นเปลืองเลย ส่วนถ้าอยากจะใช้วิธี Coupled Cluster
-สำหรับศึกษา Excited State นั้นจะต้องใช้สิ่งที่เรีบกว่า Equation-of-Motion เข้ามาช่วย ซึ่งก็คือวิธี EOM-CC หรือถ้าอีกวิธีก็คือใช้ Linear Response เรียกว่า LR-CC โดยวิธี EOM-CC นั้นโคตรสิ้นเปลืองแต่ว่าให้ผลที่ถูกต้องมาก นอกจากนี้ยังมีวิธีอื่นอีก เช่น Algebraic Diagrammatic Construction (ADC) หรือ CC2, CC3 ซึ่งเป็น Approximation แบบหนึ่งของ EOM-CC ซึ่งจะสิ้นเปลืองน้อยกว่า
+ถ้าอยากจะคำนวณ Electronic Structure ของโมเลกุลที่ Excited State ก็ให้เริ่มด้วย Time-Dependent DFT (TDDFT) ก็ได้ ถึงแม้ว่าวิธี TDDFT ไม่สามารถให้ผลการคำนวณที่ถูกต้องได้ในหลาย ๆ กรณีก็ตาม แต่ว่าก็ไม่ได้ให้ผลการคำนวณทั่ว ๆ ไปของ Excited State ที่แย่มากนัก นอกจากนี้วิธี TDDFT นั้นจริง ๆ แล้วก็ไม่ได้สิ้นเปลืองมากนัก เพราะว่าตัว Formalism นั้นแบบเดียวกันกับวิธี DFT เลยคือการสร้าง Density Matrix แล้วก็ทำ Diagonalization สำหรับการใช้วิธี TDDFT นั้นเราก็ควรจะใช้ Functional พิเศษที่ถูกดีไซน์มาเพื่อ Excited State ด้วย เพราะว่า Functional พวกนี้มันจะสามารถอธิบายเหตุการณ์บางอย่างได้ เช่น Rydberg Effect หรือการกระตุ้นของ Charge/Electron Transfer ซึ่งจำเป็นมาก ๆ โดยเฉพาะการคำนวณพวก Spectra ต่าง ๆ สำหรับวิธี Wavefunction-Based Method นั้นก็ให้เริ่มด้วยวิธี Configuration Interaction ที่ใส่ Single Excitation เข้าไป เรียกว่า CIS ซึ่งเป็นวิธีที่ทำการรวม Slater Determinant ของ Singly Excited นั่นเองซึ่งได้มาจากการคำนวณที่มีการกระตุ้นอิเล็กตรอนหนึ่งตัวขึ้นไปใน Virtual Orbital\footnote{Virtual Orbital ก็คือ Unoccupied Orbital หรือออร์บิทัลที่ไม่มีอิเล็กตรอนอยู่ในสถานะพื้น} ถึงแม้ว่า CIS จะไม่แม่นยำแต่ก็ไม่สิ้นเปลืองเลย ส่วนถ้าอยากจะใช้วิธี Coupled Cluster สำหรับศึกษา Excited State นั้นจะต้องใช้สิ่งที่เรีบกว่า Equation-of-Motion เข้ามาช่วย ซึ่งก็คือวิธี EOM-CC หรือถ้าอีกวิธีก็คือใช้ Linear Response เรียกว่า LR-CC โดยวิธี EOM-CC นั้นโคตรสิ้นเปลืองแต่ว่าให้ผลที่ถูกต้องมาก นอกจากนี้ยังมีวิธีอื่นอีก เช่น Algebraic Diagrammatic Construction (ADC) หรือ CC2, CC3 ซึ่งเป็น Approximation แบบหนึ่งของ EOM-CC ซึ่งจะสิ้นเปลืองน้อยกว่า
 
 \paragraph{5. การแก้ปัญหาที่เกิดขึ้นในการคำนวณเคมีควอนตัม}
 %
